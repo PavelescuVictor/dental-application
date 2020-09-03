@@ -92,7 +92,7 @@
     import ScrollTop from "../components/ScrollTop.vue";
 
     export default {
-        name: 'addLucrare',
+        name: 'add-lucrare',
         components: {
             Navbar,
             ScrollTop,
@@ -100,7 +100,7 @@
         },
         data: () => ({
             isLoggedIn: '',
-            currentPage: 'addLucrare',
+            currentPage: 'add-lucrare',
             valid: true,
             doctorFirstName: '',
             doctorLastName: '',
