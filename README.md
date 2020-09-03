@@ -1,5 +1,9 @@
 # dentalapp
 
+## Project Stack
+### Front-End: Html, CSS, Javascript, Vue, Vuex, Vue Router, Vuetify;
+### Back-End: Python, Django, sqlite(switching to postgresql in future updates);
+
 ## Project setup
 ```
 npm install
