@@ -5,7 +5,7 @@
 ## Project Stack:
 
 * **Front-End: Html, CSS, Javascript, Vue, Vuex, Vue Router, Vuetify;**
-* **Back-End: Python, Django, sqlite(switching to postgresql in future updates);**
+* **Back-End: Python, Django, Django Rest Framework, sqlite(switching to postgresql in future updates);**
 
 ## Project setup
 ```
