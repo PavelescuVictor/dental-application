@@ -1,8 +1,11 @@
-# dentalapp
+# Dental Application
 
-## Project Stack
-### Front-End: Html, CSS, Javascript, Vue, Vuex, Vue Router, Vuetify;
-### Back-End: Python, Django, sqlite(switching to postgresql in future updates);
+## Description:
+
+## Project Stack:
+
+**Front-End: Html, CSS, Javascript, Vue, Vuex, Vue Router, Vuetify;
+**Back-End: Python, Django, sqlite(switching to postgresql in future updates);
 
 ## Project setup
 ```
@@ -26,3 +29,14 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## API
+
+**Prefix:**/api/v1
+
+**path**
+
+*get
+*post
+*patch
+*delete
