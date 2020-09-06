@@ -36,6 +36,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 **path**
 
+
 *get
 *post
 *patch
