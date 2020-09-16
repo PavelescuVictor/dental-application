@@ -1,105 +1,110 @@
 <template>
     <div class="app">
-        <router-view/>
+        <router-view />
     </div>
 </template>
 
 <script>
 export default {
-  name: "App",
-  components: {
-  },
-  data() {
-    return {
-      //
-    };
-  }
+    name: "App",
+    components: {},
+    data() {
+        return {
+            //
+        };
+    },
 };
 </script>
 
 <style>
+/* Fonts import */
 
-    /* Fonts import */
+@import url("https://fonts.googleapis.com/css2?family=Fjalla+One&family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 
-    @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Pacifico&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+:root {
+    /* Variables */
 
-    :root {
-        /* Variables */
+    /* Text/Font */
 
-        /* Text/Font */
+    --text-base-size: 16px;
+    --text-base-font: "Fjalla One", sans-serif;
+    --text-logo-font: "Fredoka One", cursive;
+    --text-navbar-font: "Roboto Condensed", sans-serif;
+    --text-base-line-height: var(--text-base-size);
 
-        --text-base-size: 16px;
-        --text-base-font: 'Fjalla One', sans-serif;
-        --text-logo-font: 'Fredoka One', cursive;;
-        --text-navbar-font: 'Roboto Condensed', sans-serif;
-        --text-base-line-height: var(--text-base-size);
+    /* Color */
 
-        /* Color */
+    --color-blue: #4c84ff;
+    --color-blue-rgb: 76, 132, 255;
+    --color-lightgrey-1: #e7e9ee;
+    --color-lightgrey-2: #f5f6fa;
+    --color-darkblue: #454d61;
+    --color-green: #40cb9e;
+    --color-yellow: #f9c108;
+    --color-lightyellow: #fff4cc;
+    --color-white: #fff;
 
-        --color-blue: #4C84FF;
-        --color-blue-rgb: 76, 132, 255;
-        --color-lightgrey-1: #E7E9EE;
-        --color-lightgrey-2: #F5F6FA;
-        --color-darkblue: #454D61;
-        --color-green: #40CB9E;
-        --color-yellow: #F9C108;
-        --color-lightyellow: #FFF4CC;
-        --color-white: #fff;
+    /* Border */
 
-        /* Border */
+    --border-radius-circle: 50px;
 
-        --border-radius-circle: 50px;
+    /* Margin */
 
-        /* Margin */
+    --margin-small: 30px;
+    --margin-medium: 60px;
+    --margin-high: 90px;
 
-        --margin-small: 30px;
-        --margin-medium: 60px;
-        --margin-high: 90px;
+    /* Padding */
 
-        /* Padding */
+    --padding-small: 30px;
+    --padding-medium: 60px;
+    --padding-high: 90px;
 
-        --padding-small: 30px;
-        --padding-medium: 60px;
-        --padding-high: 90px;
+    /* Custom */
 
-        /* Custom */
+    --navbar-height: 7vh;
+    --content-height: 100vh;
+    --banner-height: 100vh;
+    --footer-height: 12vh;
+    --weather-height: 20vh;
+    --gallery-height: calc(
+        100vh -
+            (
+                var(--footer-height) + var(--banner-height) +
+                    var(--weather-height)
+            )
+    );
+    --banner-background-image: url("./assets/asdasd.png");
+}
 
-        --navbar-height: 7vh;
-        --content-height: 100vh;
-        --banner-height: 100vh;
-        --footer-height: 12vh;
-        --weather-height: 20vh;
-        --gallery-height: calc(100vh - (var(--footer-height) + var(--banner-height) + var(--weather-height)));
-        --banner-background-image: url("./assets/asdasd.png");
-    }
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
 
-    * {
-        box-sizing: border-box;
-        margin: 0px;
-        padding: 0px;
-    } 
+body,
+html {
+    scroll-behavior: smooth;
+    height: 100%;
+    width: 100%;
+    font-family: var(--text-base-font);
+    font-size: var(--text-base-size);
+    line-height: var(--text-base-line-height);
+    background: rgb(249, 249, 249);
+    color: #000;
+}
 
-    body, html {
-        scroll-behavior: smooth;
-        height: 100%;
-        width: 100%;
-        font-family: var(--text-base-font);
-        font-size: var(--text-base-size);
-        line-height: var(--text-base-line-height);
-        background: rgb(249, 249, 249);
-        color: #000;
-    }
-    
-    a {
-        color: white;
-        text-decoration: none;
-    }
+a {
+    color: white;
+    text-decoration: none;
+}
 
-    #app {
-        min-height: 100vh;
-        width: 100vw;
-    }
+#app {
+    min-height: 100vh;
+    width: 100vw;
+}
 </style>
