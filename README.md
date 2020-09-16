@@ -6,6 +6,7 @@ Web application helping dental tehnicians manage data about doctos, pacients, or
 
 ## GitHub Pages Link: [Web Application Preview](https://pavelescuvictor.github.io/DentalApplication/)
 
+Some the functionalities of this web application cannot be used in the Live Preview. The frontend is using http request to communicate with the backend for the authentication.
 Adding Project on Heroku or AWS in the future.
 
 ## API: 
