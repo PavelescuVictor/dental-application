@@ -1,0 +1,21 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+django = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
+django-cors-headers = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
+django-rest-knox = "*"
+django-rest-passwordreset = "*"
+
+[packages]
+
+[requires]
+python_version = "3.8"
