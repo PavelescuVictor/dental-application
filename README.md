@@ -18,7 +18,7 @@ Backend contains an API that uses REST Arhitecture created using Django Rest Fra
 USERS <br>
 
 | Requests                                         |      Request Description                |
-|:------------------------------------------------:|:---------------------------------------:|
+|:------------------------------------------------ |:--------------------------------------- |
 | POST /users/auth/register                        |    User Register                        |
 | POST /users/auth/login                           |    User Login                           |
 | POST /users/auth/logout/                         |    User Logout                          |
