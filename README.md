@@ -31,7 +31,7 @@ Backend contains an API that uses REST Arhitecture created using Django Rest Fra
 | GET /users/:id/profile                           |    Users Specific User Profile          |
 | GET /users/userslist                             |    Users List                           |
 | GET /users/userprofiles                          |    User Profiles List                   |
-
+<br>
 **DOCTORS** <br>
 
 | Requests                                         |      Request Description                |
@@ -42,7 +42,7 @@ Backend contains an API that uses REST Arhitecture created using Django Rest Fra
 | GET /api/v1/doctors/:id/                         |    Doctors Specific Doctor              |
 | DELETE /api/v1/doctors/:id/                      |    Doctors Delete Specific Doctor       |
 | PATCH /api/v1/doctors/:id/                       |    Doctors Update Specific Doctor       |
-
+<br>
 **PACIENTS** <br>
 
 | Requests                                         |      Request Description                |
@@ -53,7 +53,7 @@ Backend contains an API that uses REST Arhitecture created using Django Rest Fra
 | GET /api/v1/pacients/:id/                        |    Pacients Specific Pacient            |
 | DELETE /api/v1/pacients/:id/                     |    Pacients Delete Specific Pacient     |
 | PATCH /api/v1/pacients/:id/                      |    Pacients Update Specific Pacient     |
-
+<br>
 **ORDERS** <br>
 
 
@@ -65,21 +65,21 @@ Backend contains an API that uses REST Arhitecture created using Django Rest Fra
 | GET /api/v1/orders/:id/                        |    Orders Specific Order                 |
 | DELETE /api/v1/orders/:id/                     |    Orders Delete Specific Order          |
 | PATCH /api/v1/orders/:id/                      |    Orders Update Specific Order          |
-
+<br>
 **ORDER TYPES** <br>
 
 | Requests                                       |      Request Description                 |
 |:---------------------------------------------- |:---------------------------------------- |
 | GET /api/v1/order_types/                       |    Order Types List                      |
 | GET /api/v1/order_types/?queryParam="value"    |    Order Types List Query                |
-
+<br>
 **ORDER STATUS** <br>
 
 | Requests                                       |      Request Description                 |
 |:---------------------------------------------- |:---------------------------------------- |
 | GET /api/v1/order_status/                      |    Order Status List                     |
 | GET /api/v1/order_status/?queryParam="value"   |    Order Status List Query               |
-
+<br>
 ## Project Stack:
 
 * **Front-End: Html, CSS, Javascript, Vue, VueX, Vue Router, Vuetify, Axios, FontAwesome, Google Fonts Api;**
