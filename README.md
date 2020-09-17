@@ -15,7 +15,7 @@ Backend contains an API that uses REST Arhitecture created using Django Rest Fra
 
 ### API Endpoints:
 
-USERS <br>
+**USERS** <br>
 
 | Requests                                         |      Request Description                |
 |:------------------------------------------------ |:--------------------------------------- |
@@ -32,7 +32,7 @@ USERS <br>
 | GET /users/userslist                             |    Users List                           |
 | GET /users/userprofiles                          |    User Profiles List                   |
 
-DOCTORS <br>
+**DOCTORS** <br>
 
 | Requests                                         |      Request Description                |
 |:------------------------------------------------ |:--------------------------------------- |
@@ -43,7 +43,7 @@ DOCTORS <br>
 | DELETE /api/v1/doctors/:id/                      |    Doctors Delete Specific Doctor       |
 | PATCH /api/v1/doctors/:id/                       |    Doctors Update Specific Doctor       |
 
-PACIENTS <br>
+**PACIENTS** <br>
 
 | Requests                                         |      Request Description                |
 |:------------------------------------------------ |:--------------------------------------- |
@@ -54,7 +54,7 @@ PACIENTS <br>
 | DELETE /api/v1/pacients/:id/                     |    Pacients Delete Specific Pacient     |
 | PATCH /api/v1/pacients/:id/                      |    Pacients Update Specific Pacient     |
 
-ORDERS <br>
+**ORDERS** <br>
 
 
 | Requests                                       |      Request Description                 |
@@ -66,14 +66,14 @@ ORDERS <br>
 | DELETE /api/v1/orders/:id/                     |    Orders Delete Specific Order          |
 | PATCH /api/v1/orders/:id/                      |    Orders Update Specific Order          |
 
-ORDER TYPES <br>
+**ORDER TYPES** <br>
 
 | Requests                                       |      Request Description                 |
 |:---------------------------------------------- |:---------------------------------------- |
 | GET /api/v1/order_types/                       |    Order Types List                      |
 | GET /api/v1/order_types/?queryParam="value"    |    Order Types List Query                |
 
-ORDER STATUS <br>
+**ORDER STATUS** <br>
 
 | Requests                                       |      Request Description                 |
 |:---------------------------------------------- |:---------------------------------------- |
