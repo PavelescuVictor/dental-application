@@ -34,40 +34,51 @@ USERS <br>
 
 DOCTORS <br>
 
-POST /api/v1/doctors/
-GET /api/v1/doctors/
-GET /api/v1/doctors/?queryParam="value"
-GET /api/v1/doctors/:id/
-DELETE /api/v1/doctors/:id/
-PATCH /api/v1/doctors/:id/
+| Requests                                         |      Request Description                |
+|:------------------------------------------------ |:--------------------------------------- |
+| POST /api/v1/doctors/                            |    Doctors New Doctor                   |
+| GET /api/v1/doctors/                             |    Doctors List                         |
+| GET /api/v1/doctors/?queryParam="value"          |    Doctors List Query                   |
+| GET /api/v1/doctors/:id/                         |    Doctors Specific Doctor              |
+| DELETE /api/v1/doctors/:id/                      |    Doctors Delete Specific Doctor       |
+| PATCH /api/v1/doctors/:id/                       |    Doctors Update Specific Doctor       |
 
 PACIENTS <br>
 
-POST /api/v1/pacients/
-GET /api/v1/pacients/
-GET /api/v1/pacients/?queryParam="value"
-GET /api/v1/pacients/:id/
-DELETE /api/v1/pacients/:id/
-PATCH /api/v1/pacients/:id/
+| Requests                                         |      Request Description                |
+|:------------------------------------------------ |:--------------------------------------- |
+| POST /api/v1/pacients/                           |    Pacients New Pacient                 |
+| GET /api/v1/pacients/                            |    Pacients List                        |
+| GET /api/v1/pacients/?queryParam="value"         |    Pacients List Query                  |
+| GET /api/v1/pacients/:id/                        |    Pacients Specific Pacient            |
+| DELETE /api/v1/pacients/:id/                     |    Pacients Delete Specific Pacient     |
+| PATCH /api/v1/pacients/:id/                      |    Pacients Update Specific Pacient     |
 
 ORDERS <br>
 
-POST /api/v1/orders/
-GET /api/v1/orders/
-GET /api/v1/orders/?queryParam="value"
-GET /api/v1/orders/:id/
-DELETE /api/v1/orders/:id/
-PATCH /api/v1/orders/:id/
 
-ORDER STATUS <br>
-
-GET /api/v1/order_types/
-GET /api/v1/order_types/?queryParam="value"
+| Requests                                       |      Request Description                 |
+|:---------------------------------------------- |:---------------------------------------- |
+| POST /api/v1/orders/                           |    Orders New Order                      |
+| GET /api/v1/orders/                            |    Orders List                           |
+| GET /api/v1/orders/?queryParam="value"         |    Orders List Query                     |
+| GET /api/v1/orders/:id/                        |    Orders Specific Order                 |
+| DELETE /api/v1/orders/:id/                     |    Orders Delete Specific Order          |
+| PATCH /api/v1/orders/:id/                      |    Orders Update Specific Order          |
 
 ORDER TYPES <br>
 
-GET /api/v1/order_status/
-GET /api/v1/order_status/?queryParam="value"
+| Requests                                       |      Request Description                 |
+|:---------------------------------------------- |:---------------------------------------- |
+| GET /api/v1/order_types/                       |    Order Types List                      |
+| GET /api/v1/order_types/?queryParam="value"    |    Order Types List Query                |
+
+ORDER STATUS <br>
+
+| Requests                                       |      Request Description                 |
+|:---------------------------------------------- |:---------------------------------------- |
+| GET /api/v1/order_status/                      |    Order Status List                     |
+| GET /api/v1/order_status/?queryParam="value"   |    Order Status List Query               |
 
 ## Project Stack:
 
