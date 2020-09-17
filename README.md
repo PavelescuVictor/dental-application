@@ -15,6 +15,59 @@ Backend contains an API that uses REST Arhitecture created using Django Rest Fra
 
 ### API Endpoints:
 
+USERS <br>
+
+| Requests                                         |      Request Description                |
+|:------------------------------------------------:|:---------------------------------------:|
+| POST /users/auth/register                        |    User Register                        |
+| POST /users/auth/login                           |    User Login                           |
+| POST /users/auth/logout/                         |    User Logout                          |
+| POST /users/auth/password-change/                |    User Password Change                 |
+| POST /users/auth/password-reset/                 |    User Password Reset                  |
+| POST /users/auth/pasword-reset/confirm/          |    User Password Reset Confirm          |
+| POST /users/auth/password-reset/validate_token/  |    User Password Reset Validate Token   |
+| GET /users/                                      |    Users List                           |
+| GET /users/:id                                   |    Users Specific User                  |
+| GET /users/:id/profile                           |    Users Specific User Profile          |
+| GET /users/userslist                             |    Users List                           |
+| GET /users/userprofiles                          |    User Profiles List                   |
+
+DOCTORS <br>
+
+POST /api/v1/doctors/
+GET /api/v1/doctors/
+GET /api/v1/doctors/?queryParam="value"
+GET /api/v1/doctors/:id/
+DELETE /api/v1/doctors/:id/
+PATCH /api/v1/doctors/:id/
+
+PACIENTS <br>
+
+POST /api/v1/pacients/
+GET /api/v1/pacients/
+GET /api/v1/pacients/?queryParam="value"
+GET /api/v1/pacients/:id/
+DELETE /api/v1/pacients/:id/
+PATCH /api/v1/pacients/:id/
+
+ORDERS <br>
+
+POST /api/v1/orders/
+GET /api/v1/orders/
+GET /api/v1/orders/?queryParam="value"
+GET /api/v1/orders/:id/
+DELETE /api/v1/orders/:id/
+PATCH /api/v1/orders/:id/
+
+ORDER STATUS <br>
+
+GET /api/v1/order_types/
+GET /api/v1/order_types/?queryParam="value"
+
+ORDER TYPES <br>
+
+GET /api/v1/order_status/
+GET /api/v1/order_status/?queryParam="value"
 
 ## Project Stack:
 
