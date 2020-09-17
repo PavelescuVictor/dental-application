@@ -31,7 +31,9 @@ Backend contains an API that uses REST Arhitecture created using Django Rest Fra
 | GET /users/:id/profile                           |    Users Specific User Profile          |
 | GET /users/userslist                             |    Users List                           |
 | GET /users/userprofiles                          |    User Profiles List                   |
+
 <br>
+
 **DOCTORS** <br>
 
 | Requests                                         |      Request Description                |
@@ -42,7 +44,9 @@ Backend contains an API that uses REST Arhitecture created using Django Rest Fra
 | GET /api/v1/doctors/:id/                         |    Doctors Specific Doctor              |
 | DELETE /api/v1/doctors/:id/                      |    Doctors Delete Specific Doctor       |
 | PATCH /api/v1/doctors/:id/                       |    Doctors Update Specific Doctor       |
+
 <br>
+
 **PACIENTS** <br>
 
 | Requests                                         |      Request Description                |
