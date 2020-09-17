@@ -2,12 +2,12 @@
 
 ## Project Description:
 
-Web application helping dental tehnicians manage data about doctos, pacients, orders using and authentication system.
+  Web application helping dental tehnicians manage data about doctos, pacients, orders using and authentication system.
 
 ## GitHub Pages Link: [Web Application Preview](https://pavelescuvictor.github.io/DentalApplication/)
 
-Some the functionalities of this web application cannot be used in the Live Preview. The frontend is using http request to communicate with the backend for the authentication.<br>
-Adding Project on Heroku or AWS in the future.
+  Some the functionalities of this web application cannot be used in the Live Preview. The frontend is using http request to communicate with the backend for the authentication.<br>
+  Adding Project on Heroku or AWS in the future.
 
 ## API: 
 
