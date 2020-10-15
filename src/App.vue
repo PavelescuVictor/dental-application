@@ -8,16 +8,11 @@
 export default {
     name: "App",
     components: {},
-    data() {
-        return {
-            //
-        };
-    },
 };
 </script>
 
 <style>
-/* Fonts import */
+/* IMPORT FONTS */
 
 @import url("https://fonts.googleapis.com/css2?family=Fjalla+One&family=Pacifico&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
@@ -25,9 +20,9 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 
 :root {
-    /* Variables */
+    /* VARIABLES */
 
-    /* Text/Font */
+    /* TEXT/FONT */
 
     --text-base-size: 16px;
     --text-base-font: "Fjalla One", sans-serif;
@@ -35,35 +30,40 @@ export default {
     --text-navbar-font: "Roboto Condensed", sans-serif;
     --text-base-line-height: var(--text-base-size);
 
-    /* Color */
+    /* COLOR */
 
     --color-blue: #4c84ff;
     --color-blue-rgb: 76, 132, 255;
-    --color-lightgrey-1: #e7e9ee;
-    --color-lightgrey-2: #f5f6fa;
     --color-darkblue: #454d61;
+    --color-lightblue: #bedede;
+    --color-lightgrey: #edf0ee;
+    --color-lightgrey-2: #e7e9ee;
+    --color-lightgrey-3: #f5f6fa;
     --color-green: #40cb9e;
+    --color-lightgreen: #d1f1e6;
     --color-yellow: #f9c108;
+    --color-red: #be3131;
     --color-lightyellow: #fff4cc;
     --color-white: #fff;
+    --color-grey: #7e8989;
 
-    /* Border */
+    /* BORDER */
 
     --border-radius-circle: 50px;
 
-    /* Margin */
+    /* MARGIN */
 
     --margin-small: 30px;
     --margin-medium: 60px;
     --margin-high: 90px;
 
-    /* Padding */
+    /* PADDING */
 
     --padding-small: 30px;
     --padding-medium: 60px;
     --padding-high: 90px;
 
-    /* Custom */
+    /* CUSTOM */
 
     --navbar-height: 7vh;
     --content-height: 100vh;
@@ -77,7 +77,7 @@ export default {
                     var(--weather-height)
             )
     );
-    --banner-background-image: url("./assets/asdasd.png");
+    --banner-background-image: url("./assets/Waihou.png");
 }
 
 * {

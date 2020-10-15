@@ -1,5 +1,17 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import Login from "../views/Login.vue";
+import Logout from "../views/Logout.vue";
+import Profile from "../views/Profile.vue";
+import Home from "../views/Home.vue";
+import Patients from "../views/Patients.vue";
+import Doctors from "../views/Doctors.vue";
+import Orders from "../views/Orders.vue";
+import AddPatient from "../views/AddPatient.vue";
+import AddDoctor from "../views/AddDoctor.vue";
+import AddOrder from "../views/AddOrder.vue";
+import AddProfile from "../views/AddProfile.vue";
+import store from "../store/index.js";
 
 Vue.use(VueRouter);
 
@@ -7,8 +19,39 @@ const routes = [
     {
         path: "/login",
         name: "login",
+        component: Login,
+        meta: {
+            guest: true,
+            login: true,
+        },
+        /*
         component: () =>
-            import(/* webpackChunkName: "login" */ "../views/Login.vue"),
+            import( webpackChunkName: "login"  "../views/Login.vue"),
+        */
+    },
+    {
+        path: "/logout",
+        name: "logout",
+        component: Logout,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: "/profile",
+        name: "profile",
+        component: Profile,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: "/profile/add_profile",
+        name: "addProfile",
+        component: AddProfile,
+        meta: {
+            requiresAuth: true,
+        },
     },
     {
         path: "/",
@@ -17,17 +60,15 @@ const routes = [
     {
         path: "/home",
         name: "home",
-        component: () =>
-            import(/* webpackChunkName: "home" */ "../views/Home.vue"),
+        component: Home,
         meta: {
             guest: true,
         },
     },
     {
-        path: "/pacients",
-        name: "pacients",
-        component: () =>
-            import(/* webpackChunkName: "pacients" */ "../views/Pacients.vue"),
+        path: "/patients",
+        name: "patients",
+        component: Patients,
         meta: {
             requiresAuth: true,
         },
@@ -35,8 +76,7 @@ const routes = [
     {
         path: "/doctors",
         name: "doctors",
-        component: () =>
-            import(/* webpackChunkName: "doctors" */ "../views/Doctors.vue"),
+        component: Doctors,
         meta: {
             requiresAuth: true,
         },
@@ -44,43 +84,40 @@ const routes = [
     {
         path: "/orders",
         name: "orders",
-        component: () =>
-            import(/* webpackChunkName: "lucrari" */ "../views/Orders.vue"),
+        component: Orders,
         meta: {
             requiresAuth: true,
         },
     },
     {
-        path: "/pacients/add-pacient",
-        name: "add-pacient",
-        component: () =>
-            import(
-                /* webpackChunkName: "adaugare-pacient" */ "../views/AddPacient.vue"
-            ),
+        path: "/patients/add_patient",
+        name: "addPatient",
+        component: AddPatient,
         meta: {
             requiresAuth: true,
             isAdmin: true,
         },
     },
     {
-        path: "/orders/add-order",
-        name: "add-order",
-        component: () =>
-            import(
-                /* webpackChunkName: "adaugare-lucrare" */ "../views/AddOrder.vue"
-            ),
+        path: "/doctors/add_doctor",
+        name: "addDoctor",
+        component: AddDoctor,
         meta: {
             requiresAuth: true,
             isAdmin: true,
         },
     },
     {
-        path: "/doctors/add-doctor",
-        name: "add-doctor",
-        component: () =>
-            import(
-                /* webpackChunkName: "adaugare-doctor" */ "../views/AddDoctor.vue"
-            ),
+        path: "/orders/add_order",
+        name: "addOrder",
+        component: AddOrder,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: "/admin",
+        name: "admin",
         meta: {
             requiresAuth: true,
             isAdmin: true,
@@ -96,28 +133,32 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some((record) => record.meta.requiresAuth)) {
-        if (localStorage.getItem("userToken") == null) {
-            next({
-                path: "/login",
-                params: { nextUrl: to.fullPath },
-            });
+        if (!store.getters.isLoggedIn) {
+            next({ name: "login" });
         } else {
-            let user = JSON.parse(localStorage.getItem("user"));
             if (to.matched.some((record) => record.meta.is_admin)) {
-                if (user.is_admin == 1) {
+                if (store.getters.user.is_admin == 1) {
                     next();
                 } else {
-                    next({ name: "home" });
+                    next();
                 }
             } else {
                 next();
             }
         }
     } else if (to.matched.some((record) => record.meta.guest)) {
-        if (localStorage.getItem("token") == null) {
-            next();
+        if (to.path == "/login") {
+            if (store.getters.isLoggedIn) {
+                next({ name: "home" });
+            } else {
+                next();
+            }
         } else {
-            next({ name: "home" });
+            if (!store.getters.isLoggedIn) {
+                next();
+            } else {
+                next();
+            }
         }
     } else {
         next();
