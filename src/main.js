@@ -8,6 +8,10 @@ import {
     faSearch,
     faChevronUp,
     faPlusCircle,
+    faList,
+    faPlus,
+    faEdit,
+    faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import {
     faFacebookF,
@@ -26,6 +30,10 @@ import vuetify from "./plugins/vuetify";
 library.add(faSearch);
 library.add(faChevronUp);
 library.add(faFacebookF);
+library.add(faList);
+library.add(faPlus);
+library.add(faEdit);
+library.add(faUser);
 library.add(faInstagram);
 library.add(faTwitter);
 library.add(faYoutube);

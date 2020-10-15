@@ -1,13 +1,17 @@
 <template>
     <div class="add-doctor">
         <Navbar :currentPage="currentPage" />
-        <div class="content">
+        <div class="add-doctor__content">
+            <Alert :alert="alertMessage" />
             <div class="content__banner">
-                <div class="banner__overlay"></div>
+                <div class="banner__overlay">
+                    <div class="overlay__color"></div>
+                    <div class="overlay__image"></div>
+                </div>
             </div>
-            <div class="content__add-doctor">
+            <div class="content__form">
                 <div class="form__wrapper">
-                    <p>Adaugare Doctor.</p>
+                    <p>Adaugare Doctor</p>
 
                     <v-form
                         class="form"
@@ -64,6 +68,7 @@
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import ScrollTop from "../components/ScrollTop.vue";
+import Alert from "../components/Alert.vue";
 import axios from "axios";
 
 export default {
@@ -72,6 +77,7 @@ export default {
         Navbar,
         ScrollTop,
         Footer,
+        Alert,
     },
     data: () => ({
         currentPage: "add-doctor",
@@ -105,6 +111,7 @@ export default {
         },
         */
         lazy: false,
+        alertMessage: "",
     }),
 
     methods: {
@@ -155,14 +162,15 @@ export default {
     align-items: center;
 }
 
-.content {
+.add-doctor__content {
     height: 100vh;
     width: 100%;
     display: grid;
     grid-template-columns: auto minmax(400px, 50%);
 }
 
-.content__add-doctor {
+.content__form {
+    height: 100%;
     padding: var(--padding-high);
     padding: calc(var(--navbar-height) + var(--padding-high))
         var(--padding-high) var(--padding-high) var(--padding-high);
@@ -179,27 +187,103 @@ export default {
     justify-self: center;
     align-self: center;
     font-size: 1.8rem;
+    animation: form__wrapper__p__scale 0.5s ease-in-out forwards;
 }
 
 .form {
+    width: 100%;
     display: grid;
+    margin: auto;
     grid-template-rows: auto auto auto 1fr;
     align-content: space-between;
+    animation: form__wrapper__form__width 0.5s ease-in-out forwards;
 }
 
 .form__buttons {
     justify-self: center;
 }
 
-.content__banner {
+.banner__overlay {
+    height: 100%;
+}
+
+.overlay__color {
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    left: -25%;
+    right: 0px;
+    background-color: rgba(var(--color-blue-rgb), 0.9);
+    z-index: 1;
+    animation: overlay__color__slide-right 0.7s ease-out forwards;
+}
+
+.overlay__image {
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    left: -25%;
+    right: 0px;
+    opacity: 0%;
     background-image: var(--banner-background-image);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-x: right;
+    animation: overlay__image__slide-right 0.7s ease-out forwards,
+        overlay__image__fade-in 0.7s ease-in-out forwards 0.2s;
 }
 
-.banner__overlay {
-    height: 100%;
-    background-color: rgba(var(--color-blue-rgb), 0.7);
+@keyframes overlay__image__slide-right {
+    from {
+        left: -25%;
+    }
+
+    to {
+        left: 0%;
+    }
+}
+
+@keyframes overlay__image__fade-in {
+    from {
+        opacity: 0%;
+    }
+
+    to {
+        opacity: 100%;
+    }
+}
+
+@keyframes overlay__color__slide-right {
+    from {
+        left: -25%;
+    }
+
+    to {
+        left: 0%;
+    }
+}
+
+@keyframes form__wrapper__p__scale {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes form__wrapper__form__width {
+    from {
+        padding-top: calc(var(--padding-high) * 1);
+    }
+
+    to {
+        padding-top: 0px;
+    }
 }
 </style>

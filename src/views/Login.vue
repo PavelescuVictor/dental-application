@@ -1,19 +1,23 @@
 <template>
     <div class="login">
-        <Navbar :currentPage="currentPage" />
-        <div class="content">
+        <Navbar />
+        <div class="login__content">
+            <Alert :alert="alertMessage" />
             <div class="content__banner">
-                <div class="banner__overlay"></div>
+                <div class="banner__overlay">
+                    <div class="overlay__color"></div>
+                    <div class="overlay__image"></div>
+                </div>
             </div>
-            <div class="content__login">
+            <div class="content__form">
                 <div class="form__wrapper">
-                    <p>Login into the application.</p>
-
+                    <p>Login into the application</p>
                     <v-form
                         class="form"
                         ref="form"
                         v-model="valid"
                         :lazy-validation="lazy"
+                        @submit="handleSubmit"
                     >
                         <v-text-field
                             v-model="userEmail"
@@ -33,11 +37,14 @@
                             @input="(_) => (userPassword = _)"
                             required
                         ></v-text-field>
+
                         <div class="form__buttons">
-                            <v-btn :disabled="!valid" @click="handleSubmit"
+                            <v-btn
+                                :disabled="!valid"
+                                @click="handleSubmit"
+                                type="submit"
                                 >Submit</v-btn
                             >
-
                             <v-btn @click="reset">Reset Form</v-btn>
                         </div>
                     </v-form>
@@ -54,7 +61,8 @@
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import ScrollTop from "../components/ScrollTop.vue";
-import axios from "axios";
+import Alert from "../components/Alert.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
     name: "Login",
@@ -63,11 +71,10 @@ export default {
         Navbar,
         ScrollTop,
         Footer,
+        Alert,
     },
 
     data: () => ({
-        isLoggedIn: "",
-        currentPage: "login",
         valid: true,
         value: true,
         userEmail: "",
@@ -81,33 +88,22 @@ export default {
             password: [(value) => !!value || "Password is required"],
         },
         lazy: false,
+        alertMessage: "",
     }),
 
+    computed: {
+        ...mapGetters(["isLoggedIn"]),
+    },
+
     methods: {
+        ...mapActions(["login"]),
         handleSubmit(e) {
-            //this.$refs.form.validate();
             e.preventDefault();
-            let url = "http://127.0.0.1:8000/users/auth/login";
-            let data = JSON.stringify({
-                email: this.userEmail,
-                password: this.userPassword,
-            });
-            axios
-                .post(url, data, {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                })
-                .then((response) => {
-                    console.log(response);
-                    const token = response.data.token;
-                    const user = response.data.user;
-                    console.log(token);
-                    console.log(user);
-                    localStorage.setItem("userToken", token);
-                    localStorage.setItem("user", JSON.stringify(user));
-                    if (localStorage.getItem("userToken") != null) {
-                        this.$emit("loggedIn");
+            let email = this.userEmail;
+            let password = this.userPassword;
+            this.login({ email, password })
+                .then(() => {
+                    if (this.isLoggedIn) {
                         if (this.$route.params.nextUrl != null) {
                             this.$router.push(this.$route.params.nextUrl);
                         } else {
@@ -115,31 +111,9 @@ export default {
                         }
                     }
                 })
-                .catch(function(error) {
-                    console.log("Error: " + error);
-                    localStorage.removeItem("user-token"); // if the request fails, remove any possible user token if possible
+                .catch((err) => {
+                    this.alertMessage = err;
                 });
-            // Mimic succesfull authentication
-            /*
-                    let is_admin = true;
-                    if(this.$route.params.nextUrl != null){
-                        this.$router.push(this.$route.params.nextUrl)
-                    }
-                    else {
-                        if(is_admin == true){
-                            this.$router.push('doctori')
-                            .catch(error => {
-                                console.info(error.message)
-                            })
-                        }
-                        else {
-                            this.$router.push('home')
-                            .catch(error => {
-                                console.info(error.message)
-                            })
-                        }
-                    }
-                    */
         },
         reset() {
             this.$refs.form.reset();
@@ -156,14 +130,15 @@ export default {
     align-items: center;
 }
 
-.content {
+.login__content {
     height: 100vh;
     width: 100%;
     display: grid;
     grid-template-columns: auto minmax(400px, 50%);
 }
 
-.content__login {
+.content__form {
+    height: 100%;
     padding: var(--padding-high);
     padding: calc(var(--navbar-height) + var(--padding-high))
         var(--padding-high) var(--padding-high) var(--padding-high);
@@ -180,27 +155,103 @@ export default {
     justify-self: center;
     align-self: center;
     font-size: 1.8rem;
+    animation: form__wrapper__p__scale 0.5s ease-in-out forwards;
 }
 
 .form {
+    width: 100%;
     display: grid;
+    margin: auto;
     grid-template-rows: auto auto auto 1fr;
     align-content: space-between;
+    animation: form__wrapper__form__width 0.5s ease-in-out forwards;
 }
 
 .form__buttons {
     justify-self: center;
 }
 
-.content__banner {
+.banner__overlay {
+    height: 100%;
+}
+
+.overlay__color {
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    left: -25%;
+    right: 0px;
+    background-color: rgba(var(--color-blue-rgb), 0.9);
+    z-index: 1;
+    animation: overlay__color__slide-right 0.7s ease-out forwards;
+}
+
+.overlay__image {
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    left: -25%;
+    right: 0px;
+    opacity: 0%;
     background-image: var(--banner-background-image);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-x: right;
+    animation: overlay__image__slide-right 0.7s ease-out forwards,
+        overlay__image__fade-in 0.7s ease-in-out forwards 0.2s;
 }
 
-.banner__overlay {
-    height: 100%;
-    background-color: rgba(var(--color-blue-rgb), 0.7);
+@keyframes overlay__image__slide-right {
+    from {
+        left: -25%;
+    }
+
+    to {
+        left: 0%;
+    }
+}
+
+@keyframes overlay__image__fade-in {
+    from {
+        opacity: 0%;
+    }
+
+    to {
+        opacity: 100%;
+    }
+}
+
+@keyframes overlay__color__slide-right {
+    from {
+        left: -25%;
+    }
+
+    to {
+        left: 0%;
+    }
+}
+
+@keyframes form__wrapper__p__scale {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes form__wrapper__form__width {
+    from {
+        padding-top: calc(var(--padding-high) * 1);
+    }
+
+    to {
+        padding-top: 0px;
+    }
 }
 </style>
