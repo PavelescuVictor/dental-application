@@ -13,7 +13,7 @@ const getters = {
     filteredDoctorList: (state) => state.filteredDoctorList,
     requestDoctorUrl: (state) => state.requestDoctorUrl,
     requestStatusDoctor: (state) => state.statusDoctor,
-    selectedDoctor: (state) => state.selectedDoctor,
+    getSelectedDoctor: (state) => state.selectedDoctor,
 };
 
 const actions = {
@@ -38,6 +38,7 @@ const actions = {
                 });
         });
     },
+
     filterDoctorList({ commit, getters }, query) {
         commit("filteredDoctorList_empty");
         const filteredDoctorList = [];
@@ -67,8 +68,11 @@ const actions = {
     },
 
     setSelectedDoctor({ commit }, payload) {
-        if (payload.length == 0) commit("selectedDoctor_empty");
-        else commit("selectedDoctor_success", payload[0]);
+        commit("selectedDoctor_success", payload);
+    },
+
+    removeSelectedDoctor({commit}) {
+        commit("selectedDoctor_empty");
     },
 };
 
@@ -76,25 +80,32 @@ const mutations = {
     doctorList_request(state) {
         state.statusDoctor = "loading";
     },
+    
     doctorList_success(state, doctorList) {
         state.statusDoctor = "success";
         state.doctorList = doctorList;
     },
+
     doctorList_error(state, error) {
         state.statusDoctor = error;
     },
+
     doctorList_empty(state) {
         state.doctorList = [];
     },
+
     filteredDoctorList_empty(state) {
         state.filteredDoctorList = [];
     },
+    
     filteredDoctorList_success(state, filteredDoctorList) {
         state.filteredDoctorList = filteredDoctorList;
     },
+
     selectedDoctor_empty(state) {
         state.selectedDoctor = "";
     },
+
     selectedDoctor_success(state, payload) {
         state.selectedDoctor = payload;
     },

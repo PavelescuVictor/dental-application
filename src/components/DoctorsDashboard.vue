@@ -11,22 +11,31 @@
                 <div class="list" v-if="isListActive">
                     <DoctorsList />
                 </div>
-                <div class="details" v-if="isDetailsActive"></div>
+                <div class="details" v-if="isDetailsActive">
+                    <DoctorsDetails />
+                </div>
                 <div class="add" v-if="isAddActive"></div>
                 <div class="edit" v-if="isEditActive"></div>
             </div>
         </div>
     </div>
 </template>
+
 <script>
 import DoctorsList from "../components/DoctorsList.vue";
+import DoctorsDetails from "../components/DoctorsDetails.vue";
 import DoctorsDashboardNavbar from "../components/DoctorsDashboardNavbar.vue";
+import { mapActions } from "vuex";
+
 export default {
     name: "DoctorsDashboard",
+
     components: {
         DoctorsDashboardNavbar,
         DoctorsList,
+        DoctorsDetails,
     },
+
     data() {
         return {
             showedPage: "list",
@@ -36,11 +45,19 @@ export default {
             isEditActive: false,
         };
     },
+
+    destroyed() {
+        this.removeSelectedDoctor();
+    },
+
     methods: {
+        ...mapActions(["removeSelectedDoctor"]),
+
         changeDisplayedPage(e) {
             this.showedPage = e;
         },
     },
+
     watch: {
         showedPage: function (val) {
             if (val === "list") {
@@ -68,7 +85,9 @@ export default {
     },
 };
 </script>
+
 <style scoped>
+
 .doctorsDashboard {
     min-height: var(--banner-height);
     display: flex;

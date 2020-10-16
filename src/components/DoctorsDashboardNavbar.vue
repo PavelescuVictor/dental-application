@@ -9,18 +9,23 @@
                         </a>
                         <p>Lista</p>
                     </li>
+
                     <li id="details" @click="changeDisplayedPage">
                         <a href="#">
                             <font-awesome-icon :icon="['fas', 'user']" />
                         </a>
                         <p>Detalii</p>
                     </li>
-                    <li id="add" @click="changeDisplayedPage">
-                        <a href="#">
-                            <font-awesome-icon :icon="['fas', 'plus']" />
-                        </a>
-                        <p>Adaugare</p>
-                    </li>
+
+                    <router-link to="/doctors/add_doctor">
+                        <li id="add" @click="changeDisplayedPage">
+                            <a href="#">
+                                <font-awesome-icon :icon="['fas', 'plus']" />
+                            </a>
+                            <p>Adaugare</p>
+                        </li>
+                    </router-link>
+
                     <li id="edit" @click="changeDisplayedPage">
                         <a href="#">
                             <font-awesome-icon :icon="['fas', 'edit']" />

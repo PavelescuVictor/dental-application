@@ -8,37 +8,30 @@
         <div class="patientsDashboard__content">
             <PatientsDashboardNavbar @updatePage="changeDisplayedPage" />
             <div class="content__wrapper">
-                <div
-                    class="list"
-                    v-bind:class="{ notDisplayedPage: !isListActive }"
-                >
+                <div class="list" v-if="isListActive">
                     <PatientsList />
                 </div>
-                <div
-                    class="details"
-                    v-bind:class="{ notDisplayedPage: !isDetailsActive }"
-                ></div>
-                <div
-                    class="add"
-                    v-bind:class="{ notDisplayedPage: !isAddActive }"
-                ></div>
-                <div
-                    class="edit"
-                    v-bind:class="{ notDisplayedPage: !isEditActive }"
-                ></div>
+                <div class="details" v-if="isDetailsActive">
+                    <PatientsDetails />
+                </div>
+                <div class="add" v-if="isAddActive"></div>
+                <div class="edit" v-if="isEditActive"></div>
             </div>
         </div>
     </div>
 </template>
 <script>
 import PatientsList from "../components/PatientsList.vue";
+import PatientsDetails from "../components/PatientsDetails.vue";
 import PatientsDashboardNavbar from "../components/PatientsDashboardNavbar.vue";
-import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
+
 export default {
     name: "PatientsDashboard",
     components: {
         PatientsDashboardNavbar,
         PatientsList,
+        PatientsDetails,
     },
     data() {
         return {
@@ -49,14 +42,19 @@ export default {
             isEditActive: false,
         };
     },
+
+    destroyed() {
+        this.removeSelectedPatient();
+    },
+
     methods: {
+        ...mapActions(["removeSelectedPatient"]),
+
         changeDisplayedPage(e) {
             this.showedPage = e;
         },
     },
-    computed: {
-        ...mapGetters(["userProfile"]),
-    },
+
     watch: {
         showedPage: function(val) {
             if (val === "list") {

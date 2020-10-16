@@ -1,16 +1,16 @@
 <template>
-    <div class="profileDetails">
+    <div class="doctorDetails">
         <Confirmation />
         <Alert />
         <div class="content">
             <div class="card__wrapper">
                 <template>
-                    <v-card min-width="100%">
+                    <v-card min-width="100%" v-if="showDetails">
                         <v-list two-line>
                             <v-list-item>
                                 <v-list-item-content>
                                     <v-list-item-title>{{
-                                        userProfile.firstName
+                                        patient.firstName
                                     }}</v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
@@ -20,7 +20,7 @@
                             <v-list-item>
                                 <v-list-item-content>
                                     <v-list-item-title>{{
-                                        userProfile.lastName
+                                        patient.lastName
                                     }}</v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
@@ -30,27 +30,8 @@
                             <v-list-item>
                                 <v-list-item-content>
                                     <v-list-item-title>{{
-                                        userProfile.gender
+                                        patient.details
                                     }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-icon>
-                                    <v-icon color="indigo">
-                                        mdi-email
-                                    </v-icon>
-                                </v-list-item-icon>
-
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        userProfile.userEmail
-                                    }}</v-list-item-title>
-                                    <v-list-item-subtitle
-                                        >Personal</v-list-item-subtitle
-                                    >
                                 </v-list-item-content>
                             </v-list-item>
 
@@ -65,7 +46,7 @@
 
                                 <v-list-item-content>
                                     <v-list-item-title>{{
-                                        userProfile.phone
+                                        patient.phone
                                     }}</v-list-item-title>
                                     <v-list-item-subtitle
                                         >Mobile</v-list-item-subtitle
@@ -80,7 +61,7 @@
                                     <v-list-item-title
                                         >Created at
                                         {{
-                                            userProfile.createdAt
+                                            patient.createdAt
                                         }}</v-list-item-title
                                     >
                                 </v-list-item-content>
@@ -93,7 +74,7 @@
                                     <v-list-item-title
                                         >Updated at
                                         {{
-                                            userProfile.updatedAt
+                                            patient.updatedAt
                                         }}</v-list-item-title
                                     >
                                 </v-list-item-content>
@@ -112,13 +93,17 @@ import Confirmation from "../components/Confirmation.vue";
 import Alert from "../components/Alert.vue";
 
 export default {
-    name: "ProfileDetails",
+    name: "PatientsDetails",
+    
     components: {
         Confirmation,
         Alert,
     },
+
     data() {
         return {
+            patient: "",
+            showDetails: false,
             alert: {
                 type: "",
                 message: "",
@@ -126,13 +111,35 @@ export default {
             },
         };
     },
-    computed: {
-        ...mapGetters(["userProfile"]),
+
+    mounted() {
+        if(this.getSelectedPatient != "") {
+            this.patient = this.getSelectedPatient;
+            this.alert = {
+                type: "success",
+                message: "Selected patient received",
+                time: 4000,
+            }
+            this.addAlert(this.alert);
+            this.showDetails = true;
+        }
+        else {
+            this.alert = {
+                type: "error",
+                message: "No patient selected",
+                time: 4000,
+            }
+            this.addAlert(this.alert);
+            this.showDetails = false;
+        }
     },
+
+    computed: {
+        ...mapGetters(["getSelectedPatient"]),
+    },
+
     methods: {
         ...mapActions([
-            "requestPatientList",
-            "filterPatientList",
             "addAlert",
             "addConfirmationMessage",
         ]),

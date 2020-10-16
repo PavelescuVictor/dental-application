@@ -32,10 +32,13 @@
                 </v-card>
                 <template>
                     <v-data-table
+                        v-model="selectedDoctor"
                         :headers="headers"
                         :items="list"
                         item-key="id"
                         hide-default-footer
+                        :single-select="singleSelect"
+                        show-select
                     >
                         <template v-slot:item.actions="{ item }">
                             <v-icon medium class="mr-2" @click="editItem(item)">
@@ -57,7 +60,7 @@ import { mapGetters, mapActions } from "vuex";
 import Confirmation from "../components/Confirmation.vue";
 import Alert from "../components/Alert.vue";
 export default {
-    name: "Doctors",
+    name: "DoctorsList",
     components: {
         Confirmation,
         Alert,
@@ -69,6 +72,8 @@ export default {
             filteredInputFirstName: "",
             filteredInputLastName: "",
             filter: false,
+            singleSelect: true,
+            selectedDoctor: [],
             alert: {
                 type: "",
                 message: "",
@@ -138,25 +143,36 @@ export default {
             ],
         };
     },
-    mounted: function () {
+    created() {
         this.getDoctors();
+        this.selectedDoctor = [this.getSelectedDoctor];
     },
+
     computed: {
-        ...mapGetters(["doctorList", "filteredDoctorList"]),
-        list: function () {
+        ...mapGetters([
+            "doctorList",
+            "filteredDoctorList",
+            "getSelectedDoctor",
+        ]),
+
+        list: function() {
             return this.filter === true
                 ? this.filteredDoctorList
                 : this.doctorList;
         },
     },
+
     methods: {
         ...mapActions([
             "requestDoctorList",
             "filterDoctorList",
             "addAlert",
             "addConfirmationMessage",
+            "setSelectedDoctor",
+            "removeSelectedDoctor",
         ]),
-        getDoctors: function () {
+
+        getDoctors: function() {
             this.requestDoctorList()
                 .then((response) => {
                     const status = response.status;
@@ -178,6 +194,7 @@ export default {
                     this.addAlert(this.alert);
                 });
         },
+
         showSearchBar() {
             if (this.searchBarShowed === true) {
                 this.filteredInputFirstName = "";
@@ -195,29 +212,47 @@ export default {
             });
             this.filter = true;
         },
+
         editItem(item) {
             const message = `Are you sure you want to edit ${item.lastName} ${item.firstName}?`;
             this.addConfirmationMessage(message);
         },
+
         deleteItem(item) {
             const message = `Are you sure you want to delete ${item.lastName} ${item.firstName}?`;
             this.addConfirmationMessage(message);
         },
     },
+
     watch: {
-        filteredInputFirstName: function () {
+        filteredInputFirstName: function() {
             if (this.filteredInputFirstName.length >= 3)
                 this.showFilteredDoctors();
             else {
                 if (this.filteredInputLastName.length < 3) this.filter = false;
+                else {
+                    this.filteredInputFirstName = "";
+                    this.showFilteredDoctors();
+                }
             }
         },
-        filteredInputLastName: function () {
+
+        filteredInputLastName: function() {
             if (this.filteredInputLastName.length >= 3)
                 this.showFilteredDoctors();
             else {
                 if (this.filteredInputFirstName.length < 3) this.filter = false;
+                else {
+                    this.filteredInputLastName = "";
+                    this.showFilteredDoctors();
+                }
             }
+        },
+
+        selectedDoctor: function() {
+            if (this.selectedDoctor.length != 0)
+                this.setSelectedDoctor(this.selectedDoctor[0]);
+            else this.removeSelectedDoctor();
         },
     },
 };

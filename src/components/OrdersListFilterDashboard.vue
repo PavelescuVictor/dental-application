@@ -16,14 +16,14 @@
                             <v-text-field
                                 v-model="filteredInputDoctorFirstName"
                                 :rules="rules.doctorFirstName"
-                                label="Nume"
+                                label="First Name"
                                 required
                             ></v-text-field>
 
                             <v-text-field
                                 v-model="filteredInputDoctorLastName"
                                 :rules="rules.doctorLastName"
-                                label="Prenume"
+                                label="Last Name"
                                 required
                             ></v-text-field>
                         </v-form>
@@ -357,8 +357,8 @@ export default {
 
         showFilteredPatients() {
             this.filterPatientList({
-                filteredInputFirstName: this.filteredInputDoctorFirstName,
-                filteredInputLastName: this.filteredInputDoctorLastName,
+                filteredInputFirstName: this.filteredInputPatientFirstName,
+                filteredInputLastName: this.filteredInputPatientLastName,
             });
             this.filterPatient = true;
         },
@@ -380,6 +380,10 @@ export default {
             else {
                 if (this.filteredInputDoctorLastName.length < 3)
                     this.filterDoctor = false;
+                else {
+                    this.filteredInputDoctorFirstName = "";
+                    this.showFilteredDoctors();
+                }
             }
         },
 
@@ -389,6 +393,10 @@ export default {
             else {
                 if (this.filteredInputDoctorFirstName.length < 3)
                     this.filterDoctor = false;
+                else {
+                    this.filteredInputDoctorLastName = "";
+                    this.showFilteredDoctors();
+                }
             }
         },
 
@@ -398,6 +406,10 @@ export default {
             else {
                 if (this.filteredInputPatientLastName.length < 3)
                     this.filterPatient = false;
+                else {
+                    this.filteredInputPatientFirstName = "";
+                    this.showFilteredPatients();
+                }
             }
         },
 
@@ -407,6 +419,10 @@ export default {
             else {
                 if (this.filteredInputPatientFirstName.length < 3)
                     this.filterPatient = false;
+                else {
+                    this.filteredInputPatientLastName = "";
+                    this.showFilteredPatients();
+                }
             }
         },
 

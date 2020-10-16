@@ -9,6 +9,7 @@
                         </a>
                         <p>Detalii</p>
                     </li>
+                    
                     <li id="edit" @click="changeDisplayedPage">
                         <a href="#">
                             <font-awesome-icon :icon="['fas', 'edit']" />

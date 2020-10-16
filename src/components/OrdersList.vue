@@ -27,7 +27,7 @@
                     >
                         <OrdersListFilterDashBoard />
                     </div>
-                    <template>
+                    <template v-if="showOrderList">
                         <v-data-table
                             :headers="headers"
                             :items="this.filteredOrderList"
@@ -73,6 +73,7 @@ export default {
             addPageRedirect: "addOrder",
             isDoctorSelected: false,
             isPatientSelected: false,
+            showOrderList: false,
             alert: {
                 type: "",
                 message: "",
@@ -135,8 +136,8 @@ export default {
     },
     computed: {
         ...mapGetters([
-            "selectedPatient",
-            "selectedDoctor",
+            "getSelectedPatient",
+            "getSelectedDoctor",
             "filteredOrderList",
         ]),
     },
@@ -167,17 +168,17 @@ export default {
         },
     },
     watch: {
-        selectedDoctor: function() {
-            if (this.selectedDoctor != "") {
+        getSelectedDoctor: function() {
+            if (this.getSelectedDoctor != "") {
                 this.isDoctorSelected = true;
                 const payload = {
                     doctorId:
-                        this.selectedDoctor.length != 0
-                            ? this.selectedDoctor.id
+                        this.getSelectedDoctor.length != 0
+                            ? this.getSelectedDoctor.id
                             : "",
                     patientId:
-                        this.selectedPatient.length != 0
-                            ? this.selectedPatient.id
+                        this.getSelectedPatient.length != 0
+                            ? this.getSelectedPatient.id
                             : "",
                 };
                 this.filterOrderList(payload);
@@ -188,17 +189,18 @@ export default {
                 }
             }
         },
-        selectedPatient: function() {
-            if (this.selectedPatient != "") {
+
+        getSelectedPatient: function() {
+            if (this.getSelectedPatient != "") {
                 this.isPatientSelected = true;
                 const payload = {
                     doctorId:
-                        this.selectedDoctor.length != 0
-                            ? this.selectedDoctor.id
+                        this.getSelectedDoctor.length != 0
+                            ? this.getSelectedDoctor.id
                             : "",
                     patientId:
-                        this.selectedPatient.length != 0
-                            ? this.selectedPatient.id
+                        this.getSelectedPatient.length != 0
+                            ? this.getSelectedPatient.id
                             : "",
                 };
                 this.filterOrderList(payload);
@@ -209,6 +211,18 @@ export default {
                 }
             }
         },
+
+        isPatientSelected: function() {
+            console.log("patient" + this.isPatientSelected);
+            if(this.isPatientSelected === false && this.isDoctorSelected === false) this.showOrderList = false;
+            else this.showOrderList = true;
+        },
+
+        isDoctorSelected: function() {
+            console.log("doctor" + this.isDoctorSelected);
+            if(this.isDoctorSelected === false && this.isDoctorSelected === false) this.showOrderList = false;
+            else this.showOrderList = true;
+        }
     },
 };
 </script>

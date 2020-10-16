@@ -13,7 +13,7 @@ const getters = {
     filteredPatientList: (state) => state.filteredPatientList,
     requestPatientUrl: (state) => state.requestPatientUrl,
     requestStatusPatient: (state) => state.statusPatient,
-    selectedPatient: (state) => state.selectedPatient,
+    getSelectedPatient: (state) => state.selectedPatient,
 };
 
 const actions = {
@@ -38,6 +38,7 @@ const actions = {
                 });
         });
     },
+
     filterPatientList({ commit, getters }, query) {
         commit("filteredPatientList_empty");
         const filteredPatientList = [];
@@ -67,8 +68,11 @@ const actions = {
     },
 
     setSelectedPatient({ commit }, payload) {
-        if (payload.length == 0) commit("selectedPatient_empty");
-        else commit("selectedPatient_success", payload[0]);
+        commit("selectedPatient_success", payload);
+    },
+
+    removeSelectedPatient({commit}) {
+        commit("selectedPatient_empty");
     },
 };
 
@@ -76,25 +80,32 @@ const mutations = {
     patientList_request(state) {
         state.statusPatient = "loading";
     },
+
     patientList_success(state, patientList) {
         state.statusPatient = "success";
         state.patientList = patientList;
     },
+
     patientList_error(state, error) {
         state.statusPatient = error;
     },
+    
     patientList_empty(state) {
         state.patientList = [];
     },
+
     filteredPatientList_empty(state) {
         state.filteredPatientList = [];
     },
+
     filteredPatientList_success(state, filteredPatientList) {
         state.filteredPatientList = filteredPatientList;
     },
+
     selectedPatient_empty(state) {
         state.selectedPatient = "";
     },
+    
     selectedPatient_success(state, payload) {
         state.selectedPatient = payload;
     },

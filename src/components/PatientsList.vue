@@ -32,10 +32,13 @@
                 </v-card>
                 <template>
                     <v-data-table
+                        v-model="selectedPatient"
                         :headers="headers"
                         :items="list"
                         item-key="id"
                         hide-default-footer
+                        :single-select="singleSelect"
+                        show-select
                     >
                         <template v-slot:item.actions="{ item }">
                             <v-icon medium class="mr-2" @click="editItem(item)">
@@ -70,6 +73,8 @@ export default {
             filteredInputFirstName: "",
             filteredInputLastName: "",
             filter: false,
+            singleSelect: true,
+            selectedPatient: [],
             alert: {
                 type: "",
                 message: "",
@@ -139,25 +144,37 @@ export default {
             ],
         };
     },
-    mounted: function () {
+
+    created() {
         this.getPatients();
+        this.selectedPatient = [this.getSelectedPatient];
     },
+
     computed: {
-        ...mapGetters(["patientList", "filteredPatientList"]),
-        list: function () {
+        ...mapGetters([
+            "patientList",
+            "filteredPatientList",
+            "getSelectedPatient",
+        ]),
+
+        list: function() {
             return this.filter === true
                 ? this.filteredPatientList
                 : this.patientList;
         },
     },
+
     methods: {
         ...mapActions([
             "requestPatientList",
             "filterPatientList",
             "addAlert",
             "addConfirmationMessage",
+            "setSelectedPatient",
+            "removeSelectedPatient",
         ]),
-        getPatients: function () {
+
+        getPatients: function() {
             this.requestPatientList()
                 .then((response) => {
                     const status = response.status;
@@ -179,6 +196,7 @@ export default {
                     this.addAlert(this.alert);
                 });
         },
+
         showSearchBar() {
             if (this.searchBarShowed === true) {
                 this.filteredInputFirstName = "";
@@ -207,20 +225,37 @@ export default {
             this.addConfirmationMessage(message);
         },
     },
+
     watch: {
-        filteredInputFirstName: function () {
+        filteredInputFirstName: function() {
             if (this.filteredInputFirstName.length >= 3)
                 this.showFilteredPatients();
             else {
                 if (this.filteredInputLastName.length < 3) this.filter = false;
+                else {
+                    this.filteredInputFirstName = "";
+                    this.showFilteredPatients();
+                }
             }
         },
-        filteredInputLastName: function () {
+
+        filteredInputLastName: function() {
             if (this.filteredInputLastName.length >= 3)
                 this.showFilteredPatients();
             else {
                 if (this.filteredInputFirstName.length < 3) this.filter = false;
+                else {
+                    this.filteredInputLastName = "";
+                    this.showFilteredPatients();
+                }
             }
+        },
+
+        selectedPatient: function() {
+            console.log(this.selectedPatient);
+            if (this.selectedPatient.length != 0)
+                this.setSelectedPatient(this.selectedPatient[0]);
+            else this.removeSelectedPatient();
         },
     },
 };
