@@ -26,14 +26,14 @@
                         </li>
                     </router-link>
 
-                    <li id="edit" @click="changeDisplayedPage">
-                        <a href="#">
-                            <font-awesome-icon :icon="['fas', 'edit']" />
-                        </a>
-                        <p>
-                            Editare
-                        </p>
-                    </li>
+                    <router-link to="/doctors/edit_doctor">
+                        <li id="edit" @click="changeDisplayedPage">
+                            <a href="#">
+                                <font-awesome-icon :icon="['fas', 'edit']" />
+                            </a>
+                            <p>Editare</p>
+                        </li>
+                    </router-link>
                 </ul>
             </div>
         </nav>

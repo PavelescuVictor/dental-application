@@ -1,10 +1,16 @@
 import axios from "axios";
 
 const state = {
-    statusDoctor: "",
+    getDoctorListStatus: "",
+    addDoctorStatus: "",
+    removeDoctorStatus: "",
+    editDoctorStatus: "",
     doctorList: [],
     filteredDoctorList: [],
     requestDoctorUrl: "http://127.0.0.1:8000/api/v1/doctors/",
+    addDoctorUrl: "http://127.0.0.1:8000/api/v1/doctors/",
+    removeDoctorUrl: "http://127.0.0.1:8000/api/v1/doctors/",
+    editDoctorUrl: "http://127.0.0.1:8000/api/v1/doctors/",
     selectedDoctor: "",
 };
 
@@ -12,6 +18,9 @@ const getters = {
     doctorList: (state) => state.doctorList,
     filteredDoctorList: (state) => state.filteredDoctorList,
     requestDoctorUrl: (state) => state.requestDoctorUrl,
+    addDoctorUrl: (state) => state.addDoctorUrl,
+    removeDoctorUrl: (state) => state.removeDoctorUrl,
+    editDoctorUrl: (state) => state.editDoctorUrl,
     requestStatusDoctor: (state) => state.statusDoctor,
     getSelectedDoctor: (state) => state.selectedDoctor,
 };
@@ -67,27 +76,110 @@ const actions = {
         commit("filteredDoctorList_success", filteredDoctorList);
     },
 
+    addDoctor({ commit, getters }, payload) {
+        return new Promise((resolve, reject) => {
+            commit("add_doctor_request");
+            axios({
+                url: `${getters.addDoctorUrl}`,
+                method: "POST",
+                headers: {
+                    Authorization: `Token ${getters.userToken}`,
+                },
+                data: {
+                    firstName: payload.doctorFirstName,
+                    lastName: payload.doctorLastName,
+                    cabinet: payload.cabinet,
+                    phone: payload.phone,
+                    createdBy: JSON.parse(localStorage.getItem("user")).id,
+                    updatedBy: JSON.parse(localStorage.getItem("user")).id,
+                },
+            })
+                .then((response) => {
+                    commit("add_doctor_success");
+                    commit("add_doctor");
+                    resolve(response);
+                })
+                .catch((error) => {
+                    commit("add_doctor_error");
+                    reject(error);
+                });
+        });
+    },
+
+    removeDoctor({ commit, getters }, payload) {
+        return new Promise((resolve, reject) => {
+            commit("remove_doctor_request");
+            axios({
+                url: `${getters.addDoctorUrl}${payload.doctorId}/`,
+                method: "DELETE",
+                headers: {
+                    Authorization: `Token ${getters.userToken}`,
+                },
+            })
+                .then((response) => {
+                    commit("remove_doctor_success");
+                    commit("remove_doctor", payload.doctorId);
+                    resolve(response);
+                })
+                .catch((error) => {
+                    commit("remove_doctor_error");
+                    reject(error);
+                });
+        });
+    },
+
+    editDoctor({ commit, getters }, payload) {
+        console.log(payload);
+        return new Promise((resolve, reject) => {
+            commit("edit_doctor_request");
+            axios({
+                url: `${getters.addDoctorUrl}${payload.doctorId}/`,
+                method: "PATCH",
+                headers: {
+                    Authorization: `Token ${getters.userToken}`,
+                },
+                data: {
+                    firstName: payload.doctorFirstName,
+                    lastName: payload.doctorLastName,
+                    cabinet: payload.cabinet,
+                    phone: payload.phone,
+                    createdBy: JSON.parse(localStorage.getItem("user")).id,
+                    updatedBy: JSON.parse(localStorage.getItem("user")).id,
+                },
+            })
+                .then((response) => {
+                    commit("edit_doctor_success");
+                    commit("edit_doctor", payload);
+                    resolve(response);
+                })
+                .catch((error) => {
+                    commit("edit_doctor_error");
+                    reject(error);
+                });
+        });
+    },
+
     setSelectedDoctor({ commit }, payload) {
         commit("selectedDoctor_success", payload);
     },
 
-    removeSelectedDoctor({commit}) {
+    removeSelectedDoctor({ commit }) {
         commit("selectedDoctor_empty");
     },
 };
 
 const mutations = {
     doctorList_request(state) {
-        state.statusDoctor = "loading";
+        state.getDoctorListStatus = "loading";
     },
-    
+
     doctorList_success(state, doctorList) {
-        state.statusDoctor = "success";
+        state.getDoctorListStatus = "success";
         state.doctorList = doctorList;
     },
 
     doctorList_error(state, error) {
-        state.statusDoctor = error;
+        state.getDoctorListStatus = error;
     },
 
     doctorList_empty(state) {
@@ -97,9 +189,61 @@ const mutations = {
     filteredDoctorList_empty(state) {
         state.filteredDoctorList = [];
     },
-    
+
     filteredDoctorList_success(state, filteredDoctorList) {
         state.filteredDoctorList = filteredDoctorList;
+    },
+
+    add_doctor_request(state) {
+        state.addDoctorStatus = "loading";
+    },
+
+    add_doctor_success(state) {
+        state.addDoctorStatus = "success";
+    },
+
+    add_doctor_error(state) {
+        state.addDoctorStatus = "error";
+    },
+
+    add_doctor(state, doctor) {
+        state.doctorList.push(doctor);
+    },
+
+    remove_doctor_request(state) {
+        state.removeDoctorStatus = "loading";
+    },
+
+    remove_doctor_success(state) {
+        state.removeDoctorStatus = "success";
+    },
+
+    remove_doctor_error(state) {
+        state.removeDoctorStatus = "error";
+    },
+
+    remove_doctor(state, doctorId) {
+        state.doctorList = state.doctorList.filter((doctor) => {
+            if (doctor.id != doctorId) return doctor;
+        });
+    },
+
+    edit_doctor_request(state) {
+        state.editDoctorStatus = "loading";
+    },
+
+    edit_doctor_success(state) {
+        state.editDoctorStatus = "success";
+    },
+
+    edit_doctor_error(state) {
+        state.editDoctorStatus = "error";
+    },
+
+    edit_doctor(state, editDoctor) {
+        state.doctorList = state.doctorList.filter((doctor) => {
+            if (doctor.id == editDoctor.id) return editDoctor;
+        });
     },
 
     selectedDoctor_empty(state) {

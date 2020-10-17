@@ -18,22 +18,24 @@
                     </li>
 
                     <router-link to="/patients/add_patient">
-                    <li id="add" @click="changeDisplayedPage">
-                        <a href="#">
-                            <font-awesome-icon :icon="['fas', 'plus']" />
-                        </a>
-                        <p>Adaugare</p>
-                    </li>
+                        <li id="add" @click="changeDisplayedPage">
+                            <a href="#">
+                                <font-awesome-icon :icon="['fas', 'plus']" />
+                            </a>
+                            <p>Adaugare</p>
+                        </li>
                     </router-link>
 
-                    <li id="edit" @click="changeDisplayedPage">
-                        <a href="#">
-                            <font-awesome-icon :icon="['fas', 'edit']" />
-                        </a>
-                        <p>
-                            Editare
-                        </p>
-                    </li>
+                    <router-link to="/patients/edit_patient">
+                        <li id="edit" @click="changeDisplayedPage">
+                            <a href="#">
+                                <font-awesome-icon :icon="['fas', 'edit']" />
+                            </a>
+                            <p>
+                                Editare
+                            </p>
+                        </li>
+                    </router-link>
                 </ul>
             </div>
         </nav>

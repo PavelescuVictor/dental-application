@@ -9,6 +9,8 @@ const state = {
         orders: ["var(--color-white)", "var(--color-blue)"],
         addDoctor: ["var(--color-blue)", "var(--color-white)"],
         addPatient: ["var(--color-blue)", "var(--color-white)"],
+        editDoctor: ["var(--color-blue)", "var(--color-white)"],
+        editPatient: ["var(--color-blue)", "var(--color-white)"],
         addOrder: ["var(--color-blue)", "var(--color-white)"],
         addProfile: ["var(--color-blue)", "var(--color-white)"],
     },

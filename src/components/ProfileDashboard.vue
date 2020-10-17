@@ -28,10 +28,12 @@ import ProfileDashboardNavbar from "../components/ProfileDashboardNavbar.vue";
 import { mapGetters } from "vuex";
 export default {
     name: "ProfileDashboard",
+
     components: {
         ProfileDetails,
         ProfileDashboardNavbar,
     },
+
     data() {
         return {
             showedPage: "details",
@@ -39,14 +41,17 @@ export default {
             isEditActive: false,
         };
     },
+
     methods: {
         changeDisplayedPage(e) {
             this.showedPage = e;
         },
     },
+
     computed: {
         ...mapGetters(["userProfile"]),
     },
+
     watch: {
         userProfile: function() {
             if (this.userProfile != "") {
@@ -66,6 +71,7 @@ export default {
     },
 };
 </script>
+
 <style scoped>
 .profileDashboard {
     min-height: var(--banner-height);

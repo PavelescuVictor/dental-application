@@ -1,8 +1,8 @@
 <template>
-    <div class="addProfile">
+    <div class="add-patient">
         <Navbar />
-        <div class="addProfile__content">
-            <Alert :alert="alertMessage" />
+        <div class="add-patient__content">
+            <Alert />
             <div class="content__banner">
                 <div class="banner__overlay">
                     <div class="overlay__color"></div>
@@ -11,7 +11,7 @@
             </div>
             <div class="content__form">
                 <div class="form__wrapper">
-                    <p>Adaugare Profil</p>
+                    <p>Editare Pacient</p>
 
                     <v-form
                         class="form"
@@ -20,32 +20,33 @@
                         :lazy-validation="lazy"
                     >
                         <v-text-field
-                            v-model="doctorFirstName"
-                            :rules="rules.doctorFirstName"
+                            v-model="patientFirstName"
+                            :rules="rules.patientFirstName"
                             label="First Name"
                             required
                         ></v-text-field>
 
                         <v-text-field
-                            v-model="doctorLastName"
-                            :rules="rules.doctorLastName"
+                            v-model="patientLastName"
+                            :rules="rules.patientLastName"
                             label="Last Name"
                             required
                         ></v-text-field>
 
                         <v-text-field
-                            v-model="doctorPhone"
-                            :rules="rules.doctorPhone"
+                            v-model="patientPhone"
+                            :rules="rules.patientPhone"
                             label="Phone"
                             required
                         ></v-text-field>
 
-                        <v-text-field
-                            v-model="doctorCabinet"
-                            :rules="rules.doctorCabinet"
-                            label="Cabinet"
-                            required
-                        ></v-text-field>
+                        <v-textarea
+                            v-model="patientDetails"
+                            label="Details"
+                            rows="1"
+                            auto-grow
+                            clearable
+                        ></v-textarea>
 
                         <div class="form__buttons">
                             <v-btn :disabled="!valid" @click="handleSubmit"
@@ -69,10 +70,10 @@ import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import ScrollTop from "../components/ScrollTop.vue";
 import Alert from "../components/Alert.vue";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-    name: "addProfile",
+    name: "add-patient",
     components: {
         Navbar,
         ScrollTop,
@@ -81,63 +82,96 @@ export default {
     },
     data: () => ({
         valid: true,
-        doctorFirstName: "",
-        doctorLastName: "",
-        doctorPhone: "",
-        doctorCabinet: "",
+        patientId: "",
+        patientFirstName: "",
+        patientLastName: "",
+        patientPhone: "",
+        patientDetails: "",
         alert: {
             type: "",
             message: "",
             time: 0,
         },
-        rules: {},
-        /*rules: {
+        rules: [],
+        /*
+        rules: {
             required: [(value) => !!value || "Required"],
-            doctorFirstName: [
+            pacientFirstName: [
                 (value) => !!value || `First name is required.`,
                 (value) =>
                     /^[a-zA-Z]+$/.test(value) ||
                     "First name must not contain digits.",
             ],
-            doctorLastName: [
+            pacientLastName: [
                 (value) => !!value || `Last name is required.`,
                 (value) =>
                     /^[a-zA-Z]+$/.test(value) ||
                     "Last name must not contain digits.",
             ],
-            doctorPhone: [
+            pacientPhone: [
                 (value) => !!value || `Phone number is required.`,
                 (value) =>
                     /^[\d]*$/.test(value) ||
                     "Phone must only contain digits, whitespaces, dot or dashline.",
             ],
-            doctorCabinet: [(value) => !!value || `Cabinet is required.`],
         },
         */
         lazy: false,
-        alertMessage: "",
     }),
 
+    computed: {
+        ...mapGetters(["getSelectedPatient"]),
+    },
+
+    created() {
+        if (this.getSelectedDoctor === "") {
+            this.alert = {
+                type: "error",
+                message: "No patient selected!",
+                time: 4000,
+            };
+            this.addAlert(this.alert);
+            if (this.$route.params.nextUrl != null) {
+                this.$router.push(this.$route.params.nextUrl);
+            } else {
+                this.$router.push({ name: "patients" });
+            }
+        } else {
+            this.patientFirstName = this.getSelectedPatient.firstName;
+            this.patientLastName = this.getSelectedPatient.lastName;
+            this.patientPhone = this.getSelectedPatient.phone;
+            this.patientDetails = this.getSelectedPatient.details;
+            this.patientId = this.getSelectedPatient.id;
+        }
+    },
+
     methods: {
-        ...mapActions(["addProfile"]),
+        ...mapActions(["editPatient", "addAlert"]),
 
         handleSubmit(e) {
             e.preventDefault();
-            this.addProfile()
+            const data = {
+                patientId: this.patientId,
+                patientFirstName: this.patientFirstName,
+                patientLastName: this.patientLastName,
+                phone: this.patientPhone,
+                details: this.patientDetails,
+            };
+            this.editPatient(data)
                 .then((response) => {
                     const status = response.status;
                     let type;
                     if (status == "200") type = "success";
                     this.alert = {
                         type: type,
-                        message: "Profile created!",
+                        message: "Patient added!",
                         time: 4000,
                     };
                     this.addAlert(this.alert);
                     if (this.$route.params.nextUrl != null) {
                         this.$router.push(this.$route.params.nextUrl);
                     } else {
-                        this.$router.push({ name: "doctors" });
+                        this.$router.push({ name: "patients" });
                     }
                 })
                 .catch((error) => {
@@ -157,7 +191,7 @@ export default {
 };
 </script>
 <style scoped>
-.addProfile {
+.add-patient {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -165,7 +199,7 @@ export default {
     align-items: center;
 }
 
-.addProfile__content {
+.add-patient__content {
     height: 100vh;
     width: 100%;
     display: grid;

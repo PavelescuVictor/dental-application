@@ -11,6 +11,8 @@ import AddPatient from "../views/AddPatient.vue";
 import AddDoctor from "../views/AddDoctor.vue";
 import AddOrder from "../views/AddOrder.vue";
 import AddProfile from "../views/AddProfile.vue";
+import EditDoctor from "../views/EditDoctor.vue";
+import EditPatient from "../views/EditPatient.vue";
 import store from "../store/index.js";
 
 Vue.use(VueRouter);
@@ -99,9 +101,27 @@ const routes = [
         },
     },
     {
+        path: "/patients/edit_patient",
+        name: "editPatient",
+        component: EditPatient,
+        meta: {
+            requiresAuth: true,
+            isAdmin: true,
+        },
+    },
+    {
         path: "/doctors/add_doctor",
         name: "addDoctor",
         component: AddDoctor,
+        meta: {
+            requiresAuth: true,
+            isAdmin: true,
+        },
+    },
+    {
+        path: "/doctors/edit_doctor",
+        name: "editDoctor",
+        component: EditDoctor,
         meta: {
             requiresAuth: true,
             isAdmin: true,

@@ -174,11 +174,11 @@ export default {
                 const payload = {
                     doctorId:
                         this.getSelectedDoctor.length != 0
-                            ? this.getSelectedDoctor.id
+                            ? this.getSelectedDoctor[0].id
                             : "",
                     patientId:
                         this.getSelectedPatient.length != 0
-                            ? this.getSelectedPatient.id
+                            ? this.getSelectedPatient[0].id
                             : "",
                 };
                 this.filterOrderList(payload);
@@ -196,11 +196,11 @@ export default {
                 const payload = {
                     doctorId:
                         this.getSelectedDoctor.length != 0
-                            ? this.getSelectedDoctor.id
+                            ? this.getSelectedDoctor[0].id
                             : "",
                     patientId:
                         this.getSelectedPatient.length != 0
-                            ? this.getSelectedPatient.id
+                            ? this.getSelectedPatient[0].id
                             : "",
                 };
                 this.filterOrderList(payload);
@@ -213,16 +213,22 @@ export default {
         },
 
         isPatientSelected: function() {
-            console.log("patient" + this.isPatientSelected);
-            if(this.isPatientSelected === false && this.isDoctorSelected === false) this.showOrderList = false;
+            if (
+                this.isPatientSelected === false &&
+                this.isDoctorSelected === false
+            )
+                this.showOrderList = false;
             else this.showOrderList = true;
         },
 
         isDoctorSelected: function() {
-            console.log("doctor" + this.isDoctorSelected);
-            if(this.isDoctorSelected === false && this.isDoctorSelected === false) this.showOrderList = false;
+            if (
+                this.isDoctorSelected === false &&
+                this.isDoctorSelected === false
+            )
+                this.showOrderList = false;
             else this.showOrderList = true;
-        }
+        },
     },
 };
 </script>

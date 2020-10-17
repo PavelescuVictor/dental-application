@@ -2,7 +2,7 @@
     <div class="add-patient">
         <Navbar />
         <div class="add-patient__content">
-            <Alert :alert="alertMessage" />
+            <Alert />
             <div class="content__banner">
                 <div class="banner__overlay">
                     <div class="overlay__color"></div>
@@ -70,7 +70,7 @@ import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import ScrollTop from "../components/ScrollTop.vue";
 import Alert from "../components/Alert.vue";
-import axios from "axios";
+import { mapActions } from "vuex";
 
 export default {
     name: "add-patient",
@@ -81,12 +81,16 @@ export default {
         Alert,
     },
     data: () => ({
-        isLoggedIn: "",
         valid: true,
         patientFirstName: "",
         patientLastName: "",
         patientPhone: "",
         patientDetails: "",
+        alert: {
+            type: "",
+            message: "",
+            time: 0,
+        },
         rules: [],
         /*
         rules: {
@@ -112,31 +116,30 @@ export default {
         },
         */
         lazy: false,
-        alertMessage: "",
     }),
 
     methods: {
+        ...mapActions(["addPatient", "addAlert"]),
+
         handleSubmit(e) {
-            //this.$refs.form.validate();
             e.preventDefault();
-            let url = "http://127.0.0.1:8000/api/v1/pacients/";
-            const token = localStorage.getItem("userToken");
-            let data = {
-                firstName: this.patientFirstName,
-                lastName: this.patientLastName,
+            const data = {
+                patientFirstName: this.patientFirstName,
+                patientLastName: this.patientLastName,
                 phone: this.patientPhone,
                 details: this.patientDetails,
-                createdBy: JSON.parse(localStorage.getItem("user")).id,
-                modifiedBy: JSON.parse(localStorage.getItem("user")).id,
             };
-            axios
-                .post(url, data, {
-                    headers: {
-                        Authorization: `Token ${token}`,
-                    },
-                })
+            this.addPatient(data)
                 .then((response) => {
-                    console.log(response);
+                    const status = response.status;
+                    let type;
+                    if (status == "200") type = "success";
+                    this.alert = {
+                        type: type,
+                        message: "Patient added!",
+                        time: 4000,
+                    };
+                    this.addAlert(this.alert);
                     if (this.$route.params.nextUrl != null) {
                         this.$router.push(this.$route.params.nextUrl);
                     } else {
@@ -144,7 +147,12 @@ export default {
                     }
                 })
                 .catch((error) => {
-                    console.error(error.response);
+                    this.alert = {
+                        type: "error",
+                        message: error,
+                        time: 4000,
+                    };
+                    this.addAlert(this.alert);
                 });
         },
 

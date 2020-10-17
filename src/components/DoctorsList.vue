@@ -170,9 +170,12 @@ export default {
             "addConfirmationMessage",
             "setSelectedDoctor",
             "removeSelectedDoctor",
+            "inspectToken",
+            "removeDoctor",
         ]),
 
         getDoctors: function() {
+            this.inspectToken();
             this.requestDoctorList()
                 .then((response) => {
                     const status = response.status;
@@ -213,14 +216,39 @@ export default {
             this.filter = true;
         },
 
-        editItem(item) {
-            const message = `Are you sure you want to edit ${item.lastName} ${item.firstName}?`;
-            this.addConfirmationMessage(message);
+        editItem() {
+            //const message = `Are you sure you want to edit ${item.lastName} ${item.firstName}?`;
+            //this.addConfirmationMessage(message);
+            if (this.$route.params.nextUrl != null) {
+                this.$router.push(this.$route.params.nextUrl);
+            } else {
+                this.$router.push({ name: "editDoctor" });
+            }
         },
 
         deleteItem(item) {
-            const message = `Are you sure you want to delete ${item.lastName} ${item.firstName}?`;
-            this.addConfirmationMessage(message);
+            //const message = `Are you sure you want to delete ${item.lastName} ${item.firstName}?`;
+            //this.addConfirmationMessage(message);
+            this.removeDoctor({ doctorId: item.id })
+                .then((response) => {
+                    const status = response.status;
+                    let type;
+                    if (status == "204") type = "success";
+                    this.alert = {
+                        type: type,
+                        message: "Doctor removed!",
+                        time: 4000,
+                    };
+                    this.addAlert(this.alert);
+                })
+                .catch((error) => {
+                    this.alert = {
+                        type: "error",
+                        message: error,
+                        time: 4000,
+                    };
+                    this.addAlert(this.alert);
+                });
         },
     },
 

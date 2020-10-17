@@ -17,6 +17,7 @@ const getters = {
 const actions = {
     filterOrderList({ commit, getters }, payload) {
         return new Promise((resolve, reject) => {
+            console.log(payload);
             commit("filteredOrderList_request");
             axios({
                 url: getters.requestOrderUrl,

@@ -29,7 +29,7 @@ export default {
     },
     methods: {
         ...mapActions(["deleteAlert"]),
-        displayAlert: function () {
+        displayAlert: function() {
             this.elementVisible = true;
             setTimeout(() => {
                 this.elementVisible = false;
@@ -41,7 +41,7 @@ export default {
         ...mapGetters(["getAlertTypes", "getAlert", "getAlertEmpty"]),
     },
     watch: {
-        getAlertEmpty: function () {
+        getAlertEmpty: function() {
             if (this.getAlertEmpty === false) this.displayAlert();
         },
     },
@@ -69,6 +69,7 @@ export default {
     animation: alertbox__slide-down 0.6s ease-in forwards,
         alertbox__fill 1s ease-out forwards;
     user-select: none;
+    z-index: 10;
 }
 
 .alertbox p {

@@ -11,7 +11,7 @@
             </div>
             <div class="content__form">
                 <div class="form__wrapper">
-                    <p>Adaugare Doctor</p>
+                    <p>Editare Doctor</p>
 
                     <v-form
                         class="form"
@@ -69,7 +69,7 @@ import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import ScrollTop from "../components/ScrollTop.vue";
 import Alert from "../components/Alert.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
     name: "add-doctor",
@@ -81,6 +81,7 @@ export default {
     },
     data: () => ({
         valid: true,
+        doctorId: "",
         doctorFirstName: "",
         doctorLastName: "",
         doctorPhone: "",
@@ -115,28 +116,56 @@ export default {
         },
         */
         lazy: false,
-        alertMessage: "",
     }),
 
+    computed: {
+        ...mapGetters(["getSelectedDoctor"]),
+    },
+
+    created() {
+        if (this.getSelectedDoctor === "") {
+            this.alert = {
+                type: "error",
+                message: "No doctor selected!",
+                time: 4000,
+            };
+            this.addAlert(this.alert);
+            if (this.$route.params.nextUrl != null) {
+                this.$router.push(this.$route.params.nextUrl);
+            } else {
+                this.$router.push({ name: "doctors" });
+            }
+        } else {
+            this.doctorFirstName = this.getSelectedDoctor.firstName;
+            this.doctorLastName = this.getSelectedDoctor.lastName;
+            this.doctorPhone = this.getSelectedDoctor.phone;
+            this.doctorCabinet = this.getSelectedDoctor.cabinet;
+            this.doctorId = this.getSelectedDoctor.id;
+        }
+    },
+
     methods: {
-        ...mapActions(["addDoctor", "addAlert"]),
+        ...mapActions(["editDoctor", "addAlert"]),
 
         handleSubmit(e) {
             e.preventDefault();
             const data = {
+                doctorId: this.doctorId,
                 doctorFirstName: this.doctorFirstName,
                 doctorLastName: this.doctorLastName,
                 phone: this.doctorPhone,
                 cabinet: this.doctorCabinet,
             };
-            this.addDoctor(data)
+            console.log(data);
+            console.log(this.getSelectedDoctor);
+            this.editDoctor(data)
                 .then((response) => {
                     const status = response.status;
                     let type;
                     if (status == "200") type = "success";
                     this.alert = {
                         type: type,
-                        message: "Doctor added!",
+                        message: "Doctor edited!",
                         time: 4000,
                     };
                     this.addAlert(this.alert);
