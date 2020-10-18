@@ -17,21 +17,19 @@
                         <p>Detalii</p>
                     </li>
 
+                    <li id="edit" @click="changeDisplayedPage">
+                        <a href="#">
+                            <font-awesome-icon :icon="['fas', 'edit']" />
+                        </a>
+                        <p>Editare</p>
+                    </li>
+
                     <router-link to="/doctors/add_doctor">
                         <li id="add" @click="changeDisplayedPage">
                             <a href="#">
                                 <font-awesome-icon :icon="['fas', 'plus']" />
                             </a>
                             <p>Adaugare</p>
-                        </li>
-                    </router-link>
-
-                    <router-link to="/doctors/edit_doctor">
-                        <li id="edit" @click="changeDisplayedPage">
-                            <a href="#">
-                                <font-awesome-icon :icon="['fas', 'edit']" />
-                            </a>
-                            <p>Editare</p>
                         </li>
                     </router-link>
                 </ul>

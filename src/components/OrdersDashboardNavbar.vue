@@ -16,7 +16,14 @@
                         </a>
                         <p>Detalii</p>
                     </li>
-                    
+
+                    <li id="edit" @click="changeDisplayedPage">
+                        <a href="#">
+                            <font-awesome-icon :icon="['fas', 'edit']" />
+                        </a>
+                        <p>Editare</p>
+                    </li>
+
                     <router-link to="/orders/add_order">
                         <li id="add" @click="changeDisplayedPage">
                             <a href="#">
@@ -25,13 +32,6 @@
                             <p>Adaugare</p>
                         </li>
                     </router-link>
-                    
-                    <li id="edit" @click="changeDisplayedPage">
-                        <a href="#">
-                            <font-awesome-icon :icon="['fas', 'edit']" />
-                        </a>
-                        <p>Editare</p>
-                    </li>
                 </ul>
             </div>
         </nav>

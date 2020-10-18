@@ -109,6 +109,7 @@ const actions = {
     removeDoctor({ commit, getters }, payload) {
         return new Promise((resolve, reject) => {
             commit("remove_doctor_request");
+            console.log(payload);
             axios({
                 url: `${getters.addDoctorUrl}${payload.doctorId}/`,
                 method: "DELETE",
@@ -143,7 +144,6 @@ const actions = {
                     lastName: payload.doctorLastName,
                     cabinet: payload.cabinet,
                     phone: payload.phone,
-                    createdBy: JSON.parse(localStorage.getItem("user")).id,
                     updatedBy: JSON.parse(localStorage.getItem("user")).id,
                 },
             })

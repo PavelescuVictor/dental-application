@@ -39,7 +39,9 @@
                         hide-default-footer
                         :single-select="singleSelect"
                         show-select
+                        class="table"
                     >
+                        >
                         <template v-slot:item.actions="{ item }">
                             <v-icon medium class="mr-2" @click="editItem(item)">
                                 mdi-pencil
@@ -81,62 +83,32 @@ export default {
             },
             headers: [
                 {
-                    text: "Id",
-                    align: "end",
-                    sortable: true,
-                    value: "id",
-                },
-                {
                     text: "First Name",
-                    align: "end",
+                    align: "start",
                     sortable: true,
                     value: "firstName",
                 },
                 {
                     text: "Last Name",
-                    align: "end",
+                    align: "start",
                     sortable: true,
                     value: "lastName",
                 },
                 {
                     text: "Cabinet",
-                    align: "end",
+                    align: "start",
                     sortable: true,
                     value: "cabinet",
                 },
                 {
                     text: "Phone",
-                    align: "end",
+                    align: "start",
                     sortable: true,
                     value: "phone",
                 },
                 {
-                    text: "Created By",
-                    align: "end",
-                    sortable: true,
-                    value: "createdBy",
-                },
-                {
-                    text: "Created At",
-                    align: "end",
-                    sortable: true,
-                    value: "createdAt",
-                },
-                {
-                    text: "Updated By",
-                    align: "end",
-                    sortable: true,
-                    value: "updatedBy",
-                },
-                {
-                    text: "Updated At",
-                    align: "end",
-                    sortable: true,
-                    value: "updatedAt",
-                },
-                {
                     text: "Actions",
-                    align: "end",
+                    align: "start",
                     value: "actions",
                     sortable: false,
                 },
@@ -153,6 +125,7 @@ export default {
             "doctorList",
             "filteredDoctorList",
             "getSelectedDoctor",
+            "getConfirmationProceedFlag",
         ]),
 
         list: function() {
@@ -167,7 +140,8 @@ export default {
             "requestDoctorList",
             "filterDoctorList",
             "addAlert",
-            "addConfirmationMessage",
+            "addConfirmation",
+            "resetConfirmation",
             "setSelectedDoctor",
             "removeSelectedDoctor",
             "inspectToken",
@@ -184,7 +158,6 @@ export default {
                     this.alert = {
                         type: type,
                         message: "Doctors data received!",
-                        time: 4000,
                     };
                     this.addAlert(this.alert);
                 })
@@ -192,7 +165,6 @@ export default {
                     this.alert = {
                         type: "error",
                         message: error,
-                        time: 4000,
                     };
                     this.addAlert(this.alert);
                 });
@@ -216,9 +188,10 @@ export default {
             this.filter = true;
         },
 
-        editItem() {
+        editItem(item) {
             //const message = `Are you sure you want to edit ${item.lastName} ${item.firstName}?`;
             //this.addConfirmationMessage(message);
+            this.setSelectedDoctor(item);
             if (this.$route.params.nextUrl != null) {
                 this.$router.push(this.$route.params.nextUrl);
             } else {
@@ -227,8 +200,9 @@ export default {
         },
 
         deleteItem(item) {
+            this.inspectToken();
             //const message = `Are you sure you want to delete ${item.lastName} ${item.firstName}?`;
-            //this.addConfirmationMessage(message);
+            //this.addConfirmation(message);
             this.removeDoctor({ doctorId: item.id })
                 .then((response) => {
                     const status = response.status;
@@ -237,7 +211,6 @@ export default {
                     this.alert = {
                         type: type,
                         message: "Doctor removed!",
-                        time: 4000,
                     };
                     this.addAlert(this.alert);
                 })
@@ -245,10 +218,11 @@ export default {
                     this.alert = {
                         type: "error",
                         message: error,
-                        time: 4000,
                     };
                     this.addAlert(this.alert);
                 });
+
+            //this.resetConfirmation();
         },
     },
 
@@ -305,5 +279,9 @@ export default {
 .list {
     min-height: 100%;
     text-align: center;
+}
+
+.table {
+    text-align: left;
 }
 </style>

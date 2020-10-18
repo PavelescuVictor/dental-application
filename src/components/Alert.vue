@@ -1,19 +1,19 @@
 <template>
     <div class="alertbox" v-show="elementVisible">
-        <p v-if="(getAlert.type === 'success') & (getAlert.message != '')">
-            {{ getAlert.message }}
+        <p v-if="(alert.type === 'success') & (alert.message != '')">
+            {{ alert.message }}
         </p>
 
-        <p v-if="(getAlert.type === 'info') & (getAlert.message != '')">
-            {{ getAlert.message }}
+        <p v-if="(alert.type === 'info') & (alert.message != '')">
+            {{ alert.message }}
         </p>
 
-        <p v-if="(getAlert.type === 'alert') & (getAlert.message != '')">
-            {{ getAlert.message }}
+        <p v-if="(alert.type === 'alert') & (alert.message != '')">
+            {{ alert.message }}
         </p>
 
-        <p v-if="(getAlert.type === 'error') & (getAlert.message != '')">
-            {{ getAlert.message }} >
+        <p v-if="(alert.type === 'error') & (alert.message != '')">
+            {{ alert.message }}
         </p>
     </div>
 </template>
@@ -31,18 +31,25 @@ export default {
         ...mapActions(["deleteAlert"]),
         displayAlert: function() {
             this.elementVisible = true;
+            this.alert = this.getNewestAlert;
             setTimeout(() => {
                 this.elementVisible = false;
-                this.deleteAlert();
-            }, this.getAlert.time);
+                this.alert = {};
+            }, this.getAlertTime);
         },
     },
     computed: {
-        ...mapGetters(["getAlertTypes", "getAlert", "getAlertEmpty"]),
+        ...mapGetters([
+            "getAlertTypes",
+            "getAlertList",
+            "getAlertListEmpty",
+            "getAlertTime",
+            "getNewestAlert",
+        ]),
     },
     watch: {
-        getAlertEmpty: function() {
-            if (this.getAlertEmpty === false) this.displayAlert();
+        getNewestAlert: function() {
+            if (this.getAlertListEmpty === false) this.displayAlert();
         },
     },
 };

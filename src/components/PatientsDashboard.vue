@@ -15,24 +15,31 @@
                     <PatientsDetails />
                 </div>
                 <div class="add" v-if="isAddActive"></div>
-                <div class="edit" v-if="isEditActive"></div>
+                <div class="edit" v-if="isEditActive">
+                    <PatientsEdit />
+                </div>
             </div>
         </div>
     </div>
 </template>
+
 <script>
 import PatientsList from "../components/PatientsList.vue";
 import PatientsDetails from "../components/PatientsDetails.vue";
+import PatientsEdit from "../components/PatientsEdit.vue";
 import PatientsDashboardNavbar from "../components/PatientsDashboardNavbar.vue";
 import { mapActions } from "vuex";
 
 export default {
     name: "PatientsDashboard",
+
     components: {
         PatientsDashboardNavbar,
         PatientsList,
         PatientsDetails,
+        PatientsEdit,
     },
+
     data() {
         return {
             showedPage: "list",
@@ -73,7 +80,7 @@ export default {
                 this.isAddActive = true;
                 this.isEditActive = false;
             } else if (val === "edit") {
-                this.isListActive = true;
+                this.isListActive = false;
                 this.isDetailsActive = false;
                 this.isAddActive = false;
                 this.isEditActive = true;

@@ -15,7 +15,9 @@
                     <DoctorsDetails />
                 </div>
                 <div class="add" v-if="isAddActive"></div>
-                <div class="edit" v-if="isEditActive"></div>
+                <div class="edit" v-if="isEditActive">
+                    <DoctorsEdit />
+                </div>
             </div>
         </div>
     </div>
@@ -24,6 +26,7 @@
 <script>
 import DoctorsList from "../components/DoctorsList.vue";
 import DoctorsDetails from "../components/DoctorsDetails.vue";
+import DoctorsEdit from "../components/DoctorsEdit.vue";
 import DoctorsDashboardNavbar from "../components/DoctorsDashboardNavbar.vue";
 import { mapActions } from "vuex";
 
@@ -34,6 +37,7 @@ export default {
         DoctorsDashboardNavbar,
         DoctorsList,
         DoctorsDetails,
+        DoctorsEdit,
     },
 
     data() {
@@ -59,7 +63,7 @@ export default {
     },
 
     watch: {
-        showedPage: function (val) {
+        showedPage: function(val) {
             if (val === "list") {
                 this.isListActive = true;
                 this.isDetailsActive = false;
@@ -87,7 +91,6 @@ export default {
 </script>
 
 <style scoped>
-
 .doctorsDashboard {
     min-height: var(--banner-height);
     display: flex;

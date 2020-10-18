@@ -5,14 +5,16 @@ const state = {
         alert: "alert",
         error: "error",
     },
-    alert: {},
-    alertEmpty: true,
+    alertList: [],
+    alertTime: 4000,
 };
 
 const getters = {
     getAlertTypes: (state) => state.alertTypes,
-    getAlert: (state) => state.alert,
-    getAlertEmpty: (state) => state.alertEmpty,
+    getAlertList: (state) => state.alertList,
+    getAlertListEmpty: (state) => (state.alertList.length === 0 ? true : false),
+    getAlertTime: (state) => state.alertTime,
+    getNewestAlert: (state) => state.alertList[state.alertList.length - 1],
 };
 
 const actions = {
@@ -20,26 +22,21 @@ const actions = {
         const newAlert = {
             type: alert.type,
             message: alert.message,
-            time: alert.time,
         };
         commit("add_Alert", newAlert);
-    },
-
-    deleteAlert({ commit }) {
-        commit("delete_Alert");
+        setTimeout(() => {
+            commit("delete_Alert");
+        }, getters.getAlertTime);
     },
 };
 
 const mutations = {
     add_Alert(state, newAlert) {
-        if (state.alertEmpty) {
-            state.alert = newAlert;
-            state.alertEmpty = false;
-        }
+        state.alertList.push(newAlert);
     },
+
     delete_Alert(state) {
-        state.alert = {};
-        state.alertEmpty = true;
+        state.alertList.shift();
     },
 };
 

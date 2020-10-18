@@ -8,22 +8,19 @@
         <div class="profileDashboard__content">
             <ProfileDashboardNavbar @updatePage="changeDisplayedPage" />
             <div class="content__wrapper">
-                <div
-                    class="details"
-                    v-bind:class="{ notDisplayedPage: !isDetailsActive }"
-                >
+                <div class="details" v-if="isDetailsActive">
                     <ProfileDetails />
                 </div>
-                <div
-                    class="edit"
-                    v-bind:class="{ notDisplayedPage: !isEditActive }"
-                ></div>
+                <div class="edit" v-if="isEditActive">
+                    <ProfileEdit />
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script>
 import ProfileDetails from "../components/ProfileDetails.vue";
+import ProfileEdit from "../components/ProfileEdit.vue";
 import ProfileDashboardNavbar from "../components/ProfileDashboardNavbar.vue";
 import { mapGetters } from "vuex";
 export default {
@@ -31,6 +28,7 @@ export default {
 
     components: {
         ProfileDetails,
+        ProfileEdit,
         ProfileDashboardNavbar,
     },
 
@@ -53,12 +51,6 @@ export default {
     },
 
     watch: {
-        userProfile: function() {
-            if (this.userProfile != "") {
-                console.log(this.userProfile);
-            }
-        },
-
         showedPage: function(val) {
             if (val === "details") {
                 this.isDetailsActive = true;

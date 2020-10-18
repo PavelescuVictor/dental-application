@@ -39,6 +39,7 @@
                         hide-default-footer
                         :single-select="singleSelect"
                         show-select
+                        class="table"
                     >
                         <template v-slot:item.actions="{ item }">
                             <v-icon medium class="mr-2" @click="editItem(item)">
@@ -82,62 +83,26 @@ export default {
             },
             headers: [
                 {
-                    text: "Id",
-                    align: "end",
-                    sortable: true,
-                    value: "id",
-                },
-                {
                     text: "First Name",
-                    align: "end",
+                    align: "start",
                     sortable: true,
                     value: "firstName",
                 },
                 {
                     text: "Last Name",
-                    align: "end",
+                    align: "start",
                     sortable: true,
                     value: "lastName",
                 },
                 {
                     text: "Phone",
-                    align: "end",
+                    align: "start",
                     sortable: true,
                     value: "phone",
                 },
                 {
-                    text: "Details",
-                    align: "end",
-                    sortable: true,
-                    value: "details",
-                },
-                {
-                    text: "Created By",
-                    align: "end",
-                    sortable: true,
-                    value: "createdBy",
-                },
-                {
-                    text: "Created At",
-                    align: "end",
-                    sortable: true,
-                    value: "createdAt",
-                },
-                {
-                    text: "Updated By",
-                    align: "end",
-                    sortable: true,
-                    value: "updatedBy",
-                },
-                {
-                    text: "Updated At",
-                    align: "end",
-                    sortable: true,
-                    value: "updatedAt",
-                },
-                {
                     text: "Actions",
-                    align: "end",
+                    align: "start",
                     value: "actions",
                     sortable: false,
                 },
@@ -173,9 +138,11 @@ export default {
             "setSelectedPatient",
             "removeSelectedPatient",
             "removePatient",
+            "inspectToken",
         ]),
 
         getPatients: function() {
+            this.inspectToken();
             this.requestPatientList()
                 .then((response) => {
                     const status = response.status;
@@ -184,7 +151,6 @@ export default {
                     this.alert = {
                         type: type,
                         message: "Patients data received!",
-                        time: 4000,
                     };
                     this.addAlert(this.alert);
                 })
@@ -192,7 +158,6 @@ export default {
                     this.alert = {
                         type: "error",
                         message: error,
-                        time: 4000,
                     };
                     this.addAlert(this.alert);
                 });
@@ -216,9 +181,10 @@ export default {
             this.filter = true;
         },
 
-        editItem() {
+        editItem(item) {
             //const message = `Are you sure you want to edit ${item.lastName} ${item.firstName}?`;
             //this.addConfirmationMessage(message);
+            this.setSelectedPatient(item);
             if (this.$route.params.nextUrl != null) {
                 this.$router.push(this.$route.params.nextUrl);
             } else {
@@ -227,6 +193,7 @@ export default {
         },
 
         deleteItem(item) {
+            this.inspectToken();
             //const message = `Are you sure you want to delete ${item.lastName} ${item.firstName}?`;
             //this.addConfirmationMessage(message);
             this.removePatient({ patientId: item.id })
@@ -249,6 +216,8 @@ export default {
                     };
                     this.addAlert(this.alert);
                 });
+
+            this.resetConfirmation();
         },
     },
 
@@ -307,5 +276,7 @@ export default {
     text-align: center;
 }
 
-/* ANIMATIONS */
+.table {
+    text-align: left;
+}
 </style>

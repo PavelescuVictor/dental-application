@@ -1,5 +1,5 @@
 <template>
-    <div class="confirmationbox" v-show="getVisibleFlag">
+    <div class="confirmationbox" v-show="elementVisible">
         <div class="confirmationbox__underlay"></div>
         <div class="confirmationbox__content">
             <p>
@@ -28,22 +28,24 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["getVisibleFlag", "getConfirmationMessage"]),
+        ...mapGetters(["getConfirmationVisibleFlag", "getConfirmationMessage"]),
     },
     methods: {
-        ...mapActions(["removeConfirmationMessage"]),
-        proceed: function () {
-            this.removeConfirmationMessage();
+        ...mapActions(["proceedConfirmation", "cancelConfirmation"]),
+
+        proceed: function() {
+            this.proceedConfirmation();
         },
-        cancel: function () {
-            this.removeConfirmationMessage();
+
+        cancel: function() {
+            this.cancelConfirmation();
         },
     },
     watch: {
-        confirmation: function () {
-            if (this.elementVisible === true) {
-                this.elementVisible = false;
-            } else this.elementVisible = true;
+        getConfirmationVisibleFlag: function() {
+            if (this.getConfirmationVisibleFlag === true) {
+                this.elementVisible = true;
+            } else this.elementVisible = false;
         },
     },
 };

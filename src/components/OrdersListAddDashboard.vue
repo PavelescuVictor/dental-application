@@ -1,6 +1,6 @@
 <template>
-    <div class="ordersListFilterDashboard">
-        <div class="ordersListFilterDashboard__content">
+    <div class="ordersListAddDashboard">
+        <div class="ordersListAddDashboard__content">
             <OrdersListFilterDashboardNavbar
                 @updatePage="changeDisplayedPage"
             />
@@ -88,6 +88,11 @@
                     </v-data-table>
                 </template>
             </div>
+            <div>
+                <div class="more-btn" @click="addOrderRedirect">
+                    <a>Adaugare Lucrare</a>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -95,7 +100,7 @@
 import OrdersListFilterDashboardNavbar from "../components/OrdersListFilterDashboardNavbar.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
-    name: "OrderListFilterDashboard",
+    name: "OrderListAddDashboard",
     components: {
         OrdersListFilterDashboardNavbar,
     },
@@ -266,6 +271,8 @@ export default {
             "filteredDoctorList",
             "patientList",
             "filteredPatientList",
+            "getSelectedDoctor",
+            "getSelectedPatient",
         ]),
 
         doctors: function() {
@@ -283,6 +290,8 @@ export default {
 
     methods: {
         ...mapActions([
+            "requestDoctorList",
+            "requestPatientList",
             "filterDoctorList",
             "filterPatientList",
             "setSelectedDoctor",
@@ -309,6 +318,25 @@ export default {
                 filteredInputLastName: this.filteredInputPatientLastName,
             });
             this.filterPatient = true;
+        },
+
+        addOrderRedirect() {
+            if (
+                this.getSelectedDoctor != "" &&
+                this.getSelectedPatient != null
+            ) {
+                if (this.$route.params.nextUrl != null) {
+                    this.$router.push(this.$route.params.nextUrl);
+                } else {
+                    this.$router.push({ name: "addOrder" });
+                }
+            } else {
+                this.alert = {
+                    type: "info",
+                    message: "Please select a doctor and a patient!",
+                };
+                this.addAlert(this.alert);
+            }
         },
     },
     watch: {
@@ -393,7 +421,7 @@ export default {
 };
 </script>
 <style scoped>
-.ordersListFilterDashboard {
+.ordersListAddDashboard {
     display: flex;
     position: relative;
     overflow: hidden;
@@ -402,7 +430,7 @@ export default {
     padding-top: 6px;
 }
 
-.ordersListFilterDashboard__content {
+.ordersListAddDashboard__content {
     z-index: 2;
     width: 0%;
     height: fit-content;
@@ -454,6 +482,42 @@ export default {
     grid-template-rows: auto auto auto 1fr;
     align-content: space-between;
     animation: form__wrapper__form__width 0.5s ease-in-out forwards;
+}
+
+.more-btn {
+    display: inline-block;
+    width: 8.5em;
+    margin: auto;
+    font-size: calc(var(--text-base-size) * 1.2);
+    padding: 0.8em 0.5em;
+    margin: 1em auto;
+    background: -webkit-linear-gradient(
+        -90deg,
+        var(--color-white) 50%,
+        var(--color-blue) 50%
+    );
+    background-size: 6.5em 6.5em;
+    border: 3px solid var(--color-white);
+    border-radius: 10px;
+    transition: width 0.2s ease-in, border-radius 0.2s ease-out,
+        background-position 0.6s ease, border-color 0s ease-in;
+    animation: banner__text__button 1s;
+}
+
+.more-btn:hover {
+    width: 8.5em;
+    background-position: 0px -70px;
+    border-radius: var(--border-radius-circle);
+    border-color: var(--color-blue);
+}
+
+.more-btn a {
+    color: var(--color-blue);
+    transition: color 0.2s ease-in;
+}
+
+.more-btn:hover > a {
+    color: var(--color-white);
 }
 
 /* UTILITY CLASSES */

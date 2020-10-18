@@ -1,8 +1,8 @@
 <template>
     <div class="add-order">
-        <Navbar :currentPage="currentPage" />
+        <Navbar />
         <div class="add-order__content">
-            <Alert :alert="alertMessage" />
+            <Alert />
             <div class="content__banner">
                 <div class="banner__overlay">
                     <div class="overlay__color"></div>
@@ -22,52 +22,32 @@
                         :lazy-validation="lazy"
                     >
                         <v-text-field
-                            v-model="doctorFirstName"
-                            :rules="rules.doctorFirstName"
+                            v-model="doctor.firstName"
                             label="Doctor's First Name"
+                            disabled
                             required
                         ></v-text-field>
 
                         <v-text-field
-                            v-model="doctorLastName"
-                            :rules="rules.doctorLastName"
+                            v-model="doctor.lastName"
                             label="Doctor's Last Name"
                             required
+                            disabled
                         ></v-text-field>
 
-                        <v-select
-                            v-if="doctorSelected === true"
-                            v-model="doctorSelected"
-                            :items="doctorsList"
-                            attach
-                            chips
-                            label="Chips"
-                            multiple
-                        ></v-select>
-
                         <v-text-field
-                            v-model="pacientFirstName"
-                            :rules="rules.pacientFirstName"
+                            v-model="patient.firstName"
                             label="Pacient's First Name"
                             required
+                            disabled
                         ></v-text-field>
 
                         <v-text-field
-                            v-model="pacientLastName"
-                            :rules="rules.pacientLastName"
+                            v-model="patient.lastName"
                             label="Pacient's Last Name"
+                            disabled
                             required
                         ></v-text-field>
-
-                        <v-select
-                            v-if="pacientSelected === true"
-                            v-model="pacientSelected"
-                            :items="pacientsList"
-                            attach
-                            chips
-                            label="Chips"
-                            multiple
-                        ></v-select>
 
                         <div class="form__buttons">
                             <v-btn :disabled="!valid" @click="handleSubmit">
@@ -86,11 +66,11 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import ScrollTop from "../components/ScrollTop.vue";
 import Alert from "../components/Alert.vue";
+import { mapGetters } from "vuex";
 
 export default {
     name: "add-order",
@@ -102,12 +82,8 @@ export default {
     },
     data: () => ({
         valid: true,
-        doctorFirstName: "",
-        doctorLastName: "",
-        pacientFirstName: "",
-        pacientLastName: "",
-        doctorSelected: false,
-        pacientSelected: false,
+        doctor: "",
+        patient: "",
         rules: {
             required: [(value) => !!value || "Required"],
             doctorFirstName: [
@@ -122,13 +98,13 @@ export default {
                     /^[a-zA-Z]+$/.test(value) ||
                     "Last name must not contain digits.",
             ],
-            pacientFirstName: [
+            patientFirstName: [
                 (value) => !!value || `First name is required.`,
                 (value) =>
                     /^[a-zA-Z]+$/.test(value) ||
                     "First name must not contain digits.",
             ],
-            pacientLastName: [
+            patientLastName: [
                 (value) => !!value || `Last name is required.`,
                 (value) =>
                     /^[a-zA-Z]+$/.test(value) ||
@@ -136,89 +112,21 @@ export default {
             ],
         },
         lazy: false,
-        doctorsList: [
-            {
-                firstName: "a",
-                lastName: "A",
-                toString: function() {
-                    return `${this.lastName}  ${this.firstName}`;
-                },
-            },
-            {
-                firstName: "b",
-                lastName: "B",
-                toString: function() {
-                    return `${this.lastName}  ${this.firstName}`;
-                },
-            },
-            {
-                firstName: "c",
-                lastName: "C",
-                toString: function() {
-                    return `${this.lastName}  ${this.firstName}`;
-                },
-            },
-            {
-                firstName: "d",
-                lastName: "D",
-                toString: function() {
-                    return `${this.lastName}  ${this.firstName}`;
-                },
-            },
-            {
-                firstName: "e",
-                lastName: "E",
-                toString: function() {
-                    return `${this.lastName}  ${this.firstName}`;
-                },
-            },
-        ],
-        pacientsList: [
-            {
-                firstName: "aa",
-                lastName: "AA",
-                toString: function() {
-                    return `${this.lastName}  ${this.firstName}`;
-                },
-            },
-            {
-                firstName: "bb",
-                lastName: "BB",
-                toString: function() {
-                    return `${this.lastName}  ${this.firstName}`;
-                },
-            },
-            {
-                firstName: "cc",
-                lastName: "CC",
-                toString: function() {
-                    return `${this.lastName}  ${this.firstName}`;
-                },
-            },
-            {
-                firstName: "dd",
-                lastName: "DD",
-                toString: function() {
-                    return `${this.lastName}  ${this.firstName}`;
-                },
-            },
-            {
-                firstName: "ee",
-                lastName: "EE",
-                toString: function() {
-                    return `${this.lastName}  ${this.firstName}`;
-                },
-            },
-        ],
-        alertMessage: "",
     }),
+
+    created() {
+        this.doctor = this.getSelectedDoctor[0];
+        this.patient = this.getSelectedPatient[0];
+    },
+    computed: {
+        ...mapGetters(["getSelectedDoctor", "getSelectedPatient"]),
+    },
 
     methods: {
         handleSubmit(e) {
             //this.$refs.form.validate();
             e.preventDefault();
 
-            // Mimic succesfull authentication
             if (this.$route.params.nextUrl != null) {
                 this.$router.push(this.$route.params.nextUrl);
             } else {
@@ -229,54 +137,8 @@ export default {
         reset() {
             this.$refs.form.reset();
         },
-
-        updateValidDoctor: function() {
-            let isValid = true;
-            this.rules.doctorFirstName.forEach((value) => {
-                if (value(this.doctorFirstName) != true) {
-                    isValid = false;
-                }
-            });
-            this.rules.doctorLastName.forEach((value) => {
-                if (value(this.doctorLastName) != true) {
-                    isValid = false;
-                }
-            });
-            this.doctorSelected = isValid;
-        },
-
-        updateValidPacient: function() {
-            let isValid = true;
-            this.rules.pacientFirstName.forEach((value) => {
-                if (value(this.pacientFirstName) != true) {
-                    isValid = false;
-                }
-            });
-            this.rules.pacientLastName.forEach((value) => {
-                if (value(this.pacientLastName) != true) {
-                    isValid = false;
-                }
-            });
-            this.pacientSelected = isValid;
-        },
     },
-    watch: {
-        doctorFirstName: function() {
-            this.updateValidDoctor();
-        },
-
-        doctorLastName: function() {
-            this.updateValidDoctor();
-        },
-
-        pacientFirstName: function() {
-            this.updateValidPacient();
-        },
-
-        pacientLastName: function() {
-            this.updateValidPacient();
-        },
-    },
+    watch: {},
 };
 </script>
 <style scoped>

@@ -3,6 +3,8 @@ import axios from "axios";
 const state = {
     authStatus: "",
     profileStatus: "",
+    addProfileStatus: "",
+    editProfileStatus: "",
     renewTokenStatus: "",
     user: localStorage.getItem("user") || "",
     userToken: localStorage.getItem("userToken") || "",
@@ -50,6 +52,8 @@ const getters = {
     },
     authStatus: (state) => state.authStatus,
     profileStatus: (state) => state.profileStatus,
+    addProfileStatus: (state) => state.addProfileStatus,
+    editProfileStatus: (state) => state.editProfileStatus,
     renewTokenStatus: (state) => state.renewTokenStatus,
 };
 
@@ -146,10 +150,10 @@ const actions = {
                     commit("profile_success");
                     if (typeof userProfile != "object") {
                         localStorage.removeItem("userProfile");
-                        commit("set_user_profile", "");
+                        commit("profile", "");
                     } else {
                         localStorage.setItem("userProfile", userProfile);
-                        commit("set_user_profile", userProfile);
+                        commit("profile", userProfile);
                     }
                     resolve(response);
                 })
@@ -181,25 +185,55 @@ const actions = {
             })
                 .then((response) => {
                     const userProfile = response.data;
-                    commit("profile_success");
+                    commit("add_profile_success");
                     if (typeof userProfile != "object") {
                         localStorage.removeItem("userProfile");
-                        commit("set_user_profile", "");
+                        commit("add_profile", "");
                     } else {
                         localStorage.setItem("userProfile", userProfile);
-                        commit("set_user_profile", userProfile);
+                        commit("add_profile", userProfile);
                     }
                     resolve(response);
                 })
                 .catch((error) => {
-                    commit("profile_error");
+                    commit("add_profile_error");
                     localStorage.removeItem("userProfile");
                     reject(error);
                 });
         });
     },
 
-    inspectToken({ dispatch, getters }) {
+    editProfile({ commit, getters }, payload) {
+        return new Promise((resolve, reject) => {
+            commit("edit_profile_request");
+            axios({
+                url: `${getters.addProfileUrl}${payload.id}/`,
+                method: "PATCH",
+                headers: {
+                    Authorization: `Token ${getters.userToken}`,
+                },
+                data: {
+                    firstName: payload.profileFirstName,
+                    lastName: payload.profileLastName,
+                    gender: payload.gender,
+                    phone: payload.phone,
+                    updatedBy: getters.user.id,
+                },
+            })
+                .then((response) => {
+                    commit("edit_profile_success");
+                    commit("edit_profile", payload);
+                    resolve(response);
+                })
+                .catch((error) => {
+                    commit("edit_profile_error");
+                    reject(error);
+                });
+        });
+    },
+
+    inspectToken({ dispatch, getters, commit }) {
+        commit("inspect_token_request");
         const expiryDate = new Date(Date.parse(getters.userTokenExpiry));
         const currentDate = new Date(Date.now());
         const threshHold = 1; //hours
@@ -208,6 +242,9 @@ const actions = {
         );
         if (currentDate.getTime() > threshHoldDate.getTime())
             dispatch("renewToken");
+        else {
+            commit("inspect_token_valid");
+        }
     },
 
     renewToken({ commit, getters }) {
@@ -288,8 +325,40 @@ const mutations = {
         state.profileStatus = error;
     },
 
-    set_user_profile(state, userProfile) {
+    profile(state, userProfile) {
         state.userProfile = userProfile;
+    },
+
+    add_profile_request(state) {
+        state.addProfileStatus = "loading";
+    },
+
+    add_profile_success(state) {
+        state.addProfileStatus = "success";
+    },
+
+    add_profile_error(state, error) {
+        state.addProfileStatus = error;
+    },
+
+    add_profile(state, userProfile) {
+        state.userProfile = userProfile;
+    },
+
+    edit_profile_request(state) {
+        state.editProfileStatus = "loading";
+    },
+
+    edit_profile_success(state) {
+        state.editProfileStatus = "success";
+    },
+
+    edit_profile_error(state) {
+        state.editProfileStatus = "error";
+    },
+
+    edit_profile(state, editProfile) {
+        state.userProfile = editProfile;
     },
 
     logout(state) {
@@ -307,6 +376,14 @@ const mutations = {
 
     renew_token_error(state, error) {
         state.renewTokenStatus = error;
+    },
+
+    inspect_token_request(state) {
+        state.inspectTokenStatus = "loading";
+    },
+
+    inspect_token_valid(state) {
+        state.inspectTokenStatus = "success";
     },
 };
 
