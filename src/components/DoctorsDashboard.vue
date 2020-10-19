@@ -9,7 +9,7 @@
             <DoctorsDashboardNavbar @updatePage="changeDisplayedPage" />
             <div class="content__wrapper">
                 <div class="list" v-if="isListActive">
-                    <DoctorsList />
+                    <DoctorsList @redirectEdit="displayEdit" />
                 </div>
                 <div class="details" v-if="isDetailsActive">
                     <DoctorsDetails />
@@ -59,6 +59,10 @@ export default {
 
         changeDisplayedPage(e) {
             this.showedPage = e;
+        },
+
+        displayEdit: function() {
+            this.showedPage = "edit";
         },
     },
 

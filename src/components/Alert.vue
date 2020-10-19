@@ -1,5 +1,5 @@
 <template>
-    <div class="alertbox" v-show="elementVisible">
+    <div class="alertbox" v-show="elementVisible" :class="alert.type">
         <p v-if="(alert.type === 'success') & (alert.message != '')">
             {{ alert.message }}
         </p>
@@ -28,14 +28,21 @@ export default {
         };
     },
     methods: {
-        ...mapActions(["deleteAlert"]),
+        ...mapActions(["deleteAlert", "resetAlertLoading"]),
+
         displayAlert: function() {
             this.elementVisible = true;
             this.alert = this.getNewestAlert;
+            this.resetAlertLoading();
             setTimeout(() => {
-                this.elementVisible = false;
-                this.alert = {};
+                this.deleteAlert();
+                this.removeAlert();
             }, this.getAlertTime);
+        },
+
+        removeAlert: function() {
+            this.elementVisible = false;
+            this.alert = {};
         },
     },
     computed: {
@@ -45,11 +52,15 @@ export default {
             "getAlertListEmpty",
             "getAlertTime",
             "getNewestAlert",
+            "getAlertLoading",
         ]),
     },
     watch: {
-        getNewestAlert: function() {
-            if (this.getAlertListEmpty === false) this.displayAlert();
+        getAlertLoading: function() {
+            if (this.getAlertLoading === true) {
+                this.removeAlert();
+                this.displayAlert();
+            }
         },
     },
 };
@@ -83,9 +94,66 @@ export default {
     text-align: center;
     padding: 0 var(--padding-small);
     color: var(--color-white);
+    font-size: 1.2rem;
     opacity: 0%;
     letter-spacing: -10px;
     animation: alertbox__text-fade-in 0.4s ease-out forwards 0.4s;
+}
+
+.success {
+    background: -webkit-linear-gradient(
+        -90deg,
+        transparent 50%,
+        var(--color-green) 50%
+    );
+    background-size: 6.5em 6.5em;
+    border-color: var(--color-green);
+}
+
+.success p {
+    color: var(--color-white);
+}
+
+.info {
+    background: -webkit-linear-gradient(
+        -90deg,
+        transparent 50%,
+        var(--color-white) 50%
+    );
+    background-size: 6.5em 6.5em;
+    border-color: var(--color-white);
+}
+
+.info p {
+    color: var(--color-darkblue);
+}
+
+.alert {
+    background: -webkit-linear-gradient(
+        -90deg,
+        transparent 50%,
+        var(--color-yellow) 50%
+    );
+    background-size: 6.5em 6.5em;
+    border-color: var(--color-yellow);
+}
+
+.alert p {
+    color: var(--color-white);
+}
+
+.error {
+    background: -webkit-linear-gradient(
+        -90deg,
+        transparent 50%,
+        var(--color-red) 50%
+    );
+    background-size: 6.5em 6.5em;
+    border-color: var(--color-red);
+}
+
+.error p {
+    color: var(--color-white);
 }
 
 @keyframes alertbox__fill {

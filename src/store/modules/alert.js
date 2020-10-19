@@ -1,10 +1,6 @@
 const state = {
-    alertTypes: {
-        success: "success",
-        info: "info",
-        alert: "alert",
-        error: "error",
-    },
+    alertStatus: "",
+    alertLoading: false,
     alertList: [],
     alertTime: 4000,
 };
@@ -15,28 +11,48 @@ const getters = {
     getAlertListEmpty: (state) => (state.alertList.length === 0 ? true : false),
     getAlertTime: (state) => state.alertTime,
     getNewestAlert: (state) => state.alertList[state.alertList.length - 1],
+    getAlertLoading: (state) => state.alertLoading,
 };
 
 const actions = {
     addAlert({ commit }, alert) {
+        commit("add_alert_request");
         const newAlert = {
             type: alert.type,
             message: alert.message,
         };
-        commit("add_Alert", newAlert);
-        setTimeout(() => {
-            commit("delete_Alert");
-        }, getters.getAlertTime);
+        commit("add_alert_success");
+        commit("add_alert", newAlert);
+    },
+
+    deleteAlert({ commit }) {
+        commit("delete_alert");
+    },
+    resetAlertLoading({ commit }) {
+        commit("reset_alert_loading");
     },
 };
 
 const mutations = {
-    add_Alert(state, newAlert) {
+    add_alert_request(state) {
+        state.alertStatus = "loading";
+    },
+
+    add_alert_success(state) {
+        state.alertStatus = "success";
+        state.alertLoading = true;
+    },
+
+    add_alert(state, newAlert) {
         state.alertList.push(newAlert);
     },
 
-    delete_Alert(state) {
+    delete_alert(state) {
         state.alertList.shift();
+    },
+
+    reset_alert_loading(state) {
+        state.alertLoading = false;
     },
 };
 

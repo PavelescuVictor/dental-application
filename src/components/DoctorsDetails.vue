@@ -123,7 +123,7 @@ export default {
             this.showDetails = true;
         } else {
             this.alert = {
-                type: "error",
+                type: "alert",
                 message: "No doctor selected",
             };
             this.addAlert(this.alert);

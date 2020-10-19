@@ -94,7 +94,7 @@ import Alert from "../components/Alert.vue";
 
 export default {
     name: "PatientsDetails",
-    
+
     components: {
         Confirmation,
         Alert,
@@ -113,22 +113,21 @@ export default {
     },
 
     mounted() {
-        if(this.getSelectedPatient != "") {
+        if (this.getSelectedPatient != "") {
             this.patient = this.getSelectedPatient;
             this.alert = {
                 type: "success",
                 message: "Selected patient received",
                 time: 4000,
-            }
+            };
             this.addAlert(this.alert);
             this.showDetails = true;
-        }
-        else {
+        } else {
             this.alert = {
-                type: "error",
+                type: "alert",
                 message: "No patient selected",
                 time: 4000,
-            }
+            };
             this.addAlert(this.alert);
             this.showDetails = false;
         }
@@ -139,10 +138,7 @@ export default {
     },
 
     methods: {
-        ...mapActions([
-            "addAlert",
-            "addConfirmationMessage",
-        ]),
+        ...mapActions(["addAlert", "addConfirmationMessage"]),
     },
 };
 </script>

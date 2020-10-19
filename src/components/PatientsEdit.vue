@@ -122,7 +122,7 @@ export default {
             this.patientId = this.getSelectedPatient.id;
         } else {
             this.alert = {
-                type: "error",
+                type: "alert",
                 message: "No patient selected",
             };
             this.addAlert(this.alert);

@@ -42,7 +42,7 @@ export default {
     --color-green: #40cb9e;
     --color-lightgreen: #d1f1e6;
     --color-yellow: #f9c108;
-    --color-red: #be3131;
+    --color-red: #e63d3d;
     --color-lightyellow: #fff4cc;
     --color-white: #fff;
     --color-grey: #7e8989;

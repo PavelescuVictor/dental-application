@@ -76,6 +76,7 @@ export default {
             filter: false,
             singleSelect: true,
             selectedDoctor: [],
+            doctorToDelete: "",
             alert: {
                 type: "",
                 message: "",
@@ -125,6 +126,7 @@ export default {
             "doctorList",
             "filteredDoctorList",
             "getSelectedDoctor",
+            "getConfirmationVisibleFlag",
             "getConfirmationProceedFlag",
         ]),
 
@@ -189,20 +191,18 @@ export default {
         },
 
         editItem(item) {
-            //const message = `Are you sure you want to edit ${item.lastName} ${item.firstName}?`;
-            //this.addConfirmationMessage(message);
             this.setSelectedDoctor(item);
-            if (this.$route.params.nextUrl != null) {
-                this.$router.push(this.$route.params.nextUrl);
-            } else {
-                this.$router.push({ name: "editDoctor" });
-            }
+            this.$emit("redirectEdit");
         },
 
         deleteItem(item) {
             this.inspectToken();
-            //const message = `Are you sure you want to delete ${item.lastName} ${item.firstName}?`;
-            //this.addConfirmation(message);
+            const message = `Are you sure you want to delete ${item.lastName} ${item.firstName}?`;
+            this.addConfirmation(message);
+            this.doctorToDelete = item;
+        },
+
+        proceedDeleteItem(item) {
             this.removeDoctor({ doctorId: item.id })
                 .then((response) => {
                     const status = response.status;
@@ -221,8 +221,8 @@ export default {
                     };
                     this.addAlert(this.alert);
                 });
-
-            //this.resetConfirmation();
+            this.resetConfirmation();
+            this.doctorToDelete = "";
         },
     },
 
@@ -255,6 +255,11 @@ export default {
             if (this.selectedDoctor.length != 0)
                 this.setSelectedDoctor(this.selectedDoctor[0]);
             else this.removeSelectedDoctor();
+        },
+
+        getConfirmationProceedFlag: function() {
+            if (this.getConfirmationProceedFlag === true)
+                this.proceedDeleteItem(this.doctorToDelete);
         },
     },
 };

@@ -76,6 +76,7 @@ export default {
             filter: false,
             singleSelect: true,
             selectedPatient: [],
+            patientToDelete: "",
             alert: {
                 type: "",
                 message: "",
@@ -120,6 +121,8 @@ export default {
             "patientList",
             "filteredPatientList",
             "getSelectedPatient",
+            "getConfirmationVisibleFlag",
+            "getConfirmationProceedFlag",
         ]),
 
         list: function() {
@@ -134,7 +137,8 @@ export default {
             "requestPatientList",
             "filterPatientList",
             "addAlert",
-            "addConfirmationMessage",
+            "addConfirmation",
+            "resetConfirmation",
             "setSelectedPatient",
             "removeSelectedPatient",
             "removePatient",
@@ -182,20 +186,18 @@ export default {
         },
 
         editItem(item) {
-            //const message = `Are you sure you want to edit ${item.lastName} ${item.firstName}?`;
-            //this.addConfirmationMessage(message);
             this.setSelectedPatient(item);
-            if (this.$route.params.nextUrl != null) {
-                this.$router.push(this.$route.params.nextUrl);
-            } else {
-                this.$router.push({ name: "editPatient" });
-            }
+            this.$emit("redirectEdit");
         },
 
         deleteItem(item) {
             this.inspectToken();
-            //const message = `Are you sure you want to delete ${item.lastName} ${item.firstName}?`;
-            //this.addConfirmationMessage(message);
+            const message = `Are you sure you want to delete ${item.lastName} ${item.firstName}?`;
+            this.addConfirmation(message);
+            this.patientToDelete = item;
+        },
+
+        proceedDeleteItem(item) {
             this.removePatient({ patientId: item.id })
                 .then((response) => {
                     const status = response.status;
@@ -204,7 +206,6 @@ export default {
                     this.alert = {
                         type: type,
                         message: "Patient removed!",
-                        time: 4000,
                     };
                     this.addAlert(this.alert);
                 })
@@ -212,12 +213,11 @@ export default {
                     this.alert = {
                         type: "error",
                         message: error,
-                        time: 4000,
                     };
                     this.addAlert(this.alert);
                 });
-
             this.resetConfirmation();
+            this.patientToDelete = "";
         },
     },
 
@@ -250,6 +250,12 @@ export default {
             if (this.selectedPatient.length != 0)
                 this.setSelectedPatient(this.selectedPatient[0]);
             else this.removeSelectedPatient();
+        },
+
+        getConfirmationProceedFlag: function() {
+            console.log("da");
+            if (this.getConfirmationProceedFlag === true)
+                this.proceedDeleteItem(this.patientToDelete);
         },
     },
 };

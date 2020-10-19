@@ -117,7 +117,7 @@ export default {
             this.doctorId = this.getSelectedDoctor.id;
         } else {
             this.alert = {
-                type: "error",
+                type: "alert",
                 message: "No doctor selected",
             };
             this.addAlert(this.alert);

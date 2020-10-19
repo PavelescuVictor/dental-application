@@ -100,7 +100,7 @@ const actions = {
             commit("set_user", "");
             commit("set_user_token", "");
             commit("set_user_token_expiry", "");
-            commit("set_user_profile", "");
+            commit("edit_profile", "");
             localStorage.removeItem("user");
             localStorage.removeItem("userToken");
             localStorage.removeItem("userTokenExpiry");
@@ -278,7 +278,7 @@ const actions = {
                     commit("set_user", "");
                     commit("set_user_token", "");
                     commit("set_user_token_expiry", "");
-                    commit("set_user_profile", "");
+                    commit("edit_profile", "");
                     localStorage.removeItem("userToken");
                     localStorage.removeItem("user");
                     localStorage.removeItem("userProfile");

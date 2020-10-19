@@ -181,7 +181,7 @@ export default {
                     const status = response.status;
                     let type;
                     if (status == "200") type = "success";
-                    this.alert = {
+                    this.newAlert = {
                         type: type,
                         message: "Patients data received!",
                     };
