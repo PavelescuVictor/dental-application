@@ -18,6 +18,7 @@
                         ref="form"
                         v-model="valid"
                         :lazy-validation="lazy"
+                        @submit="handleSubmit"
                     >
                         <v-text-field
                             v-model="doctorFirstName"
@@ -48,7 +49,10 @@
                         ></v-text-field>
 
                         <div class="form__buttons">
-                            <v-btn :disabled="!valid" @click="handleSubmit"
+                            <v-btn
+                                type="submit"
+                                :disabled="!valid"
+                                @click="handleSubmit"
                                 >Submit</v-btn
                             >
 

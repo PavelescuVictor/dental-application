@@ -18,6 +18,7 @@
                         ref="form"
                         v-model="valid"
                         :lazy-validation="lazy"
+                        @submit="handleSubmit"
                     >
                         <v-text-field
                             v-model="doctorFirstName"
@@ -48,7 +49,10 @@
                         ></v-text-field>
 
                         <div class="form__buttons">
-                            <v-btn :disabled="!valid" @click="handleSubmit"
+                            <v-btn
+                                type="submit"
+                                :disabled="!valid"
+                                @click="handleSubmit"
                                 >Submit</v-btn
                             >
 
@@ -81,14 +85,15 @@ export default {
     },
     data: () => ({
         valid: true,
+        lazy: false,
         doctorFirstName: "",
         doctorLastName: "",
         doctorPhone: "",
         doctorCabinet: "",
+        alertMessage: "",
         alert: {
             type: "",
             message: "",
-            time: 0,
         },
         rules: {},
         /*rules: {
@@ -114,8 +119,6 @@ export default {
             doctorCabinet: [(value) => !!value || `Cabinet is required.`],
         },
         */
-        lazy: false,
-        alertMessage: "",
     }),
 
     methods: {
@@ -137,7 +140,6 @@ export default {
                     this.alert = {
                         type: type,
                         message: "Doctor added!",
-                        time: 4000,
                     };
                     this.addAlert(this.alert);
                     if (this.$route.params.nextUrl != null) {
@@ -150,7 +152,6 @@ export default {
                     this.alert = {
                         type: "error",
                         message: error,
-                        time: 4000,
                     };
                     this.addAlert(this.alert);
                 });

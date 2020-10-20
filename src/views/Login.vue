@@ -40,9 +40,9 @@
 
                         <div class="form__buttons">
                             <v-btn
+                                type="submit"
                                 :disabled="!valid"
                                 @click="handleSubmit"
-                                type="submit"
                                 >Submit</v-btn
                             >
                             <v-btn @click="reset">Reset Form</v-btn>
@@ -77,8 +77,10 @@ export default {
     data: () => ({
         valid: true,
         value: true,
+        lazy: false,
         userEmail: "",
         userPassword: "",
+        alertMessage: "",
         rules: {
             required: [(value) => !!value || "Required"],
             email: [
@@ -87,8 +89,6 @@ export default {
             ],
             password: [(value) => !!value || "Password is required"],
         },
-        lazy: false,
-        alertMessage: "",
     }),
 
     computed: {
@@ -97,10 +97,13 @@ export default {
 
     methods: {
         ...mapActions(["login"]),
+
         handleSubmit(e) {
             e.preventDefault();
+
             let email = this.userEmail;
             let password = this.userPassword;
+
             this.login({ email, password })
                 .then(() => {
                     if (this.isLoggedIn) {
@@ -115,6 +118,7 @@ export default {
                     this.alertMessage = err;
                 });
         },
+
         reset() {
             this.$refs.form.reset();
         },

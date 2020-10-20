@@ -160,9 +160,14 @@ export default {
                     this.addAlert(this.alert);
                 })
                 .catch((error) => {
+                    let message = "";
+                    let errors = error.response.data;
+                    for (let prop in errors) {
+                        message = message + errors[prop] + "\n";
+                    }
                     this.alert = {
                         type: "error",
-                        message: error,
+                        message: message,
                     };
                     this.addAlert(this.alert);
                 });

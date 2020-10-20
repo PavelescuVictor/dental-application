@@ -44,6 +44,10 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 
+import interceptorsSetup from "./helpers/interceptors";
+
+interceptorsSetup();
+
 new Vue({
     router,
     store,

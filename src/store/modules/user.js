@@ -207,7 +207,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit("edit_profile_request");
             axios({
-                url: `${getters.addProfileUrl}${payload.id}/`,
+                url: `${getters.addProfileUrl}${getters.userId}/`,
                 method: "PATCH",
                 headers: {
                     Authorization: `Token ${getters.userToken}`,
