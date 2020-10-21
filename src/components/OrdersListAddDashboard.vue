@@ -88,10 +88,8 @@
                     </v-data-table>
                 </template>
             </div>
-            <div>
-                <div class="more-btn" @click="addOrderRedirect">
-                    <a>Adaugare Lucrare</a>
-                </div>
+            <div class="more-btn" @click="addOrderRedirect">
+                <a>Adaugare Lucrare</a>
             </div>
         </div>
     </div>
@@ -464,7 +462,7 @@ export default {
     height: 100%;
     display: grid;
     grid-template-rows: 1fr auto 1fr;
-    padding: var(--padding-small) 0px;
+    padding: var(--padding-small) 0px 0px;
 }
 
 .form__wrapper p {
@@ -501,7 +499,6 @@ export default {
     border-radius: 10px;
     transition: width 0.2s ease-in, border-radius 0.2s ease-out,
         background-position 0.6s ease, border-color 0s ease-in;
-    animation: banner__text__button 1s;
 }
 
 .more-btn:hover {

@@ -107,4 +107,8 @@ a {
     min-height: 100vh;
     width: 100vw;
 }
+
+button:focus {
+    outline: none;
+}
 </style>

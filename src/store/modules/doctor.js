@@ -12,6 +12,7 @@ const state = {
     removeDoctorUrl: "http://127.0.0.1:8000/api/v1/doctors/",
     editDoctorUrl: "http://127.0.0.1:8000/api/v1/doctors/",
     selectedDoctor: "",
+    isSelectedDoctor: false,
 };
 
 const getters = {
@@ -23,6 +24,7 @@ const getters = {
     editDoctorUrl: (state) => state.editDoctorUrl,
     requestStatusDoctor: (state) => state.statusDoctor,
     getSelectedDoctor: (state) => state.selectedDoctor,
+    getIsSelectedDoctor: (state) => state.isSelectedDoctor,
 };
 
 const actions = {
@@ -246,10 +248,12 @@ const mutations = {
 
     selectedDoctor_empty(state) {
         state.selectedDoctor = "";
+        state.isSelectedDoctor = false;
     },
 
     selectedDoctor_success(state, payload) {
         state.selectedDoctor = payload;
+        state.isSelectedDoctor = true;
     },
 };
 
