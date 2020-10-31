@@ -7,8 +7,6 @@ jobs:
     gh-pages-deploy:
         name: Deploying to gh-pages
         runs-on: ubuntu-latest
-        env:
-            working-directory: ./dentalapp-frontend
         steps:
             - name: Setup Node.js for use with actions
               uses: actions/setup-node@v1.1.0
@@ -21,6 +19,7 @@ jobs:
               run: npm ci
 
             - name: Run deploy script
+              working-directory: ./dentalapp-frontend
               run: |
                   git config user.name "PavelescuVictor" && git config user.email "pavelescu.victor97@gmail.com"
                   npm run gh-pages-deploy
