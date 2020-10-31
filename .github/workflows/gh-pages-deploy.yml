@@ -7,9 +7,8 @@ jobs:
     gh-pages-deploy:
         name: Deploying to gh-pages
         runs-on: ubuntu-latest
+        working-directory: ./dentalapp-frontend
         steps:
-            - name: Change directory to frontend
-              run: cd dentalapp-frontend
             - name: Setup Node.js for use with actions
               uses: actions/setup-node@v1.1.0
               with:
