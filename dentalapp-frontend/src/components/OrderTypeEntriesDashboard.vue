@@ -1,47 +1,51 @@
 <template>
-    <div class="ordersDashboard">
-        <div class="ordersDashboard__overlay">
-            <div class="overlay__top"></div>
-            <div class="overlay__left"></div>
-            <div class="overlay__right"></div>
-        </div>
-        <div class="ordersDashboard__content">
-            <OrdersDashboardNavbar @updatePage="changeDisplayedPage" />
+    <div class="orderTypeEntriesDashboard">
+        <div class="orderTypeEntriesDashboard__content">
+            <OrderTypeEntriesDashboardNavbar
+                @updatePage="changeDisplayedPage"
+            />
             <div class="content__wrapper">
                 <div class="list" v-if="isListActive">
-                    <OrdersList />
+                    <OrderTypeEntriesList @redirectEdit="displayEdit" />
                 </div>
                 <div class="details" v-if="isDetailsActive">
-                    <OrdersDetails />
+                    <OrderTypeEntriesDetails />
+                </div>
+                <div class="dit" v-if="isEditActive">
+                    <OrderTypeEntriesEdit />
                 </div>
                 <div class="add" v-if="isAddActive">
-                    <OrdersAdd />
+                    <OrderTypeEntriesAdd />
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
-import OrdersList from "../components/OrdersList.vue";
-import OrdersDetails from "../components/OrdersDetails.vue";
-import OrdersAdd from "../components/OrdersAdd.vue";
-import OrdersDashboardNavbar from "../components/OrdersDashboardNavbar.vue";
+import OrderTypeEntriesList from "../components/OrderTypeEntriesList.vue";
+import OrderTypeEntriesDetails from "../components/OrderTypeEntriesDetails.vue";
+import OrderTypeEntriesEdit from "../components/OrderTypeEntriesEdit.vue";
+import OrderTypeEntriesAdd from "../components/OrderTypeEntriesAdd.vue";
+import OrderTypeEntriesDashboardNavbar from "../components/OrderTypeEntriesDashboardNavbar.vue";
 export default {
     name: "OrdersDashboard",
     components: {
-        OrdersDashboardNavbar,
-        OrdersList,
-        OrdersDetails,
-        OrdersAdd,
+        OrderTypeEntriesDashboardNavbar,
+        OrderTypeEntriesList,
+        OrderTypeEntriesDetails,
+        OrderTypeEntriesAdd,
+        OrderTypeEntriesEdit,
     },
     data() {
         return {
             showedPage: "list",
             isListActive: true,
             isDetailsActive: false,
+            isEditActive: false,
             isAddActive: false,
         };
     },
+
     methods: {
         changeDisplayedPage(e) {
             this.showedPage = e;
@@ -51,6 +55,7 @@ export default {
             this.showedPage = "edit";
         },
     },
+
     watch: {
         showedPage: function(val) {
             if (val === "list") {
@@ -60,6 +65,11 @@ export default {
             } else if (val === "details") {
                 this.isListActive = false;
                 this.isDetailsActive = true;
+                this.isAddActive = false;
+            } else if (val === "edit") {
+                this.isListActive = false;
+                this.isDetailsActive = false;
+                this.isEditActive = true;
                 this.isAddActive = false;
             } else if (val === "add") {
                 this.isListActive = false;
@@ -71,74 +81,8 @@ export default {
 };
 </script>
 <style scoped>
-.ordersDashboard {
-    min-height: var(--banner-height);
-    display: flex;
-    padding: 16em 4em 6em 4em;
-    background-image: var(--banner-background-image);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    position: relative;
-    overflow: hidden;
-    justify-content: center;
-}
-
-.ordersDashboard:before {
-    display: block;
-    height: 100%;
-    width: 100%;
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    transition: opacity 3s ease;
-    transition-delay: 1s;
-    background-color: rgba(var(--color-blue-rgb), 0.9);
-    z-index: 1;
-}
-
-.ordersDashboard__overlay {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: 1;
-}
-
-.overlay__top {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0%;
-    left: 0px;
-    background-color: var(--color-blue);
-    animation: content__overlay__slide-up 0.8s ease-out forwards 0.2s,
-        content__overlay__fade-out 1.4s ease forwards 0.3s;
-    z-index: 2;
-}
-
-.overlay__left {
-    height: 100%;
-    width: 50%;
-    position: absolute;
-    top: 0px;
-    left: -100%;
-    background-color: white;
-    animation: content__overlay__slide-left 1s ease-in forwards;
-    z-index: 2;
-}
-
-.overlay__right {
-    height: 100%;
-    width: 50%;
-    position: absolute;
-    top: 0px;
-    right: -100%;
-    background-color: white;
-    animation: content__overlay__slide-right 1s ease-in forwards;
-    z-index: 2;
+.orderTypeEntriesDashboard {
+    padding-top: 6px;
 }
 
 .ordersDashboard__content {

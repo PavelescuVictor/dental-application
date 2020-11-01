@@ -7,6 +7,7 @@ import order from "./modules/order.js";
 import orderColors from "./modules/orderColors.js";
 import orderTypes from "./modules/orderTypes.js";
 import orderStatus from "./modules/orderStatus.js";
+import orderTypeEntry from "./modules/orderTypeEntry.js";
 import navbar from "./modules/navbar.js";
 import scrollTop from "./modules/scrollTop.js";
 import alert from "./modules/alert.js";
@@ -26,6 +27,7 @@ export default new Vuex.Store({
         orderColors,
         orderTypes,
         orderStatus,
+        orderTypeEntry,
         navbar,
         scrollTop,
         alert,

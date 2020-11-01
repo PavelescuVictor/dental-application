@@ -76,6 +76,8 @@ const actions = {
                     const userTokenExpiry = response.data.tokenExpiry;
                     localStorage.setItem("user", JSON.stringify(user));
                     localStorage.setItem("userToken", userToken);
+                    let date = new Date(userTokenExpiry);
+                    console.log(date);
                     localStorage.setItem("userTokenExpiry", userTokenExpiry);
                     commit("auth_success");
                     commit("set_user", user);
@@ -236,7 +238,7 @@ const actions = {
         commit("inspect_token_request");
         const expiryDate = new Date(Date.parse(getters.userTokenExpiry));
         const currentDate = new Date(Date.now());
-        const threshHold = 5 * 24; //hours
+        const threshHold = 1; //hours
         const threshHoldDate = new Date(
             expiryDate.setHours(expiryDate.getHours() - threshHold)
         );

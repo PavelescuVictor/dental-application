@@ -90,7 +90,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit("remove_order_request");
             axios({
-                url: `${getters.addOrderUrl}${payload.orderId}/`,
+                url: `${getters.removeOrderUrl}${payload.orderId}/`,
                 method: "DELETE",
                 headers: {
                     Authorization: `Token ${getters.userToken}`,

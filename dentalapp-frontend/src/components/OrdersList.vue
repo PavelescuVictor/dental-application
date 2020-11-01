@@ -6,7 +6,7 @@
             <div class="filter">
                 <OrdersListFilterDashboard />
             </div>
-            <div class="list__wrapper" v-if="showOrderList">
+            <div class="list__wrapper" v-if="isOrderListActive">
                 <v-card class="list">
                     <v-toolbar>
                         <v-toolbar-title>Lucrari</v-toolbar-title>
@@ -61,7 +61,7 @@ export default {
             isAddBoardActive: false,
             isDoctorSelected: false,
             isPatientSelected: false,
-            showOrderList: false,
+            isOrderListActive: false,
             singleSelect: true,
             selectedOrder: [],
             orderToDelete: "",
@@ -99,9 +99,12 @@ export default {
             ],
         };
     },
-    created() {
+    mounted() {
         this.getData();
-        this.selectedOrder = [this.getSelectedOrder];
+        if (this.getIsSelectedOrder === true) {
+            this.selectedOrder = [this.getSelectedOrder];
+            this.isOrderListActive = false;
+        }
     },
 
     computed: {
@@ -109,6 +112,7 @@ export default {
             "getSelectedPatient",
             "getSelectedDoctor",
             "getSelectedOrder",
+            "getIsSelectedOrder",
             "filteredOrderList",
             "getConfirmationVisibleFlag",
             "getConfirmationProceedFlag",
@@ -208,7 +212,6 @@ export default {
         },
 
         proceedDeleteItem(item) {
-            console.log("da");
             this.removeOrder({ orderId: item.id })
                 .then((response) => {
                     const status = response.status;
@@ -275,8 +278,8 @@ export default {
                 this.isPatientSelected === false &&
                 this.isDoctorSelected === false
             )
-                this.showOrderList = false;
-            else this.showOrderList = true;
+                this.isOrderListActive = false;
+            else this.isOrderListActive = true;
         },
 
         isDoctorSelected: function() {
@@ -284,8 +287,8 @@ export default {
                 this.isDoctorSelected === false &&
                 this.isDoctorSelected === false
             )
-                this.showOrderList = false;
-            else this.showOrderList = true;
+                this.isOrderListActive = false;
+            else this.isOrderListActive = true;
         },
 
         selectedOrder: function() {
