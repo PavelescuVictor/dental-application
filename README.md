@@ -137,19 +137,8 @@ Backend contains an API that uses REST Arhitecture created using Django Rest Fra
 
 ## Upcomming improvements:
 
--   Adding VueX,
 -   Adding Typescript,
--   Improving search list UI,
--   Adding ordering functionality,
--   Adding Password Change page,
--   Adding Password Reset page,
--   Adding User Profile page,
--   Adding User Profile edit page,
--   Adding Doctor Details, Edit pages,
--   Adding Pacient Details, Edit pages,
--   Adding Order Details, Edit pages,
+-   Adding SASS,
 -   Adding Backing up data to Excell functionality on a schedule or by interacting with a frontend element,
--   Adding Alert box,
--   Adding Confirm box,
 -   Adding About page,
 -   Adding Staff page,
