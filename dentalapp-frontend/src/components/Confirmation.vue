@@ -57,7 +57,7 @@ export default {
     height: 100vh;
     top: 0px;
     left: 0px;
-    z-index: 10;
+    z-index: 20;
 }
 
 .confirmationbox__underlay {
@@ -68,7 +68,7 @@ export default {
     height: 100vh;
     background-color: black;
     opacity: 85%;
-    z-index: 4;
+    z-index: 20;
 }
 
 .confirmationbox__content {
@@ -92,7 +92,7 @@ export default {
     animation: confirmationbox__slide-down 0.6s ease-in forwards,
         confirmationbox__fill 1s ease-out forwards;
     user-select: none;
-    z-index: 5;
+    z-index: 20;
     overflow: hidden;
 }
 

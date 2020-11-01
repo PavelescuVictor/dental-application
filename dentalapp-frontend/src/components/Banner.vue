@@ -55,11 +55,13 @@
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                     Vitae atque ex quas nam recusandae repellat!
                 </p>
+
                 <p>
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                     Neque molestiae error fugit blanditiis consequatur
                     praesentium.
                 </p>
+
                 <div class="more-btn">
                     <a href="https://www.google.com">Learn More</a>
                 </div>
@@ -151,6 +153,10 @@ export default {
     width: 100%;
     height: 100%;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #logo {

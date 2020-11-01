@@ -45,7 +45,26 @@
             </v-form>
         </div>
 
-        <div class="doctorList" v-if="isDoctorListActive">
+        <div class="doctorSelectedList" v-if="getIsSelectedDoctor">
+            <template>
+                <v-data-table
+                    v-model="selectedDoctor"
+                    :headers="headers"
+                    :items="[getSelectedDoctor]"
+                    item-key="id"
+                    hide-default-footer
+                    :single-select="singleSelect"
+                    show-select
+                    class="table"
+                >
+                </v-data-table>
+            </template>
+        </div>
+
+        <div
+            class="doctorList"
+            v-if="!getIsSelectedDoctor && isDoctorListActive"
+        >
             <template>
                 <v-data-table
                     v-model="selectedDoctor"
@@ -144,14 +163,12 @@ export default {
         };
     },
 
-    /*
     mounted() {
         if (this.getIsSelectedDoctor === true) {
             this.selectedDoctor = [this.getSelectedDoctor];
-            this.isDoctorListActive = true;
+            this.isDoctorListActive = false;
         }
     },
-    */
 
     computed: {
         ...mapGetters([
@@ -274,11 +291,20 @@ export default {
 
 .form__buttons {
     margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.form__buttons button {
+    opacity: 0%;
+    animation: form__buttons__fade-in 0.2s ease-in-out forwards 0.5s;
 }
 
 .more-btn {
     display: inline-block;
     width: 8.5em;
+    margin: auto;
     font-size: calc(var(--text-base-size) * 1.2);
     background: -webkit-linear-gradient(
         -90deg,
@@ -311,5 +337,17 @@ export default {
 
 .table {
     text-align: left;
+}
+
+/* ANIMATIONS */
+
+@keyframes form__buttons__fade-in {
+    0% {
+        opacity: 0%;
+    }
+
+    100% {
+        opacity: 100%;
+    }
 }
 </style>

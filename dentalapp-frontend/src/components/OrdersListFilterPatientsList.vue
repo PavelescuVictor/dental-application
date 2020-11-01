@@ -45,7 +45,26 @@
             </v-form>
         </div>
 
-        <div class="patientList" v-if="isPatientListActive">
+        <div class="patientSelectedList" v-if="getIsSelectedPatient">
+            <template>
+                <v-data-table
+                    v-model="selectedPatient"
+                    :headers="headers"
+                    :items="[getSelectedPatient]"
+                    item-key="id"
+                    hide-default-footer
+                    :single-select="singleSelect"
+                    show-select
+                    class="table"
+                >
+                </v-data-table>
+            </template>
+        </div>
+
+        <div
+            class="patientList"
+            v-if="!getIsSelectedPatient && isPatientListActive"
+        >
             <template>
                 <v-data-table
                     v-model="selectedPatient"
@@ -136,7 +155,7 @@ export default {
             ],
         };
     },
-    
+
     /*
     mounted() {
         if (this.getIsSelectedPatient === true) {
@@ -145,6 +164,13 @@ export default {
         }
     },
     */
+
+    mounted() {
+        if (this.getIsSelectedPatient === true) {
+            this.selectedPatient = [this.getSelectedPatient];
+            this.isPatientListActive = false;
+        }
+    },
 
     computed: {
         ...mapGetters([

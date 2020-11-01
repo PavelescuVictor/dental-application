@@ -1,5 +1,5 @@
 <template>
-    <div class="orderDetails">
+    <div class="orderTypeEntryDetails">
         <Confirmation />
         <Alert />
         <div class="content">
@@ -10,7 +10,7 @@
                             <v-list-item>
                                 <v-list-item-content>
                                     <v-list-item-title>{{
-                                        order.doctor_name
+                                        orderTypeEntry.id
                                     }}</v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
@@ -20,7 +20,77 @@
                             <v-list-item>
                                 <v-list-item-content>
                                     <v-list-item-title>{{
-                                        order.patient_name
+                                        orderTypeEntry.order
+                                    }}</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+
+                            <v-divider></v-divider>
+
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title>{{
+                                        orderTypeEntry.type
+                                    }}</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+
+                            <v-divider></v-divider>
+
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title>{{
+                                        orderTypeEntry.color
+                                    }}</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+
+                            <v-divider></v-divider>
+
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title>{{
+                                        orderTypeEntry.status
+                                    }}</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+
+                            <v-divider></v-divider>
+
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title>{{
+                                        orderTypeEntry.warranty
+                                    }}</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+
+                            <v-divider></v-divider>
+
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title>{{
+                                        orderTypeEntry.unitCount
+                                    }}</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+
+                            <v-divider></v-divider>
+
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title>{{
+                                        orderTypeEntry.paid
+                                    }}</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+
+                            <v-divider></v-divider>
+
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title>{{
+                                        orderTypeEntry.redo
                                     }}</v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
@@ -31,7 +101,9 @@
                                 <v-list-item-content>
                                     <v-list-item-title
                                         >Created at
-                                        {{ order.createdAt }}</v-list-item-title
+                                        {{
+                                            orderTypeEntry.createdAt
+                                        }}</v-list-item-title
                                     >
                                 </v-list-item-content>
                             </v-list-item>
@@ -42,14 +114,15 @@
                                 <v-list-item-content>
                                     <v-list-item-title
                                         >Updated at
-                                        {{ order.updatedAt }}</v-list-item-title
+                                        {{
+                                            orderTypeEntry.updatedAt
+                                        }}</v-list-item-title
                                     >
                                 </v-list-item-content>
                             </v-list-item>
                         </v-list>
                     </v-card>
                 </template>
-                <OrderTypeEntriesDashboard />
             </div>
         </div>
     </div>
@@ -59,20 +132,18 @@
 import { mapGetters, mapActions } from "vuex";
 import Confirmation from "../components/Confirmation.vue";
 import Alert from "../components/Alert.vue";
-import OrderTypeEntriesDashboard from "../components/OrderTypeEntriesDashboard.vue";
 
 export default {
-    name: "OrderDetails",
+    name: "OrderTypeEntryDetails",
 
     components: {
         Confirmation,
         Alert,
-        OrderTypeEntriesDashboard,
     },
 
     data() {
         return {
-            order: "",
+            orderTypeEntry: "",
             showDetails: false,
             alert: {
                 type: "",
@@ -110,20 +181,19 @@ export default {
     },
 
     mounted() {
-        if (this.getSelectedOrder != "") {
-            this.order = this.getSelectedOrder;
+        if (this.getSelectedOrderTypeEntry != "") {
+            this.orderTypeEntry = this.getSelectedOrderTypeEntry;
             this.alert = {
                 type: "success",
-                message: "Selected order received",
+                message: "Selected order type entry received",
                 time: 4000,
             };
             this.addAlert(this.alert);
             this.showDetails = true;
-            this.requestOrderTypesList();
         } else {
             this.alert = {
                 type: "alert",
-                message: "No order selected",
+                message: "No order type entry selected",
                 time: 4000,
             };
             this.addAlert(this.alert);
@@ -132,15 +202,11 @@ export default {
     },
 
     computed: {
-        ...mapGetters(["getSelectedOrder"]),
+        ...mapGetters(["getSelectedOrderTypeEntry"]),
     },
 
     methods: {
-        ...mapActions([
-            "addAlert",
-            "addConfirmationMessage",
-            "requestOrderTypesList",
-        ]),
+        ...mapActions(["addAlert", "addConfirmationMessage"]),
     },
 };
 </script>

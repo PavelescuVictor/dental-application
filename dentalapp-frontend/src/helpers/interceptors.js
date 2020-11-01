@@ -3,6 +3,7 @@ import router from "../router";
 import store from "../store";
 
 export default function setup() {
+    // Response interceptor for API calls
     axios.interceptors.response.use(
         (response) => {
             return response;
