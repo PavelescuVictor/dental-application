@@ -46,6 +46,9 @@
         </div>
 
         <div class="patientSelectedList" v-if="getIsSelectedPatient">
+            <v-toolbar id="toolbar">
+                <v-toolbar-title>Pacient Selectat</v-toolbar-title>
+            </v-toolbar>
             <template>
                 <v-data-table
                     v-model="selectedPatient"
@@ -65,6 +68,9 @@
             class="patientList"
             v-if="!getIsSelectedPatient && isPatientListActive"
         >
+            <v-toolbar id="toolbar">
+                <v-toolbar-title>Pacienti</v-toolbar-title>
+            </v-toolbar>
             <template>
                 <v-data-table
                     v-model="selectedPatient"
@@ -214,7 +220,8 @@ export default {
             if (
                 this.filteredInputPatientFirstName.length >=
                     this.minCharactersNumber ||
-                this.filteredInputPatientLastName >= this.minCharactersNumber
+                this.filteredInputPatientLastName.length >=
+                    this.minCharactersNumber
             ) {
                 this.filterPatientList({
                     filteredInputFirstName: this.filteredInputPatientFirstName,
@@ -292,11 +299,20 @@ export default {
 
 .form__buttons {
     margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.form__buttons button {
+    opacity: 0%;
+    animation: form__buttons__fade-in 0.2s ease-in-out forwards 0.5s;
 }
 
 .more-btn {
     display: inline-block;
     width: 8.5em;
+    margin: auto;
     font-size: calc(var(--text-base-size) * 1.2);
     background: -webkit-linear-gradient(
         -90deg,
@@ -329,5 +345,30 @@ export default {
 
 .table {
     text-align: left;
+}
+
+#toolbar {
+    box-shadow: none;
+    margin-bottom: 6px;
+}
+
+.patientSelectedList {
+    margin-bottom: 6px;
+}
+
+.patientList {
+    margin-bottom: 6px;
+}
+
+/* ANIMATIONS */
+
+@keyframes form__buttons__fade-in {
+    0% {
+        opacity: 0%;
+    }
+
+    100% {
+        opacity: 100%;
+    }
 }
 </style>

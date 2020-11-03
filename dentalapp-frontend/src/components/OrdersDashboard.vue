@@ -9,7 +9,7 @@
             <OrdersDashboardNavbar @updatePage="changeDisplayedPage" />
             <div class="content__wrapper">
                 <div class="list" v-if="isListActive">
-                    <OrdersList />
+                    <OrdersList @updatePage="changeDisplayedPage" />
                 </div>
                 <div class="details" v-if="isDetailsActive">
                     <OrdersDetails />
@@ -26,6 +26,7 @@ import OrdersList from "../components/OrdersList.vue";
 import OrdersDetails from "../components/OrdersDetails.vue";
 import OrdersAdd from "../components/OrdersAdd.vue";
 import OrdersDashboardNavbar from "../components/OrdersDashboardNavbar.vue";
+import { mapActions } from "vuex";
 export default {
     name: "OrdersDashboard",
     components: {
@@ -34,6 +35,7 @@ export default {
         OrdersDetails,
         OrdersAdd,
     },
+
     data() {
         return {
             showedPage: "list",
@@ -42,7 +44,20 @@ export default {
             isAddActive: false,
         };
     },
+
+    destroyed() {
+        this.removeSelectedOrder();
+        this.removeSelectedDoctor();
+        this.removeSelectedPatient();
+    },
+
     methods: {
+        ...mapActions([
+            "removeSelectedOrder",
+            "removeSelectedDoctor",
+            "removeSelectedPatient",
+        ]),
+
         changeDisplayedPage(e) {
             this.showedPage = e;
         },
@@ -51,6 +66,7 @@ export default {
             this.showedPage = "edit";
         },
     },
+
     watch: {
         showedPage: function(val) {
             if (val === "list") {

@@ -8,12 +8,6 @@
                     <v-toolbar>
                         <v-toolbar-title>Tipuri de lucrari</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-btn icon @click="showAddBar" id="plus">
-                            <font-awesome-icon :icon="['fas', 'plus-circle']" />
-                        </v-btn>
-                        <v-btn icon @click="showSearchBar" id="search">
-                            <v-icon>mdi-magnify</v-icon>
-                        </v-btn>
                     </v-toolbar>
                     <template>
                         <v-data-table
@@ -26,6 +20,18 @@
                             show-select
                             class="table"
                         >
+                            <template v-slot:item.redo="{ item }">
+                                <v-simple-checkbox
+                                    v-model="item.redo"
+                                    disabled
+                                ></v-simple-checkbox>
+                            </template>
+                            <template v-slot:item.paid="{ item }">
+                                <v-simple-checkbox
+                                    v-model="item.paid"
+                                    disabled
+                                ></v-simple-checkbox>
+                            </template>
                             <template v-slot:item.actions="{ item }">
                                 <v-icon
                                     medium
@@ -76,29 +82,22 @@ export default {
                     value: "id",
                 },
                 {
-                    text: "Order",
-                    align: "start",
-                    sortable: true,
-                    value: "order",
-                },
-
-                {
                     text: "Color",
                     align: "start",
                     sortable: true,
-                    value: "color",
+                    value: "colorName",
                 },
                 {
                     text: "Type",
                     align: "start",
                     sortable: false,
-                    value: "type",
+                    value: "typeName",
                 },
                 {
                     text: "Status",
                     align: "start",
                     sortable: false,
-                    value: "status",
+                    value: "statusName",
                 },
                 {
                     text: "UnitCount",
@@ -160,6 +159,7 @@ export default {
             "emptyOrderTypeEntryList",
             "inspectToken",
             "removeOrderTypeEntry",
+            "setSelectedOrderTotalPrice",
         ]),
 
         getOrderTypeEntries: function() {
@@ -177,6 +177,7 @@ export default {
                         message: "Order type entries data received!",
                     };
                     this.addAlert(this.alert);
+                    this.computeOrderTotalPrice();
                 })
                 .catch((error) => {
                     let message = "";
@@ -223,6 +224,14 @@ export default {
             this.resetConfirmation();
             this.orderTypeEntryToDelete = "";
         },
+
+        computeOrderTotalPrice() {
+            var totalPrice;
+            this.orderTypeEntryList.forEach((orderTypeEntry) => {
+                totalPrice = orderTypeEntry.typePPU * orderTypeEntry.unitCount;
+            });
+            this.setSelectedOrderTotalPrice(totalPrice);
+        },
     },
 
     watch: {
@@ -235,6 +244,17 @@ export default {
         getConfirmationProceedFlag: function() {
             if (this.getConfirmationProceedFlag === true)
                 this.proceedDeleteItem(this.orderTypeEntryToDelete);
+        },
+
+        getOrderTypeEntries: function() {
+            console.log("da");
+            if (this.getOrderTypeEntries.length === 0) {
+                this.alert = {
+                    type: "info",
+                    message: "There are no entries to display!",
+                };
+                this.addAlert(this.alert);
+            }
         },
     },
 };

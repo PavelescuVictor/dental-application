@@ -194,6 +194,6 @@ DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 24
 
 # ADDED
 REST_KNOX = {
-    'TOKEN_TTL': timedelta(hours=1),
+    'TOKEN_TTL': timedelta(hours=7*24),
     'AUTO_REFRESH': True,
 }

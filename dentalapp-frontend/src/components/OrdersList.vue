@@ -11,11 +11,8 @@
                     <v-toolbar>
                         <v-toolbar-title>Lucrari</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-btn icon @click="showAddBar" id="plus">
+                        <v-btn icon @click="displayAddPage" id="plus">
                             <font-awesome-icon :icon="['fas', 'plus-circle']" />
-                        </v-btn>
-                        <v-btn icon @click="showSearchBar" id="search">
-                            <v-icon>mdi-magnify</v-icon>
                         </v-btn>
                     </v-toolbar>
                     <template>
@@ -81,14 +78,14 @@ export default {
                     text: "Doctor",
                     align: "start",
                     sortable: true,
-                    value: "doctor_name",
+                    value: "doctorName",
                 },
 
                 {
                     text: "Patient",
                     align: "start",
                     sortable: true,
-                    value: "patient_name",
+                    value: "patientName",
                 },
                 {
                     text: "Actions",
@@ -101,9 +98,31 @@ export default {
     },
     mounted() {
         this.getData();
+
         if (this.getIsSelectedOrder === true) {
             this.selectedOrder = [this.getSelectedOrder];
             this.isOrderListActive = false;
+        }
+
+        if (this.getSelectedDoctor === "" && this.getSelectedPatient === "") {
+            this.emptyFilteredOrderList();
+        } else {
+            this.isDoctorSelected = this.getSelectedDoctor != "" ? true : false;
+            this.isPatientSelected =
+                this.getSelectedPatient != "" ? true : false;
+
+            const payload = {
+                doctorId:
+                    this.getSelectedDoctor != ""
+                        ? this.getSelectedDoctor.id
+                        : "",
+                patientId:
+                    this.getSelectedPatient != ""
+                        ? this.getSelectedPatient.id
+                        : "",
+            };
+            this.isOrderListActive = true;
+            this.filterOrderList(payload);
         }
     },
 
@@ -174,29 +193,8 @@ export default {
                 });
         },
 
-        showSearchBar() {
-            if (this.isSearchBoardActive === true)
-                this.isSearchBoardActive = false;
-            else {
-                if (this.isAddBoardActive === true) {
-                    this.isSearchBoardActive = true;
-                    this.isAddBoardActive = false;
-                } else {
-                    this.isSearchBoardActive = true;
-                }
-            }
-        },
-
-        showAddBar() {
-            if (this.isAddBoardActive === true) this.isAddBoardActive = false;
-            else {
-                if (this.isSearchBoardActive === true) {
-                    this.isAddBoardActive = true;
-                    this.isSearchBoardActive = false;
-                } else {
-                    this.isAddBoardActive = true;
-                }
-            }
+        displayAddPage() {
+            this.$emit("updatePage", "add");
         },
 
         editItem(item) {

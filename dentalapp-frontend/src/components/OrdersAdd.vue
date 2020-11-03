@@ -2,150 +2,155 @@
     <div class="orderAdd">
         <Alert />
         <Confirmation />
-        <v-app>
-            <div class="content">
-                <div class="form__wrapper" v-if="showAdd">
-                    <p>
-                        Adaugare Lucrare
-                    </p>
-                    <v-form
-                        class="form"
-                        ref="form"
-                        v-model="valid"
-                        :lazy-validation="lazy"
-                        @submit="handleSubmit"
-                    >
-                        <v-text-field
-                            v-model="doctor.firstName"
-                            label="Doctor's First Name"
-                            disabled
-                            required
-                        ></v-text-field>
+        <div class="content">
+            <div class="form__wrapper" v-if="showAdd">
+                <p>
+                    Adaugare Lucrare
+                </p>
+                <v-form
+                    class="form"
+                    ref="form"
+                    v-model="valid"
+                    :lazy-validation="lazy"
+                    @submit="handleSubmit"
+                >
+                    <v-text-field
+                        v-model="doctor.firstName"
+                        label="Doctor's First Name"
+                        disabled
+                        required
+                    ></v-text-field>
 
-                        <v-text-field
-                            v-model="doctor.lastName"
-                            label="Doctor's Last Name"
-                            required
-                            disabled
-                        ></v-text-field>
+                    <v-text-field
+                        v-model="doctor.lastName"
+                        label="Doctor's Last Name"
+                        required
+                        disabled
+                    ></v-text-field>
 
-                        <v-text-field
-                            v-model="patient.firstName"
-                            label="Pacient's First Name"
-                            required
-                            disabled
-                        ></v-text-field>
+                    <v-text-field
+                        v-model="patient.firstName"
+                        label="Pacient's First Name"
+                        required
+                        disabled
+                    ></v-text-field>
 
-                        <v-text-field
-                            v-model="patient.lastName"
-                            label="Pacient's Last Name"
-                            disabled
-                            required
-                        ></v-text-field>
+                    <v-text-field
+                        v-model="patient.lastName"
+                        label="Pacient's Last Name"
+                        disabled
+                        required
+                    ></v-text-field>
 
-                        <v-container>
-                            <div class="form__type-entry">
-                                <v-row>
-                                    <v-col>
-                                        <v-select
-                                            v-model="selectedType"
-                                            :items="types"
-                                            label="Type"
-                                            item-text="type"
-                                            item-value="type"
-                                            return-object
-                                            single-line
-                                        ></v-select>
-                                    </v-col>
-                                </v-row>
-
-                                <v-row>
-                                    <v-col cols="12" md="3">
-                                        <v-select
-                                            v-model="selectedColor"
-                                            :items="colors"
-                                            label="Color"
-                                            item-text="color"
-                                            item-value="color"
-                                            return-object
-                                            single-line
-                                        ></v-select>
-                                    </v-col>
-
-                                    <v-col cols="12" md="3">
-                                        <v-select
-                                            v-model="selectedStatus"
-                                            :items="status"
-                                            label="Status"
-                                            item-text="status"
-                                            item-value="status"
-                                            return-object
-                                            single-line
-                                        ></v-select>
-                                    </v-col>
-
-                                    <v-col cols="12" md="2">
-                                        <v-text-field
-                                            v-model="unitCount"
-                                            type="number"
-                                            label="Unit Count"
-                                        ></v-text-field>
-                                    </v-col>
-
-                                    <v-col cols="12" md="2">
-                                        <v-text-field
-                                            v-model="warranty"
-                                            type="number"
-                                            label="Warranty"
-                                        ></v-text-field>
-                                    </v-col>
-
-                                    <v-col cols="12" md="1">
-                                        <v-checkbox
-                                            v-model="paid"
-                                            label="Paid"
-                                        ></v-checkbox>
-                                    </v-col>
-
-                                    <v-col cols="12" md="1">
-                                        <v-checkbox
-                                            v-model="redo"
-                                            label="Redo"
-                                        ></v-checkbox>
-                                    </v-col>
-                                </v-row>
-                            </div>
+                    <v-container class="form__entries__wrapper">
+                        <div
+                            class="form__entries"
+                            v-for="(entry, index) in entries"
+                            :key="index"
+                        >
                             <v-row>
-                                <div class="form__add-button">
-                                    <button class="more-btn" type="reset">
-                                        <a>Add another type</a>
-                                    </button>
-                                </div>
+                                <v-col>
+                                    <v-select
+                                        v-model="entry.selectedType"
+                                        :items="types"
+                                        label="Type"
+                                        item-text="type"
+                                        item-value="type"
+                                        return-object
+                                        single-line
+                                    ></v-select>
+                                </v-col>
                             </v-row>
-                        </v-container>
 
-                        <div class="form__buttons">
-                            <button
-                                class="more-btn"
-                                :disabled="!valid"
-                                @click="handleSubmit"
-                                type="submit"
-                            >
-                                <a>Submit</a>
-                            </button>
-                            <button
-                                class="more-btn"
-                                @click="handleReset"
-                                type="reset"
-                                :disabled="!empty"
-                            >
-                                <a>Reset Form</a>
-                            </button>
+                            <v-row>
+                                <v-col cols="12" md="3">
+                                    <v-select
+                                        v-model="entry.selectedColor"
+                                        :items="colors"
+                                        label="Color"
+                                        item-text="color"
+                                        item-value="color"
+                                        return-object
+                                        single-line
+                                    ></v-select>
+                                </v-col>
+
+                                <v-col cols="12" md="3">
+                                    <v-select
+                                        v-model="entry.selectedStatus"
+                                        :items="status"
+                                        label="Status"
+                                        item-text="status"
+                                        item-value="status"
+                                        return-object
+                                        single-line
+                                    ></v-select>
+                                </v-col>
+
+                                <v-col cols="12" md="2">
+                                    <v-text-field
+                                        v-model="entry.unitCount"
+                                        type="number"
+                                        label="Unit Count"
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" md="2">
+                                    <v-text-field
+                                        v-model="entry.warranty"
+                                        type="number"
+                                        label="Warranty"
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" md="1">
+                                    <v-checkbox
+                                        v-model="entry.paid"
+                                        label="Paid"
+                                    ></v-checkbox>
+                                </v-col>
+
+                                <v-col cols="12" md="1">
+                                    <v-checkbox
+                                        v-model="entry.redo"
+                                        label="Redo"
+                                    ></v-checkbox>
+                                </v-col>
+                            </v-row>
                         </div>
-                    </v-form>
-                </div>
+                        <v-row>
+                            <div class="form__add-button">
+                                <button
+                                    class="more-btn"
+                                    @click="addAnotherEntry"
+                                >
+                                    <a>Add another type</a>
+                                </button>
+                            </div>
+                        </v-row>
+                    </v-container>
+
+                    <div class="form__buttons">
+                        <button
+                            class="more-btn"
+                            :disabled="!valid"
+                            @click="handleSubmit"
+                            type="submit"
+                        >
+                            <a>Submit</a>
+                        </button>
+                        <button
+                            class="more-btn"
+                            @click="handleReset"
+                            type="reset"
+                            :disabled="!empty"
+                        >
+                            <a>Reset Form</a>
+                        </button>
+                    </div>
+                </v-form>
             </div>
-        </v-app>
+        </div>
     </div>
 </template>
 
@@ -163,7 +168,8 @@ export default {
     },
 
     data: () => ({
-        showAdd: true,
+        entries: [{}],
+        showAdd: false,
         valid: true,
         empty: true,
         doctor: "",
@@ -214,39 +220,15 @@ export default {
         lazy: false,
     }),
 
-    /*
     mounted() {
-        if (this.getSelectedOrder != "") {
-            this.order = this.getSelectedOrder;
-            this.alert = {
-                type: "success",
-                message: "Selected order received",
-                time: 4000,
-            };
-            this.addAlert(this.alert);
-            this.showDetails = true;
-        } else {
-            this.alert = {
-                type: "alert",
-                message: "No order selected",
-                time: 4000,
-            };
-            this.addAlert(this.alert);
-            this.showDetails = false;
-        }
-    },
-    */
-
-    mounted() {
-        this.getData();
         let doctor = this.getSelectedDoctor;
         let patient = this.getSelectedPatient;
-        this.showAdd = true;
 
         if (doctor !== "" && patient !== "") {
-            this.doctor = this.getSelectedDoctor;
-            this.patient = this.getSelectedPatient;
+            this.doctor = doctor;
+            this.patient = patient;
             this.getData();
+            this.showAdd = true;
         } else {
             if (doctor === "" && patient === "") {
                 this.alert = {
@@ -255,7 +237,6 @@ export default {
                     time: 4000,
                 };
                 this.addAlert(this.alert);
-                this.showAdd = false;
             } else if (patient === "") {
                 this.alert = {
                     type: "alert",
@@ -263,7 +244,6 @@ export default {
                     time: 4000,
                 };
                 this.addAlert(this.alert);
-                this.showAdd = false;
             } else {
                 this.alert = {
                     type: "alert",
@@ -271,11 +251,11 @@ export default {
                     time: 4000,
                 };
                 this.addAlert(this.alert);
-                this.showAdd = false;
             }
+            this.showAdd = false;
         }
-        this.showAdd = true;
     },
+
     computed: {
         ...mapGetters([
             "getSelectedDoctor",
@@ -283,6 +263,7 @@ export default {
             "getOrderColorsList",
             "getOrderTypesList",
             "getOrderStatusList",
+            "userId",
         ]),
     },
 
@@ -292,12 +273,26 @@ export default {
             "addConfirmationMessage",
             "requestOrderColorsList",
             "requestOrderStatusList",
-            "requestOrderTypesList",
+            "addOrder",
+            "addOrderTypeEntry",
         ]),
 
         handleSubmit(e) {
             e.preventDefault();
-            console.log("submit");
+            let orderPayload = {
+                doctorId: this.doctor.id,
+                patientId: this.patient.id,
+            };
+            //this.addOrder(orderPayload);
+
+            let orderTypeEntries = this.entries.forEach((entry) => {
+                entry.createdBy = this.userId;
+                entry.updatedBy = this.userId;
+            });
+
+            console.log(orderPayload);
+            console.log(orderTypeEntries);
+            //this.addOrderTypeEntry();
         },
 
         handleReset() {
@@ -377,6 +372,10 @@ export default {
                     this.addAlert(this.alert);
                 });
         },
+
+        addAnotherEntry() {
+            this.entries.push({});
+        },
     },
 
     watch: {},
@@ -418,25 +417,19 @@ export default {
     animation: form__wrapper__form__width 0.5s ease-in-out forwards;
 }
 
-.form__type-entry {
+.form__entries__wrapper {
+    padding: 0px;
+}
+
+.form__entries {
     background: white;
+    margin-bottom: 6px;
+    padding: var(--padding-small);
+    border-radius: 15px;
 }
 
 .form__buttons {
     justify-self: center;
-}
-
-.form {
-    width: 100%;
-    display: grid;
-    margin: auto;
-    grid-template-rows: auto auto auto 1fr;
-    align-content: space-between;
-    animation: form__wrapper__form__width 0.5s ease-in-out forwards;
-}
-
-.form__buttons {
-    margin: auto;
 }
 
 .form__add-button {

@@ -7,21 +7,21 @@
                         <a href="#">
                             <font-awesome-icon :icon="['fas', 'list']" />
                         </a>
-                        <p>Lista</p>
+                        <p>List</p>
                     </li>
 
                     <li id="details" @click="changeDisplayedPage">
                         <a href="#">
                             <font-awesome-icon :icon="['fas', 'user']" />
                         </a>
-                        <p>Detalii</p>
+                        <p>Details</p>
                     </li>
 
                     <li id="add" @click="changeDisplayedPage">
                         <a href="#">
                             <font-awesome-icon :icon="['fas', 'plus']" />
                         </a>
-                        <p>Adaugare</p>
+                        <p>Add</p>
                     </li>
                 </ul>
             </div>

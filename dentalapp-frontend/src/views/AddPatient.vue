@@ -43,21 +43,31 @@
 
                         <v-textarea
                             v-model="patientDetails"
+                            :rules="rules.patientDetails"
                             label="Details"
                             rows="1"
                             auto-grow
                             clearable
+                            required
                         ></v-textarea>
 
                         <div class="form__buttons">
-                            <v-btn
-                                type="submit"
+                            <button
+                                class="more-btn"
                                 :disabled="!valid"
                                 @click="handleSubmit"
-                                >Submit</v-btn
+                                type="submit"
                             >
-
-                            <v-btn @click="reset">Reset Form</v-btn>
+                                <a>Submit</a>
+                            </button>
+                            <button
+                                class="more-btn"
+                                @click="handleReset"
+                                type="reset"
+                                :disabled="!empty"
+                            >
+                                <a>Reset Form</a>
+                            </button>
                         </div>
                     </v-form>
                 </div>
@@ -86,6 +96,7 @@ export default {
     },
     data: () => ({
         valid: true,
+        empty: true,
         patientFirstName: "",
         patientLastName: "",
         patientPhone: "",
@@ -95,30 +106,30 @@ export default {
             message: "",
             time: 0,
         },
-        rules: [],
-        /*
         rules: {
             required: [(value) => !!value || "Required"],
-            pacientFirstName: [
+            patientFirstName: [
                 (value) => !!value || `First name is required.`,
                 (value) =>
                     /^[a-zA-Z]+$/.test(value) ||
                     "First name must not contain digits.",
             ],
-            pacientLastName: [
+            patientLastName: [
                 (value) => !!value || `Last name is required.`,
                 (value) =>
                     /^[a-zA-Z]+$/.test(value) ||
                     "Last name must not contain digits.",
             ],
-            pacientPhone: [
+            patientPhone: [
                 (value) => !!value || `Phone number is required.`,
                 (value) =>
                     /^[\d]*$/.test(value) ||
                     "Phone must only contain digits, whitespaces, dot or dashline.",
             ],
+            patientDetails: [
+                (value) => value.length <= 300 || "Too many characters.",
+            ],
         },
-        */
         lazy: false,
     }),
 
@@ -160,7 +171,7 @@ export default {
                 });
         },
 
-        reset() {
+        handleReset() {
             this.$refs.form.reset();
         },
     },
@@ -213,7 +224,49 @@ export default {
 }
 
 .form__buttons {
-    justify-self: center;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.form__buttons button {
+    opacity: 0%;
+    animation: form__buttons__fade-in 0.2s ease-in-out forwards 0.5s;
+}
+
+.more-btn {
+    display: inline-block;
+    width: 8.5em;
+    margin: auto;
+    font-size: calc(var(--text-base-size) * 1.2);
+    background: -webkit-linear-gradient(
+        -90deg,
+        var(--color-white) 50%,
+        var(--color-blue) 50%
+    );
+    background-size: 6.5em 6.5em;
+    border: 3px solid var(--color-white);
+    border-radius: 10px;
+    margin: calc(var(--padding-small) / 2);
+    transition: width 0.2s ease-in, border-radius 0.2s ease-out,
+        background-position 0.6s ease, border-color 0s ease-in;
+}
+
+.more-btn:hover {
+    width: 8.5em;
+    background-position: 0px -70px;
+    border-radius: var(--border-radius-circle);
+    border-color: var(--color-blue);
+}
+
+.more-btn a {
+    color: var(--color-blue);
+    transition: color 0.2s ease-in;
+}
+
+.more-btn:hover > a {
+    color: var(--color-white);
 }
 
 .banner__overlay {
@@ -297,6 +350,16 @@ export default {
 
     to {
         padding-top: 0px;
+    }
+}
+
+@keyframes form__buttons__fade-in {
+    0% {
+        opacity: 0%;
+    }
+
+    100% {
+        opacity: 100%;
     }
 }
 </style>

@@ -46,6 +46,9 @@
         </div>
 
         <div class="doctorSelectedList" v-if="getIsSelectedDoctor">
+            <v-toolbar id="toolbar">
+                <v-toolbar-title>Doctor Selectat</v-toolbar-title>
+            </v-toolbar>
             <template>
                 <v-data-table
                     v-model="selectedDoctor"
@@ -65,6 +68,9 @@
             class="doctorList"
             v-if="!getIsSelectedDoctor && isDoctorListActive"
         >
+            <v-toolbar id="toolbar">
+                <v-toolbar-title>Doctori</v-toolbar-title>
+            </v-toolbar>
             <template>
                 <v-data-table
                     v-model="selectedDoctor"
@@ -212,14 +218,17 @@ export default {
             if (
                 this.filteredInputDoctorFirstName.length >=
                     this.minCharactersNumber ||
-                this.filteredInputDoctorLastName >= this.minCharactersNumber
+                this.filteredInputDoctorLastName.length >=
+                    this.minCharactersNumber
             ) {
                 this.filterDoctorList({
                     filteredInputFirstName: this.filteredInputDoctorFirstName,
                     filteredInputLastName: this.filteredInputDoctorLastName,
                 });
+
                 this.filterDoctor = true;
             } else {
+                console.log("da");
                 if (this.filteredInputDoctorFirstName > 0) {
                     let alert = {
                         type: "info",
@@ -337,6 +346,19 @@ export default {
 
 .table {
     text-align: left;
+}
+
+#toolbar {
+    box-shadow: none;
+    margin-bottom: 6px;
+}
+
+.doctorSelectedList {
+    margin-bottom: 6px;
+}
+
+.doctorList {
+    margin-bottom: 6px;
 }
 
 /* ANIMATIONS */

@@ -11,6 +11,7 @@ const state = {
     removeOrderUrl: "http://127.0.0.1:8000/api/v1/orders/",
     editOrderUrl: "http://127.0.0.1:8000/api/v1/orders/",
     selectedOrder: "",
+    selectedOrderTotalPrice: "",
     isSelectedOrder: false,
 };
 
@@ -24,6 +25,7 @@ const getters = {
     requestStatusOrder: (state) => state.statusOrder,
     getSelectedOrder: (state) => state.selectedOrder,
     getIsSelectedOrder: (state) => state.isSelectedOrder,
+    getSelectedOrderTotalPrice: (state) => state.selectedOrderTotalPrice,
 };
 
 const actions = {
@@ -115,6 +117,14 @@ const actions = {
     removeSelectedOrder({ commit }) {
         commit("selectedOrder_empty");
     },
+
+    setSelectedOrderTotalPrice({ commit }, totalPrice) {
+        commit("set_selectedOrderTotalPrice", totalPrice);
+    },
+
+    removeSelectedOrderTotalPrice({ commit }) {
+        commit("remove_selectedOrderTotalPrice");
+    },
 };
 
 const mutations = {
@@ -174,6 +184,14 @@ const mutations = {
     selectedOrder_success(state, payload) {
         state.selectedOrder = payload;
         state.isSelectedOrder = true;
+    },
+
+    set_selectedOrderTotalPrice(state, totalPrice) {
+        state.selectedOrderTotalPrice = totalPrice;
+    },
+
+    remove_selectedOrderTotalPrice(state) {
+        state.selectedOrderTotalPrice = "";
     },
 };
 

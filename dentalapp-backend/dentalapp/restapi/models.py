@@ -76,8 +76,8 @@ class Patient(models.Model):
 
 
 class Order(models.Model):
-    doctor = models.ForeignKey(Doctor, on_delete=models.SET_NULL, null=True)
-    patient = models.ForeignKey(Patient, on_delete=models.SET_NULL, null=True)
+    doctor = models.ForeignKey(Doctor, on_delete=models.PROTECT)
+    patient = models.ForeignKey(Patient, on_delete=models.PROTECT)
     createdBy = models.ForeignKey(User,
                                   on_delete=models.SET_NULL, null=True,
                                   related_name='+')
@@ -156,10 +156,10 @@ class OrderColor(models.Model):
 
 class OrderTypeEntry(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    color = models.ForeignKey(OrderColor, on_delete=models.SET_NULL, null=True)
-    type = models.ForeignKey(OrderType, on_delete=models.SET_NULL, null=True)
+    color = models.ForeignKey(OrderColor, on_delete=models.PROTECT)
+    type = models.ForeignKey(OrderType, on_delete=models.PROTECT)
     status = models.ForeignKey(
-        OrderStatus, on_delete=models.SET_NULL, null=True)
+        OrderStatus, on_delete=models.PROTECT)
     unitCount = models.PositiveIntegerField(
         default=1, validators=[MinValueValidator(1)], blank=False)
     redo = models.BooleanField(default=False)

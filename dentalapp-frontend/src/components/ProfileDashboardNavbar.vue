@@ -7,14 +7,14 @@
                         <a href="#">
                             <font-awesome-icon :icon="['fas', 'user']" />
                         </a>
-                        <p>Detalii</p>
+                        <p>Details</p>
                     </li>
-                    
+
                     <li id="edit" @click="changeDisplayedPage">
                         <a href="#">
                             <font-awesome-icon :icon="['fas', 'edit']" />
                         </a>
-                        <p>Editare</p>
+                        <p>Edit</p>
                     </li>
                 </ul>
             </div>

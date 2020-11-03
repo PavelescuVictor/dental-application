@@ -81,10 +81,6 @@ export default {
 };
 </script>
 <style scoped>
-.orderTypeEntriesDashboard {
-    padding-top: 6px;
-}
-
 .ordersDashboard__content {
     z-index: 2;
     width: 0%;

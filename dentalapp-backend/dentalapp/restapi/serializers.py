@@ -39,15 +39,20 @@ class PatientSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    doctor_name = serializers.CharField(
+    doctorName = serializers.CharField(
         source='doctor.__str__', read_only=True)
-    patient_name = serializers.CharField(
+    patientName = serializers.CharField(
         source='patient.__str__', read_only=True)
+    createdByName = serializers.CharField(
+        source='createdBy.__str__', read_only=True
+    )
+    updatedByName = serializers.CharField(
+        source='updatedBy.__str__', read_only=True)
 
     class Meta:
         model = Order
         fields = [
-            'id', 'doctor', 'doctor_name', 'patient', 'patient_name', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt'
+            'id', 'doctor', 'doctorName', 'patient', 'patientName', 'createdBy', 'createdByName', 'updatedBy', 'updatedByName', 'createdAt', 'updatedAt'
         ]
 
 
@@ -93,10 +98,31 @@ class OrderColorSerializer(serializers.ModelSerializer):
 class OrderTypeEntrySerializer(serializers.ModelSerializer):
     # Serializer for the OrderTypeEntry
 
+    typeName = serializers.CharField(
+        source='type.__str__', read_only=True
+    )
+    typePPU = serializers.CharField(
+        source='type.ppu', read_only=True
+    )
+
+    colorName = serializers.CharField(
+        source='color.__str__', read_only=True
+    )
+
+    statusName = serializers.CharField(
+        source='status.__str__', read_only=True
+    )
+
+    createdByName = serializers.CharField(
+        source='createdBy.__str__', read_only=True
+    )
+    updatedByName = serializers.CharField(
+        source='updatedBy.__str__', read_only=True)
+
     class Meta:
         model = OrderTypeEntry
         fields = [
-            'id', 'order', 'color', 'type', 'status', 'unitCount', 'redo', 'paid', 'warranty', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt'
+            'id', 'order', 'color', 'colorName', 'type', 'typeName', 'typePPU', 'status', 'statusName', 'unitCount', 'redo', 'paid', 'warranty', 'createdBy', 'createdByName', 'updatedBy', 'updatedByName', 'createdAt', 'updatedAt'
         ]
         extra_kwargs = {
             'order': {

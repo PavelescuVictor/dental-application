@@ -5,33 +5,15 @@
         <div class="content">
             <div class="card__wrapper" v-if="showDetails">
                 <template>
-                    <v-card min-width="100%">
-                        <v-list two-line>
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        order.doctor_name
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        order.patient_name
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
+                    <v-card min-width="100%" id="card">
+                        <v-list two-line id="list">
                             <v-list-item>
                                 <v-list-item-content>
                                     <v-list-item-title
-                                        >Created at
-                                        {{ order.createdAt }}</v-list-item-title
+                                        >Nume doctor:
+                                        {{
+                                            order.doctorName
+                                        }}</v-list-item-title
                                     >
                                 </v-list-item-content>
                             </v-list-item>
@@ -41,8 +23,69 @@
                             <v-list-item>
                                 <v-list-item-content>
                                     <v-list-item-title
-                                        >Updated at
+                                        >Nume patient:
+                                        {{
+                                            order.patientName
+                                        }}</v-list-item-title
+                                    >
+                                </v-list-item-content>
+                            </v-list-item>
+
+                            <v-divider></v-divider>
+
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title
+                                        >Created at:
+                                        {{ order.createdAt }}</v-list-item-title
+                                    >
+                                </v-list-item-content>
+                            </v-list-item>
+
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title
+                                        >Created by:
+                                        {{
+                                            order.createdByName
+                                        }}</v-list-item-title
+                                    >
+                                </v-list-item-content>
+                            </v-list-item>
+
+                            <v-divider></v-divider>
+
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title
+                                        >Updated at:
                                         {{ order.updatedAt }}</v-list-item-title
+                                    >
+                                </v-list-item-content>
+                            </v-list-item>
+
+                            <v-divider></v-divider>
+
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title
+                                        >Updated by:
+                                        {{
+                                            order.updatedByName
+                                        }}</v-list-item-title
+                                    >
+                                </v-list-item-content>
+                            </v-list-item>
+
+                            <v-divider></v-divider>
+
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title
+                                        >Total price:
+                                        {{
+                                            getSelectedOrderTotalPrice
+                                        }}</v-list-item-title
                                     >
                                 </v-list-item-content>
                             </v-list-item>
@@ -74,6 +117,7 @@ export default {
         return {
             order: "",
             showDetails: false,
+            totalPrice: "",
             alert: {
                 type: "",
                 message: "",
@@ -132,7 +176,7 @@ export default {
     },
 
     computed: {
-        ...mapGetters(["getSelectedOrder"]),
+        ...mapGetters(["getSelectedOrder", "getSelectedOrderTotalPrice"]),
     },
 
     methods: {
@@ -154,6 +198,7 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    background-color: var(--color-lightgrey-2);
 }
 
 .card__wrapper {
@@ -164,9 +209,14 @@ export default {
     justify-content: center;
 }
 
-.list {
-    min-height: 100%;
-    text-align: center;
+.item__title-list {
+    height: 100%;
+    background: var(--color-lightgrey-2);
+    display: grid;
+    grid-template-rows: 1;
+    grid-template-columns: auto 1fr;
+    grid-gap: 6px;
+    justify-content: center;
 }
 
 /* ANIMATIONS */

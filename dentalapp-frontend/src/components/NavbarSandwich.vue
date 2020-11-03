@@ -13,27 +13,27 @@
                     <ul :class="menuClass">
                         <router-link to="/home">
                             <li>
-                                <a :style="menuStyle">Home</a>
+                                <a :style="menuStyle">Acasa</a>
                             </li>
                         </router-link>
                         <router-link to="/doctors">
                             <li>
-                                <a :style="menuStyle">Doctors</a>
+                                <a :style="menuStyle">Doctori</a>
                             </li>
                         </router-link>
                         <router-link to="/patients">
                             <li>
-                                <a :style="menuStyle">Patients</a>
+                                <a :style="menuStyle">Pacienti</a>
                             </li>
                         </router-link>
                         <router-link to="/orders">
                             <li>
-                                <a :style="menuStyle">Orders</a>
+                                <a :style="menuStyle">Lucrari</a>
                             </li>
                         </router-link>
                         <router-link to="/admin" v-if="showAdminButton">
                             <li>
-                                <a :style="menuStyle">Admin</a>
+                                <a :style="menuStyle">Administrator</a>
                             </li>
                         </router-link>
                         <router-link to="/logout" v-if="showLogoutButton">

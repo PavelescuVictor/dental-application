@@ -7,7 +7,7 @@
                         <p>Doctor</p>
                     </li>
                     <li id="patient" @click="changeDisplayedPage">
-                        <p>Pacient</p>
+                        <p>Patient</p>
                     </li>
                 </ul>
             </div>

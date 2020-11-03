@@ -7,21 +7,21 @@
                         <a href="#">
                             <font-awesome-icon :icon="['fas', 'list']" />
                         </a>
-                        <p>Lista</p>
+                        <p>List</p>
                     </li>
 
                     <li id="details" @click="changeDisplayedPage">
                         <a href="#">
                             <font-awesome-icon :icon="['fas', 'user']" />
                         </a>
-                        <p>Detalii</p>
+                        <p>Details</p>
                     </li>
 
                     <li id="edit" @click="changeDisplayedPage">
                         <a href="#">
                             <font-awesome-icon :icon="['fas', 'edit']" />
                         </a>
-                        <p>Editare</p>
+                        <p>Edit</p>
                     </li>
 
                     <router-link to="/doctors/add_doctor">
@@ -29,7 +29,7 @@
                             <a href="#">
                                 <font-awesome-icon :icon="['fas', 'plus']" />
                             </a>
-                            <p>Adaugare</p>
+                            <p>Add</p>
                         </li>
                     </router-link>
                 </ul>
