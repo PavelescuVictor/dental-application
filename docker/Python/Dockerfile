@@ -6,15 +6,14 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED=1
 
 # Set Work Directory
-WORKDIR /usr/src/app
+RUN mkdir /dentalapp
 
-RUN ls dentalapp-backend/
-RUN ls /dentalapp-backend/
-run ls 
 # Installing requirements
-COPY dentalapp-backend/requirements.txt ./
-RUN pip install -r requirements.txt
-COPY /dentalapp-backend/dentalapp ./
+COPY dentalapp-backend/requirements.txt /dentalapp/
+RUN pip install -r dentalapp/requirements.txt
+COPY . /dentalapp
+
+WORKDIR /dentalapp
 
 EXPOSE 8000
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
