@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+    db:
+        image: postgres
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_DB=DentalApplication
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+        container_name: postgres
+
+    backend:
+        build:
+            context: ./
+            dockerfile: docker/Python/Dockerfile
+        command: python manage.py runserver 0.0.0.0:8000
+        volumes:
+            - dentalapp-backend:/code
+        ports:
+            - "8000:8000"
+        depends_on:
+            - db
+        container_name: dentalapplication_backend
+
+    frontend:
+        build:
+            context: ./
+            dockerfile: docker/Vue/Dockerfile
+        volumes:
+            - dentalapp-frontend:/dist
+        ports:
+            - "8080:8080"
+        depends_on:
+            - backend
+        container_name: dentalapplication_frontend

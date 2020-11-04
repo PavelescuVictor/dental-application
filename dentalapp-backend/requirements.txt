@@ -9,6 +9,7 @@ django-rest-knox==4.1.0
 django-rest-passwordreset==1.1.0
 djangorestframework==3.12.1
 phonenumbers==8.12.11
+psycopg2==2.8.6
 pycparser==2.20
 pytz==2020.1
 six==1.15.0

@@ -1,0 +1,12 @@
+FROM node:lts-alpine
+WORKDIR /dentalapp-frontend/src/app
+COPY dentalapp-frontend/package*.json ./
+RUN ls -l
+RUN npm install
+COPY dentalapp-frontend ./
+RUN ls -l
+RUN npm run build
+COPY /dentalapp-frontend/nodeserver/nodeServer.js /dentalapp-frontend/dist/nodeServer.js
+WORKDIR /dentalapp-frontend/src/app/dist
+EXPOSE 8080
+CMD ["node", "nodeServer.js"]
