@@ -5,10 +5,11 @@ FROM python:3.8-alpine
 ENV PYTHONUNBUFFERED=1
 
 # Set Work Directory
-RUN mkdir /dentalapp-backend/code
-WORKDIR /dentalapp-backend/code
+WORKDIR /dentalapp-backend
 
 # Installing requirements
-COPY /dentalapp-backend/requirements.txt /dentalapp-backend/code/
-RUN pip install -r requirements.txt
-COPY /dentalapp-backend/ /dentalapp-backend/code/
+COPY ./dentalapp-backend/requirements.txt ./dentalapp-backend/
+RUN pip install -r ./dentalapp-backend/requirements.txt
+
+EXPOSE 8000
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
