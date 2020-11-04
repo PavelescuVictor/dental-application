@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED=1
 RUN mkdir /dentalapp
 
 # Installing requirements
-COPY dentalapp-backend/requirements.txt /dentalapp/
+COPY ./../../dentalapp-backend/requirements.txt /dentalapp/
 RUN pip install -r dentalapp/requirements.txt
 COPY . /dentalapp
 
