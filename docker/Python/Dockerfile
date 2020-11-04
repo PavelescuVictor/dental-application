@@ -2,7 +2,6 @@
 FROM python:3.8-alpine
 
 # Set Environment Variables
-ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Set Work Directory
