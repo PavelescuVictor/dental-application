@@ -8,6 +8,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /dentalapp-backend
 
 # Installing requirements
+RUN ls -l
 COPY ./dentalapp-backend/requirements.txt ./dentalapp-backend/
 RUN pip install -r ./dentalapp-backend/requirements.txt
 
