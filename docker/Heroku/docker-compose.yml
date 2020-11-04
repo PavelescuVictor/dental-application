@@ -16,8 +16,6 @@ services:
             context: ./
             dockerfile: docker/Python/Dockerfile
         command: python manage.py runserver 0.0.0.0:8000
-        volumes:
-            - dentalapp-backend:/code
         ports:
             - "8000:8000"
         depends_on:
@@ -28,8 +26,6 @@ services:
         build:
             context: ./
             dockerfile: docker/Vue/Dockerfile
-        volumes:
-            - dentalapp-frontend:/dist
         ports:
             - "8080:8080"
         depends_on:
