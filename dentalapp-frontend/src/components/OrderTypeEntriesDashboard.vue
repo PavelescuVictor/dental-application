@@ -11,11 +11,11 @@
                 <div class="details" v-if="isDetailsActive">
                     <OrderTypeEntriesDetails />
                 </div>
-                <div class="dit" v-if="isEditActive">
-                    <OrderTypeEntriesEdit />
+                <div class="edit" v-if="isEditActive">
+                    <OrderTypeEntriesEdit @updatePage="changeDisplayedPage" />
                 </div>
                 <div class="add" v-if="isAddActive">
-                    <OrderTypeEntriesAdd />
+                    <OrderTypeEntriesAdd @updatePage="changeDisplayedPage" />
                 </div>
             </div>
         </div>
@@ -61,10 +61,12 @@ export default {
             if (val === "list") {
                 this.isListActive = true;
                 this.isDetailsActive = false;
+                this.isEditActive = false;
                 this.isAddActive = false;
             } else if (val === "details") {
                 this.isListActive = false;
                 this.isDetailsActive = true;
+                this.isEditActive = false;
                 this.isAddActive = false;
             } else if (val === "edit") {
                 this.isListActive = false;
@@ -74,6 +76,7 @@ export default {
             } else if (val === "add") {
                 this.isListActive = false;
                 this.isDetailsActive = false;
+                this.isEditActive = false;
                 this.isAddActive = true;
             }
         },

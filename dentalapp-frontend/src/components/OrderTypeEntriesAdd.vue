@@ -1,13 +1,10 @@
 <template>
-    <div class="orderAdd">
-        <Alert />
+    <div class="orderTypeEntriesAdd">
         <Confirmation />
-        <v-app>
+        <Alert />
+        <v-app id="vapp" v-if="showEdit">
             <div class="content">
-                <div class="form__wrapper" v-if="showAdd">
-                    <p>
-                        Adaugare Lucrare
-                    </p>
+                <div class="form__wrapper">
                     <v-form
                         class="form"
                         ref="form"
@@ -15,36 +12,8 @@
                         :lazy-validation="lazy"
                         @submit="handleSubmit"
                     >
-                        <v-text-field
-                            v-model="doctor.firstName"
-                            label="Doctor's First Name"
-                            disabled
-                            required
-                        ></v-text-field>
-
-                        <v-text-field
-                            v-model="doctor.lastName"
-                            label="Doctor's Last Name"
-                            required
-                            disabled
-                        ></v-text-field>
-
-                        <v-text-field
-                            v-model="patient.firstName"
-                            label="Pacient's First Name"
-                            required
-                            disabled
-                        ></v-text-field>
-
-                        <v-text-field
-                            v-model="patient.lastName"
-                            label="Pacient's Last Name"
-                            disabled
-                            required
-                        ></v-text-field>
-
-                        <v-container>
-                            <div class="form__type-entry">
+                        <v-container class="form__entries__wrapper">
+                            <div class="form__entries">
                                 <v-row>
                                     <v-col>
                                         <v-select
@@ -55,6 +24,7 @@
                                             item-value="type"
                                             return-object
                                             single-line
+                                            :rules="rules.selectedType"
                                         ></v-select>
                                     </v-col>
                                 </v-row>
@@ -69,6 +39,7 @@
                                             item-value="color"
                                             return-object
                                             single-line
+                                            :rules="rules.selectedColor"
                                         ></v-select>
                                     </v-col>
 
@@ -81,6 +52,7 @@
                                             item-value="status"
                                             return-object
                                             single-line
+                                            :rules="rules.selectedStatus"
                                         ></v-select>
                                     </v-col>
 
@@ -89,6 +61,7 @@
                                             v-model="unitCount"
                                             type="number"
                                             label="Unit Count"
+                                            :rules="rules.unitCount"
                                         ></v-text-field>
                                     </v-col>
 
@@ -97,6 +70,7 @@
                                             v-model="warranty"
                                             type="number"
                                             label="Warranty"
+                                            :rules="rules.warranty"
                                         ></v-text-field>
                                     </v-col>
 
@@ -115,13 +89,6 @@
                                     </v-col>
                                 </v-row>
                             </div>
-                            <v-row>
-                                <div class="form__add-button">
-                                    <button class="more-btn" type="reset">
-                                        <a>Add another type</a>
-                                    </button>
-                                </div>
-                            </v-row>
                         </v-container>
 
                         <div class="form__buttons">
@@ -152,10 +119,10 @@
 <script>
 import Alert from "../components/Alert.vue";
 import Confirmation from "../components/Confirmation.vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-    name: "add-order",
+    name: "OrderTypeEntryEdit",
 
     components: {
         Alert,
@@ -163,154 +130,127 @@ export default {
     },
 
     data: () => ({
-        showAdd: true,
+        showEdit: false,
         valid: true,
         empty: true,
-        doctor: "",
-        patient: "",
+        selectedType: "",
+        selectedStatus: "",
+        selectedColor: "",
         types: [],
         colors: [],
         status: [],
-        selectedType: {
-            type: "type1",
-        },
-        selectedColor: {
-            color: "color1",
-        },
-        selectedStatus: {
-            status: "status1",
-        },
-        unitCount: 0,
+        unitCount: 1,
         warranty: 0,
         redo: false,
         paid: false,
         rules: {
             required: [(value) => !!value || "Required"],
-            doctorFirstName: [
-                (value) => !!value || `First name is required.`,
-                (value) =>
-                    /^[a-zA-Z]+$/.test(value) ||
-                    "First name must not contain digits.",
+            selectedColor: [(value) => !!value || `First name is required.`],
+            selectedType: [(value) => !!value || `Last name is required.`],
+            selectedStatus: [(value) => !!value || `First name is required.`],
+            unitCount: [
+                (value) => value > 1 || `Unit count cannot be bellow 1.`,
             ],
-            doctorLastName: [
-                (value) => !!value || `Last name is required.`,
-                (value) =>
-                    /^[a-zA-Z]+$/.test(value) ||
-                    "Last name must not contain digits.",
-            ],
-            patientFirstName: [
-                (value) => !!value || `First name is required.`,
-                (value) =>
-                    /^[a-zA-Z]+$/.test(value) ||
-                    "First name must not contain digits.",
-            ],
-            patientLastName: [
-                (value) => !!value || `Last name is required.`,
-                (value) =>
-                    /^[a-zA-Z]+$/.test(value) ||
-                    "Last name must not contain digits.",
-            ],
+            warranty: [(value) => value >= 0 || `Warranty cannot be bellow 0.`],
         },
         lazy: false,
     }),
 
-    /*
-    mounted() {
+    async mounted() {
         if (this.getSelectedOrder != "") {
+            this.showEdit = true;
+
             this.order = this.getSelectedOrder;
+
             this.alert = {
                 type: "success",
-                message: "Selected order received",
-                time: 4000,
+                message: "Selected order type entry received",
             };
+
             this.addAlert(this.alert);
-            this.showDetails = true;
+
+            await this.getData();
         } else {
             this.alert = {
                 type: "alert",
-                message: "No order selected",
-                time: 4000,
+                message: "No order type selected",
             };
+
             this.addAlert(this.alert);
-            this.showDetails = false;
+
+            this.showEdit = false;
         }
     },
-    */
 
-    mounted() {
-        this.getData();
-        let doctor = this.getSelectedDoctor;
-        let patient = this.getSelectedPatient;
-        this.showAdd = true;
-
-        if (doctor !== "" && patient !== "") {
-            this.doctor = this.getSelectedDoctor;
-            this.patient = this.getSelectedPatient;
-            this.getData();
-        } else {
-            if (doctor === "" && patient === "") {
-                this.alert = {
-                    type: "alert",
-                    message: "No doctor and patient selected",
-                    time: 4000,
-                };
-                this.addAlert(this.alert);
-                this.showAdd = false;
-            } else if (patient === "") {
-                this.alert = {
-                    type: "alert",
-                    message: "No patient selected",
-                    time: 4000,
-                };
-                this.addAlert(this.alert);
-                this.showAdd = false;
-            } else {
-                this.alert = {
-                    type: "alert",
-                    message: "No doctor selected",
-                    time: 4000,
-                };
-                this.addAlert(this.alert);
-                this.showAdd = false;
-            }
-        }
-        this.showAdd = true;
-    },
     computed: {
         ...mapGetters([
+            "getSelectedOrderTypeEntry",
+            "getSelectedOrder",
             "getSelectedDoctor",
             "getSelectedPatient",
             "getOrderColorsList",
             "getOrderTypesList",
             "getOrderStatusList",
+            "userId",
         ]),
     },
 
     methods: {
         ...mapActions([
             "addAlert",
-            "addConfirmationMessage",
             "requestOrderColorsList",
-            "requestOrderStatusList",
             "requestOrderTypesList",
+            "requestOrderStatusList",
+            "addOrderTypeEntry",
+            "removeSelectedOrderTypeEntry",
         ]),
 
         handleSubmit(e) {
             e.preventDefault();
-            console.log("submit");
+
+            let payload = {
+                order: this.order.id,
+                color: this.selectedColor.id,
+                type: this.selectedType.id,
+                status: this.selectedStatus.id,
+                unitCount: this.unitCount,
+                warranty: this.warranty,
+                paid: this.paid,
+                redo: this.redo,
+                createdBy: this.userId,
+                updatedBy: this.userId,
+            };
+
+            this.addOrderTypeEntry(payload)
+                .then((response) => {
+                    const status = response.status;
+                    let type;
+                    if (status == "200") type = "success";
+                    this.alert = {
+                        type: type,
+                        message: "Order Type Entries edited!",
+                    };
+                    this.addAlert(this.alert);
+                    this.$emit("updatePage", "list");
+                })
+                .catch((error) => {
+                    let message = "";
+                    let errors = error.response.data;
+
+                    for (let prop in errors) {
+                        message = message + prop + ": " + errors[prop] + "\n";
+                    }
+
+                    this.alert = {
+                        type: "error",
+                        message: message,
+                    };
+                    this.addAlert(this.alert);
+                });
         },
 
         handleReset() {
             this.$refs.form.reset();
-            this.selectedType = {
-                type: "type1",
-            };
-            this.selectedColor = {
-                color: "color1",
-            };
-            this.selectedStatus = {
-                status: "status1",
-            };
         },
 
         getData: async function() {
@@ -324,8 +264,6 @@ export default {
                         message: "Order Colors data received!",
                     };
                     this.addAlert(this.alert);
-                    console.log(this.getOrderColorsList);
-                    this.colors = this.getOrderColorsList;
                 })
                 .catch((error) => {
                     this.alert = {
@@ -345,8 +283,6 @@ export default {
                         message: "Order Status data received!",
                     };
                     this.addAlert(this.alert);
-                    console.log(this.getOrderStatusList);
-                    this.status = this.getOrderStatusList;
                 })
                 .catch((error) => {
                     this.alert = {
@@ -366,8 +302,6 @@ export default {
                         message: "Order Types data received!",
                     };
                     this.addAlert(this.alert);
-                    console.log(this.getOrderTypesList);
-                    this.types = this.getOrderTypesList;
                 })
                 .catch((error) => {
                     this.alert = {
@@ -376,13 +310,25 @@ export default {
                     };
                     this.addAlert(this.alert);
                 });
+
+            this.colors = this.getOrderColorsList;
+            this.status = this.getOrderStatusList;
+            this.types = this.getOrderTypesList;
         },
     },
-
-    watch: {},
 };
 </script>
 <style scoped>
+#vapp {
+    font-family: var(--text-base-font);
+    background: var(--color-lightgrey-1);
+    color: var(--color-darkblue);
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    line-height: inherit;
+}
+
 .content {
     position: relative;
     min-height: 100%;
@@ -396,13 +342,14 @@ export default {
 .form__wrapper {
     height: 100%;
     display: grid;
-    grid-template-rows: 1fr auto 1fr;
+    grid-template-rows: auto;
     padding: var(--padding-small) 0px;
 }
 
 .form__wrapper p {
     justify-self: center;
     align-self: center;
+    color: var(--color-darkblue);
     font-size: 1.8rem;
     line-height: 1.8rem;
     padding: var(--padding-small);
@@ -418,25 +365,48 @@ export default {
     animation: form__wrapper__form__width 0.5s ease-in-out forwards;
 }
 
-.form__type-entry {
+.form__entries__wrapper {
+    padding: 0px;
+}
+
+.form__entries {
     background: white;
+    margin-bottom: 6px;
+    padding: var(--padding-small);
+    border-radius: 15px;
+}
+
+.form__entries__button {
+    display: flex;
+    justify-content: center;
+}
+
+.entry__remove-btn {
+    display: inline-block;
+    font-size: calc(var(--text-base-size) * 2);
+    border: 3px solid var(--color-white);
+    border-radius: var(--border-radius-circle);
+    transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out,
+        transform 0.4s ease-out;
+}
+
+.entry__remove-btn:hover {
+    transform: rotate(360deg);
+    background-color: var(--color-blue);
+    border-color: var(--color-blue);
+}
+
+.entry__remove-btn a {
+    color: var(--color-blue);
+    transition: color 0.1s ease-in-out;
+}
+
+.entry__remove-btn:hover > a {
+    color: var(--color-white);
 }
 
 .form__buttons {
     justify-self: center;
-}
-
-.form {
-    width: 100%;
-    display: grid;
-    margin: auto;
-    grid-template-rows: auto auto auto 1fr;
-    align-content: space-between;
-    animation: form__wrapper__form__width 0.5s ease-in-out forwards;
-}
-
-.form__buttons {
-    margin: auto;
 }
 
 .form__add-button {
@@ -474,66 +444,6 @@ export default {
 
 .more-btn:hover > a {
     color: var(--color-white);
-}
-
-.banner__overlay {
-    height: 100%;
-}
-
-.overlay__color {
-    position: absolute;
-    height: 100%;
-    width: 50%;
-    left: -25%;
-    right: 0px;
-    background-color: rgba(var(--color-blue-rgb), 0.9);
-    z-index: 1;
-    animation: overlay__color__slide-right 0.7s ease-out forwards;
-}
-
-.overlay__image {
-    position: absolute;
-    height: 100%;
-    width: 50%;
-    left: -25%;
-    right: 0px;
-    opacity: 0%;
-    background-image: var(--banner-background-image);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position-x: right;
-    animation: overlay__image__slide-right 0.7s ease-out forwards,
-        overlay__image__fade-in 0.7s ease-in-out forwards 0.2s;
-}
-
-@keyframes overlay__image__slide-right {
-    from {
-        left: -25%;
-    }
-
-    to {
-        left: 0%;
-    }
-}
-
-@keyframes overlay__image__fade-in {
-    from {
-        opacity: 0%;
-    }
-
-    to {
-        opacity: 100%;
-    }
-}
-
-@keyframes overlay__color__slide-right {
-    from {
-        left: -25%;
-    }
-
-    to {
-        left: 0%;
-    }
 }
 
 @keyframes form__wrapper__p__scale {

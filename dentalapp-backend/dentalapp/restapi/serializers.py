@@ -150,10 +150,9 @@ class OrderTypeEntrySerializer(serializers.ModelSerializer):
                 'required': True,
             }
         }
-        """
+
         validators = [
             UniqueTogetherValidator(
-                queryset=OrderTypeEntry.objects.all(), fields=['id', 'order', 'type'], message="Cannot add Type. Reason: Order type already exists."
+                queryset=OrderTypeEntry.objects.all(), fields=['order', 'type'], message="Cannot add Type. Reason: Order type already exists."
             )
         ]
-        """

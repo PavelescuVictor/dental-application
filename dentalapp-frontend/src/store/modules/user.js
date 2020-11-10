@@ -172,7 +172,7 @@ const actions = {
             commit("add_profile_request");
             axios({
                 url: `${getters.addProfileUrl}${getters.userId}/profile/`,
-                method: "PATCH",
+                method: "PUT",
                 headers: {
                     Authorization: `Token ${getters.userToken}`,
                 },
@@ -181,8 +181,6 @@ const actions = {
                     firstName: payload.userFirstName,
                     lastName: payload.userLastName,
                     phone: payload.userPhone,
-                    gender: payload.userGender,
-                    fccProfileUrl: payload.fccProfileUrl,
                 },
             })
                 .then((response) => {

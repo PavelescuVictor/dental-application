@@ -11,7 +11,7 @@
             </div>
             <div class="content__form">
                 <div class="form__wrapper">
-                    <p>Adaugare Profil</p>
+                    <p>Add Profile</p>
 
                     <v-form
                         class="form"
@@ -21,30 +21,23 @@
                         @submit="handleSubmit"
                     >
                         <v-text-field
-                            v-model="doctorFirstName"
-                            :rules="rules.doctorFirstName"
+                            v-model="userFirstName"
+                            :rules="rules.userFirstName"
                             label="First Name"
                             required
                         ></v-text-field>
 
                         <v-text-field
-                            v-model="doctorLastName"
-                            :rules="rules.doctorLastName"
+                            v-model="userLastName"
+                            :rules="rules.userLastName"
                             label="Last Name"
                             required
                         ></v-text-field>
 
                         <v-text-field
-                            v-model="doctorPhone"
-                            :rules="rules.doctorPhone"
+                            v-model="userPhone"
+                            :rules="rules.userPhone"
                             label="Phone"
-                            required
-                        ></v-text-field>
-
-                        <v-text-field
-                            v-model="doctorCabinet"
-                            :rules="rules.doctorCabinet"
-                            label="Cabinet"
                             required
                         ></v-text-field>
 
@@ -85,49 +78,47 @@ import { mapActions } from "vuex";
 
 export default {
     name: "addProfile",
+
     components: {
         Navbar,
         ScrollTop,
         Footer,
         Alert,
     },
+
     data: () => ({
         valid: true,
-        doctorFirstName: "",
-        doctorLastName: "",
-        doctorPhone: "",
-        doctorCabinet: "",
+        empty: true,
+        userFirstName: "",
+        userLastName: "",
+        userPhone: "",
         alert: {
             type: "",
             message: "",
             time: 0,
         },
-        rules: {},
-        /*rules: {
+        rules: {
             required: [(value) => !!value || "Required"],
-            doctorFirstName: [
+            userFirstName: [
                 (value) => !!value || `First name is required.`,
                 (value) =>
                     /^[a-zA-Z]+$/.test(value) ||
                     "First name must not contain digits.",
             ],
-            doctorLastName: [
+            userLastName: [
                 (value) => !!value || `Last name is required.`,
                 (value) =>
                     /^[a-zA-Z]+$/.test(value) ||
                     "Last name must not contain digits.",
             ],
-            doctorPhone: [
+            userPhone: [
                 (value) => !!value || `Phone number is required.`,
                 (value) =>
                     /^[\d]*$/.test(value) ||
                     "Phone must only contain digits, whitespaces, dot or dashline.",
             ],
-            doctorCabinet: [(value) => !!value || `Cabinet is required.`],
         },
-        */
         lazy: false,
-        alertMessage: "",
     }),
 
     methods: {
@@ -135,7 +126,14 @@ export default {
 
         handleSubmit(e) {
             e.preventDefault();
-            this.addProfile()
+
+            let payload = {
+                firstName: this.userFirstName,
+                lastName: this.userLastName,
+                phone: this.userPhone,
+            };
+
+            this.addProfile(payload)
                 .then((response) => {
                     const status = response.status;
                     let type;
@@ -149,7 +147,7 @@ export default {
                     if (this.$route.params.nextUrl != null) {
                         this.$router.push(this.$route.params.nextUrl);
                     } else {
-                        this.$router.push({ name: "doctors" });
+                        this.$router.push({ name: "profile" });
                     }
                 })
                 .catch((error) => {
@@ -162,7 +160,7 @@ export default {
                 });
         },
 
-        reset() {
+        handleReset() {
             this.$refs.form.reset();
         },
     },

@@ -11,7 +11,7 @@
             </div>
             <div class="content__form">
                 <div class="form__wrapper">
-                    <p>Adaugare Pacient</p>
+                    <p>Add Patient</p>
 
                     <v-form
                         class="form"

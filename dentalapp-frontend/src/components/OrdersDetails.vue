@@ -1,7 +1,7 @@
 <template>
     <div class="orderDetails">
-        <Confirmation />
         <Alert />
+        <Confirmation />
         <div class="content">
             <div class="card__wrapper" v-if="showDetails">
                 <template>
@@ -117,7 +117,6 @@ export default {
         return {
             order: "",
             showDetails: false,
-            totalPrice: "",
             alert: {
                 type: "",
                 message: "",
@@ -217,6 +216,11 @@ export default {
     grid-template-columns: auto 1fr;
     grid-gap: 6px;
     justify-content: center;
+}
+
+#card {
+    box-shadow: none;
+    margin-bottom: 6px;
 }
 
 /* ANIMATIONS */

@@ -26,9 +26,21 @@ class UserAdmin(BaseUserAdmin):
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['userEmail', 'fullName', 'firstName', 'lastName',
-                    'fccProfileUrl', 'phone', 'createdAt', 'updatedAt']
-    search_fields = ['firstName', 'lastName', 'phone']
+    list_display = [
+        'userEmail',
+        'fullName',
+        'firstName',
+        'lastName',
+        'phone',
+        'createdAt',
+        'updatedAt'
+    ]
+
+    search_fields = [
+        'firstName',
+        'lastName',
+        'phone'
+    ]
 
     def fullName(self, obj):
         return obj.fullName()

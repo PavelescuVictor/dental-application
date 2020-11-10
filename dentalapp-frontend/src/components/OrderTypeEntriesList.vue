@@ -1,7 +1,7 @@
 <template>
     <div class="orderTypeEntries">
-        <Confirmation />
         <Alert />
+        <Confirmation />
         <div class="content">
             <div class="list__wrapper">
                 <v-card class="list">
@@ -26,12 +26,14 @@
                                     disabled
                                 ></v-simple-checkbox>
                             </template>
+
                             <template v-slot:item.paid="{ item }">
                                 <v-simple-checkbox
                                     v-model="item.paid"
                                     disabled
                                 ></v-simple-checkbox>
                             </template>
+
                             <template v-slot:item.actions="{ item }">
                                 <v-icon
                                     medium
@@ -58,7 +60,7 @@ import Alert from "../components/Alert.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-    name: "OrderTypeEntries",
+    name: "OrderTypeEntriesList",
     components: {
         Confirmation,
         Alert,
@@ -82,16 +84,16 @@ export default {
                     value: "id",
                 },
                 {
-                    text: "Color",
-                    align: "start",
-                    sortable: true,
-                    value: "colorName",
-                },
-                {
                     text: "Type",
                     align: "start",
                     sortable: false,
                     value: "typeName",
+                },
+                {
+                    text: "Color",
+                    align: "start",
+                    sortable: true,
+                    value: "colorName",
                 },
                 {
                     text: "Status",
@@ -135,6 +137,8 @@ export default {
 
     mounted() {
         this.getOrderTypeEntries();
+        if (this.getIsSelectedOrderTypeEntry === true)
+            this.selectedOrderTypeEntry = [this.getSelectedOrderTypeEntry];
     },
 
     computed: {
@@ -203,7 +207,7 @@ export default {
         },
 
         proceedDeleteItem(item) {
-            this.removeOrder({ orderTypeEntryId: item.id })
+            this.removeOrderTypeEntry({ orderTypeEntryId: item.id })
                 .then((response) => {
                     const status = response.status;
                     let type;
@@ -226,7 +230,7 @@ export default {
         },
 
         computeOrderTotalPrice() {
-            var totalPrice;
+            var totalPrice = 0;
             this.orderTypeEntryList.forEach((orderTypeEntry) => {
                 totalPrice = orderTypeEntry.typePPU * orderTypeEntry.unitCount;
             });

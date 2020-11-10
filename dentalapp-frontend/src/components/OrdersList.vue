@@ -1,7 +1,7 @@
 <template>
     <div class="orders">
-        <Confirmation />
         <Alert />
+        <Confirmation />
         <div class="content">
             <div class="filter">
                 <OrdersListFilterDashboard />
@@ -46,7 +46,7 @@ import OrdersListFilterDashboard from "../components/OrdersListFilterDashboard.v
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-    name: "Orders",
+    name: "OrdersList",
     components: {
         Confirmation,
         Alert,

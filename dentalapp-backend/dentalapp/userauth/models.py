@@ -99,8 +99,6 @@ class UserProfile(models.Model):
     )
     firstName = models.CharField(max_length=100)
     lastName = models.CharField(max_length=100)
-    gender = models.CharField(max_length=1, choices=GENDER)
-    fccProfileUrl = models.CharField(max_length=255)
     phone = PhoneNumberField(null=False, blank=False, unique=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)

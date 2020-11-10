@@ -11,7 +11,7 @@ const state = {
     removeOrderUrl: "http://127.0.0.1:8000/api/v1/orders/",
     editOrderUrl: "http://127.0.0.1:8000/api/v1/orders/",
     selectedOrder: "",
-    selectedOrderTotalPrice: "",
+    selectedOrderTotalPrice: 0,
     isSelectedOrder: false,
 };
 
@@ -155,7 +155,7 @@ const mutations = {
     },
 
     add_order(state, order) {
-        state.orderList.push(order);
+        state.filteredOrderList.push(order);
     },
 
     remove_order_request(state) {

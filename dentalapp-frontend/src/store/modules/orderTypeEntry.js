@@ -8,10 +8,9 @@ const state = {
     editOrderTypeEntryStatus: "",
     requestOrderTypeEntryUrl:
         "http://127.0.0.1:8000/api/v1/order_type_entries/",
-    addOrderTypeEntryUrl: "http://127.0.0.1:8000/api/v1/orders_type_entries/",
-    removeOrderTypeEntryUrl:
-        "http://127.0.0.1:8000/api/v1/orders_type_entries/",
-    editOrderTypeEntryUrl: "http://127.0.0.1:8000/api/v1/orders_type_entries/",
+    addOrderTypeEntryUrl: "http://127.0.0.1:8000/api/v1/order_type_entries/",
+    removeOrderTypeEntryUrl: "http://127.0.0.1:8000/api/v1/order_type_entries/",
+    editOrderTypeEntryUrl: "http://127.0.0.1:8000/api/v1/order_type_entries/",
     selectedOrderTypeEntry: "",
     isSelectedOrderTypeEntry: false,
 };
@@ -61,6 +60,7 @@ const actions = {
 
     addOrderTypeEntry({ commit, getters }, payload) {
         return new Promise((resolve, reject) => {
+            console.log(payload);
             commit("add_order_type_entry_request");
             axios({
                 url: `${getters.addOrderTypeEntryUrl}`,
@@ -68,18 +68,7 @@ const actions = {
                 headers: {
                     Authorization: `Token ${getters.userToken}`,
                 },
-                data: {
-                    order: payload.orderId,
-                    color: payload.color,
-                    type: payload.type,
-                    status: payload.status,
-                    redo: payload.redo,
-                    paid: payload.paid,
-                    warranty: payload.warranty,
-                    unitCount: payload.unitCount,
-                    createdBy: JSON.parse(localStorage.getItem("user")).id,
-                    updatedBy: JSON.parse(localStorage.getItem("user")).id,
-                },
+                data: payload,
             })
                 .then((response) => {
                     commit("add_order_type_entry_success");
@@ -110,6 +99,30 @@ const actions = {
                 })
                 .catch((error) => {
                     commit("remove_order_type_entry_error");
+                    reject(error);
+                });
+        });
+    },
+
+    editOrderTypeEntry({ commit, getters }, payload) {
+        return new Promise((resolve, reject) => {
+            console.log(payload);
+            commit("edit_order_type_entry_request");
+            axios({
+                url: `${getters.addOrderTypeEntryUrl}${payload.orderTypeEntryId}/`,
+                method: "PATCH",
+                headers: {
+                    Authorization: `Token ${getters.userToken}`,
+                },
+                data: payload.data,
+            })
+                .then((response) => {
+                    commit("edit_order_type_entry_success");
+                    commit("edit_order_type_entry", payload);
+                    resolve(response);
+                })
+                .catch((error) => {
+                    commit("edit_order_type_entry_error");
                     reject(error);
                 });
         });
@@ -151,8 +164,8 @@ const mutations = {
         state.addOrderStatus = "error";
     },
 
-    add_order_type_entry(state, order) {
-        state.orderTypeEntryList.push(order);
+    add_order_type_entry(state, orderTypeEntry) {
+        state.orderTypeEntryList.push(orderTypeEntry);
     },
 
     remove_order_type_entry_request(state) {
@@ -172,6 +185,27 @@ const mutations = {
             (orderTypeEntry) => {
                 if (orderTypeEntry.id != orderTypeEntryId)
                     return orderTypeEntry;
+            }
+        );
+    },
+
+    edit_order_type_entry_request(state) {
+        state.editOrderStatus = "loading";
+    },
+
+    edit_order_type_entry_success(state) {
+        state.editOrderStatus = "success";
+    },
+
+    edit_order_type_entry_error(state) {
+        state.editOrderStatus = "error";
+    },
+
+    edit_order_type_entry(state, editedOrderTypeEntry) {
+        state.orderTypeEntryList = state.orderTypeEntryList.filter(
+            (orderTypeEntry) => {
+                if (orderTypeEntry.id === editedOrderTypeEntry.id)
+                    return editedOrderTypeEntry;
             }
         );
     },

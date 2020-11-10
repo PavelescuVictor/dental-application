@@ -2,155 +2,173 @@
     <div class="orderAdd">
         <Alert />
         <Confirmation />
-        <div class="content">
-            <div class="form__wrapper" v-if="showAdd">
-                <p>
-                    Adaugare Lucrare
-                </p>
-                <v-form
-                    class="form"
-                    ref="form"
-                    v-model="valid"
-                    :lazy-validation="lazy"
-                    @submit="handleSubmit"
-                >
-                    <v-text-field
-                        v-model="doctor.firstName"
-                        label="Doctor's First Name"
-                        disabled
-                        required
-                    ></v-text-field>
+        <v-app id="vapp" v-if="showAdd">
+            <div class="content">
+                <div class="form__wrapper">
+                    <p>
+                        Adaugare Lucrare
+                    </p>
+                    <v-form
+                        class="form"
+                        ref="form"
+                        v-model="valid"
+                        :lazy-validation="lazy"
+                        @submit="handleSubmit"
+                    >
+                        <v-text-field
+                            v-model="doctor.firstName"
+                            label="Doctor's First Name"
+                            disabled
+                            required
+                        ></v-text-field>
 
-                    <v-text-field
-                        v-model="doctor.lastName"
-                        label="Doctor's Last Name"
-                        required
-                        disabled
-                    ></v-text-field>
+                        <v-text-field
+                            v-model="doctor.lastName"
+                            label="Doctor's Last Name"
+                            required
+                            disabled
+                        ></v-text-field>
 
-                    <v-text-field
-                        v-model="patient.firstName"
-                        label="Pacient's First Name"
-                        required
-                        disabled
-                    ></v-text-field>
+                        <v-text-field
+                            v-model="patient.firstName"
+                            label="Pacient's First Name"
+                            required
+                            disabled
+                        ></v-text-field>
 
-                    <v-text-field
-                        v-model="patient.lastName"
-                        label="Pacient's Last Name"
-                        disabled
-                        required
-                    ></v-text-field>
+                        <v-text-field
+                            v-model="patient.lastName"
+                            label="Pacient's Last Name"
+                            disabled
+                            required
+                        ></v-text-field>
 
-                    <v-container class="form__entries__wrapper">
-                        <div
-                            class="form__entries"
-                            v-for="(entry, index) in entries"
-                            :key="index"
-                        >
-                            <v-row>
-                                <v-col>
-                                    <v-select
-                                        v-model="entry.selectedType"
-                                        :items="types"
-                                        label="Type"
-                                        item-text="type"
-                                        item-value="type"
-                                        return-object
-                                        single-line
-                                    ></v-select>
-                                </v-col>
-                            </v-row>
+                        <v-container class="form__entries__wrapper">
+                            <div
+                                class="form__entries"
+                                v-for="(entry, index) in entries"
+                                :key="index"
+                            >
+                                <v-row>
+                                    <v-col>
+                                        <v-select
+                                            v-model="entry.selectedType"
+                                            :items="types"
+                                            label="Type"
+                                            item-text="type"
+                                            item-value="type"
+                                            return-object
+                                            single-line
+                                            :rules="rules.selectedType"
+                                        ></v-select>
+                                    </v-col>
+                                </v-row>
 
-                            <v-row>
-                                <v-col cols="12" md="3">
-                                    <v-select
-                                        v-model="entry.selectedColor"
-                                        :items="colors"
-                                        label="Color"
-                                        item-text="color"
-                                        item-value="color"
-                                        return-object
-                                        single-line
-                                    ></v-select>
-                                </v-col>
+                                <v-row>
+                                    <v-col cols="12" md="3">
+                                        <v-select
+                                            v-model="entry.selectedColor"
+                                            :items="colors"
+                                            label="Color"
+                                            item-text="color"
+                                            item-value="color"
+                                            return-object
+                                            single-line
+                                            :rules="rules.selectedColor"
+                                        ></v-select>
+                                    </v-col>
 
-                                <v-col cols="12" md="3">
-                                    <v-select
-                                        v-model="entry.selectedStatus"
-                                        :items="status"
-                                        label="Status"
-                                        item-text="status"
-                                        item-value="status"
-                                        return-object
-                                        single-line
-                                    ></v-select>
-                                </v-col>
+                                    <v-col cols="12" md="3">
+                                        <v-select
+                                            v-model="entry.selectedStatus"
+                                            :items="status"
+                                            label="Status"
+                                            item-text="status"
+                                            item-value="status"
+                                            return-object
+                                            single-line
+                                            :rules="rules.selectedStatus"
+                                        ></v-select>
+                                    </v-col>
 
-                                <v-col cols="12" md="2">
-                                    <v-text-field
-                                        v-model="entry.unitCount"
-                                        type="number"
-                                        label="Unit Count"
-                                    ></v-text-field>
-                                </v-col>
+                                    <v-col cols="12" md="2">
+                                        <v-text-field
+                                            v-model="entry.unitCount"
+                                            type="number"
+                                            label="Unit Count"
+                                        ></v-text-field>
+                                    </v-col>
 
-                                <v-col cols="12" md="2">
-                                    <v-text-field
-                                        v-model="entry.warranty"
-                                        type="number"
-                                        label="Warranty"
-                                    ></v-text-field>
-                                </v-col>
+                                    <v-col cols="12" md="2">
+                                        <v-text-field
+                                            v-model="entry.warranty"
+                                            type="number"
+                                            label="Warranty"
+                                        ></v-text-field>
+                                    </v-col>
 
-                                <v-col cols="12" md="1">
-                                    <v-checkbox
-                                        v-model="entry.paid"
-                                        label="Paid"
-                                    ></v-checkbox>
-                                </v-col>
+                                    <v-col cols="12" md="1">
+                                        <v-checkbox
+                                            v-model="entry.paid"
+                                            label="Paid"
+                                        ></v-checkbox>
+                                    </v-col>
 
-                                <v-col cols="12" md="1">
-                                    <v-checkbox
-                                        v-model="entry.redo"
-                                        label="Redo"
-                                    ></v-checkbox>
-                                </v-col>
-                            </v-row>
-                        </div>
-                        <v-row>
-                            <div class="form__add-button">
-                                <button
-                                    class="more-btn"
-                                    @click="addAnotherEntry"
-                                >
-                                    <a>Add another type</a>
-                                </button>
+                                    <v-col cols="12" md="1">
+                                        <v-checkbox
+                                            v-model="entry.redo"
+                                            label="Redo"
+                                        ></v-checkbox>
+                                    </v-col>
+                                </v-row>
+                                <div class="form__entries__button">
+                                    <button
+                                        class="entry__remove-btn"
+                                        :value="index"
+                                        @click="removeEntry"
+                                    >
+                                        <a href="#">
+                                            <font-awesome-icon
+                                                :icon="['far', 'times-circle']"
+                                            />
+                                        </a>
+                                    </button>
+                                </div>
                             </div>
-                        </v-row>
-                    </v-container>
+                            <v-row>
+                                <div class="form__add-button">
+                                    <button
+                                        class="more-btn"
+                                        @click="addAnotherEntry"
+                                    >
+                                        <a>Add another type</a>
+                                    </button>
+                                </div>
+                            </v-row>
+                        </v-container>
 
-                    <div class="form__buttons">
-                        <button
-                            class="more-btn"
-                            :disabled="!valid"
-                            @click="handleSubmit"
-                            type="submit"
-                        >
-                            <a>Submit</a>
-                        </button>
-                        <button
-                            class="more-btn"
-                            @click="handleReset"
-                            type="reset"
-                            :disabled="!empty"
-                        >
-                            <a>Reset Form</a>
-                        </button>
-                    </div>
-                </v-form>
+                        <div class="form__buttons">
+                            <button
+                                class="more-btn"
+                                :disabled="!valid"
+                                @click="handleSubmit"
+                                type="submit"
+                            >
+                                <a>Submit</a>
+                            </button>
+                            <button
+                                class="more-btn"
+                                @click="handleReset"
+                                type="reset"
+                                :disabled="!empty"
+                            >
+                                <a>Reset Form</a>
+                            </button>
+                        </div>
+                    </v-form>
+                </div>
             </div>
-        </div>
+        </v-app>
     </div>
 </template>
 
@@ -177,47 +195,18 @@ export default {
         types: [],
         colors: [],
         status: [],
-        selectedType: {
-            type: "type1",
-        },
-        selectedColor: {
-            color: "color1",
-        },
-        selectedStatus: {
-            status: "status1",
-        },
         unitCount: 0,
         warranty: 0,
         redo: false,
         paid: false,
         rules: {
             required: [(value) => !!value || "Required"],
-            doctorFirstName: [
-                (value) => !!value || `First name is required.`,
-                (value) =>
-                    /^[a-zA-Z]+$/.test(value) ||
-                    "First name must not contain digits.",
-            ],
-            doctorLastName: [
-                (value) => !!value || `Last name is required.`,
-                (value) =>
-                    /^[a-zA-Z]+$/.test(value) ||
-                    "Last name must not contain digits.",
-            ],
-            patientFirstName: [
-                (value) => !!value || `First name is required.`,
-                (value) =>
-                    /^[a-zA-Z]+$/.test(value) ||
-                    "First name must not contain digits.",
-            ],
-            patientLastName: [
-                (value) => !!value || `Last name is required.`,
-                (value) =>
-                    /^[a-zA-Z]+$/.test(value) ||
-                    "Last name must not contain digits.",
-            ],
+            selectedColor: [(value) => !!value || `First name is required.`],
+            selectedType: [(value) => !!value || `Last name is required.`],
+            selectedStatus: [(value) => !!value || `First name is required.`],
         },
         lazy: false,
+        createdOrderId: null,
     }),
 
     mounted() {
@@ -273,26 +262,73 @@ export default {
             "addConfirmationMessage",
             "requestOrderColorsList",
             "requestOrderStatusList",
+            "requestOrderTypesList",
             "addOrder",
             "addOrderTypeEntry",
         ]),
 
-        handleSubmit(e) {
+        async handleSubmit(e) {
             e.preventDefault();
+
             let orderPayload = {
                 doctorId: this.doctor.id,
                 patientId: this.patient.id,
             };
-            //this.addOrder(orderPayload);
 
-            let orderTypeEntries = this.entries.forEach((entry) => {
-                entry.createdBy = this.userId;
-                entry.updatedBy = this.userId;
+            await this.addOrder(orderPayload)
+                .then((response) => {
+                    const status = response.status;
+                    let type;
+                    if (status == "200") type = "success";
+                    this.alert = {
+                        type: type,
+                        message: "Order added!",
+                    };
+                    this.createdOrderId = response.data.id;
+                    this.addAlert(this.alert);
+                })
+                .catch((error) => {
+                    this.alert = {
+                        type: "error",
+                        message: error,
+                    };
+                    this.addAlert(this.alert);
+                });
+
+            let payload = [];
+            this.entries.forEach((entry) => {
+                let newEntry = {
+                    order: this.createdOrderId,
+                    color: entry.selectedColor.id,
+                    type: entry.selectedType.id,
+                    status: entry.selectedStatus.id,
+                    createdBy: this.userId,
+                    updatedBy: this.userId,
+                };
+                payload.push(newEntry);
             });
 
-            console.log(orderPayload);
-            console.log(orderTypeEntries);
-            //this.addOrderTypeEntry();
+            this.addOrderTypeEntry(payload)
+                .then((response) => {
+                    const status = response.status;
+                    let type;
+                    if (status == "200") type = "success";
+                    this.alert = {
+                        type: type,
+                        message: "Order Type Entries added!",
+                    };
+                    this.addAlert(this.alert);
+                    this.$emit("updatePage", "list");
+                })
+                .catch((error) => {
+                    this.alert = {
+                        type: "error",
+                        message: error,
+                    };
+                    this.addAlert(this.alert);
+                });
+
+            this.createdOrderId = 0;
         },
 
         handleReset() {
@@ -319,7 +355,6 @@ export default {
                         message: "Order Colors data received!",
                     };
                     this.addAlert(this.alert);
-                    console.log(this.getOrderColorsList);
                     this.colors = this.getOrderColorsList;
                 })
                 .catch((error) => {
@@ -340,7 +375,6 @@ export default {
                         message: "Order Status data received!",
                     };
                     this.addAlert(this.alert);
-                    console.log(this.getOrderStatusList);
                     this.status = this.getOrderStatusList;
                 })
                 .catch((error) => {
@@ -361,7 +395,6 @@ export default {
                         message: "Order Types data received!",
                     };
                     this.addAlert(this.alert);
-                    console.log(this.getOrderTypesList);
                     this.types = this.getOrderTypesList;
                 })
                 .catch((error) => {
@@ -373,8 +406,16 @@ export default {
                 });
         },
 
-        addAnotherEntry() {
+        addAnotherEntry(e) {
+            e.preventDefault();
+            if (typeof this.entries === "undefined") this.entries = [];
             this.entries.push({});
+        },
+
+        removeEntry(e) {
+            e.preventDefault();
+            let value = e.target.parentNode.parentNode.value;
+            this.entries.splice(+value, 1);
         },
     },
 
@@ -382,6 +423,16 @@ export default {
 };
 </script>
 <style scoped>
+#vapp {
+    font-family: var(--text-base-font);
+    background: var(--color-lightgrey-1);
+    color: var(--color-darkblue);
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    line-height: inherit;
+}
+
 .content {
     position: relative;
     min-height: 100%;
@@ -402,6 +453,7 @@ export default {
 .form__wrapper p {
     justify-self: center;
     align-self: center;
+    color: var(--color-darkblue);
     font-size: 1.8rem;
     line-height: 1.8rem;
     padding: var(--padding-small);
@@ -426,6 +478,35 @@ export default {
     margin-bottom: 6px;
     padding: var(--padding-small);
     border-radius: 15px;
+}
+
+.form__entries__button {
+    display: flex;
+    justify-content: center;
+}
+
+.entry__remove-btn {
+    display: inline-block;
+    font-size: calc(var(--text-base-size) * 2);
+    border: 3px solid var(--color-white);
+    border-radius: var(--border-radius-circle);
+    transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out,
+        transform 0.4s ease-out;
+}
+
+.entry__remove-btn:hover {
+    transform: rotate(360deg);
+    background-color: var(--color-blue);
+    border-color: var(--color-blue);
+}
+
+.entry__remove-btn a {
+    color: var(--color-blue);
+    transition: color 0.1s ease-in-out;
+}
+
+.entry__remove-btn:hover > a {
+    color: var(--color-white);
 }
 
 .form__buttons {
@@ -467,66 +548,6 @@ export default {
 
 .more-btn:hover > a {
     color: var(--color-white);
-}
-
-.banner__overlay {
-    height: 100%;
-}
-
-.overlay__color {
-    position: absolute;
-    height: 100%;
-    width: 50%;
-    left: -25%;
-    right: 0px;
-    background-color: rgba(var(--color-blue-rgb), 0.9);
-    z-index: 1;
-    animation: overlay__color__slide-right 0.7s ease-out forwards;
-}
-
-.overlay__image {
-    position: absolute;
-    height: 100%;
-    width: 50%;
-    left: -25%;
-    right: 0px;
-    opacity: 0%;
-    background-image: var(--banner-background-image);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position-x: right;
-    animation: overlay__image__slide-right 0.7s ease-out forwards,
-        overlay__image__fade-in 0.7s ease-in-out forwards 0.2s;
-}
-
-@keyframes overlay__image__slide-right {
-    from {
-        left: -25%;
-    }
-
-    to {
-        left: 0%;
-    }
-}
-
-@keyframes overlay__image__fade-in {
-    from {
-        opacity: 0%;
-    }
-
-    to {
-        opacity: 100%;
-    }
-}
-
-@keyframes overlay__color__slide-right {
-    from {
-        left: -25%;
-    }
-
-    to {
-        left: 0%;
-    }
 }
 
 @keyframes form__wrapper__p__scale {

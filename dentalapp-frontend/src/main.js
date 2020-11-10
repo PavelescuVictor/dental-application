@@ -14,6 +14,7 @@ import {
     faUser,
     faBars,
 } from "@fortawesome/free-solid-svg-icons";
+import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 import {
     faFacebookF,
     faInstagram,
@@ -36,6 +37,7 @@ library.add(faPlus);
 library.add(faEdit);
 library.add(faUser);
 library.add(faBars);
+library.add(faTimesCircle);
 library.add(faInstagram);
 library.add(faTwitter);
 library.add(faYoutube);
