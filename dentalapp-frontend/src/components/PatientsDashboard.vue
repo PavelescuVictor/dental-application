@@ -16,7 +16,7 @@
                 </div>
                 <div class="add" v-if="isAddActive"></div>
                 <div class="edit" v-if="isEditActive">
-                    <PatientsEdit />
+                    <PatientsEdit @updatePage="changeDisplayedPage" />
                 </div>
             </div>
         </div>

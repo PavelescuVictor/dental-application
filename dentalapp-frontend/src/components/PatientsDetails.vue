@@ -5,81 +5,43 @@
         <div class="content">
             <div class="card__wrapper">
                 <template>
-                    <v-card min-width="100%" v-if="showDetails">
-                        <v-list two-line>
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        patient.firstName
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        patient.lastName
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        patient.details
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-icon>
-                                    <v-icon color="indigo">
-                                        mdi-phone
-                                    </v-icon>
-                                </v-list-item-icon>
-
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        patient.phone
-                                    }}</v-list-item-title>
-                                    <v-list-item-subtitle
-                                        >Mobile</v-list-item-subtitle
-                                    >
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title
-                                        >Created at
-                                        {{
-                                            patient.createdAt
-                                        }}</v-list-item-title
-                                    >
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title
-                                        >Updated at
-                                        {{
-                                            patient.updatedAt
-                                        }}</v-list-item-title
-                                    >
-                                </v-list-item-content>
-                            </v-list-item>
-                        </v-list>
+                    <v-card min-width="100%" v-if="showDetails" class="card">
+                        <div class="list__wrapper">
+                            <ul class="list__content">
+                                <li>
+                                    <p>First Name</p>
+                                    <p>{{ patient.firstName }}</p>
+                                </li>
+                                <li>
+                                    <p>Last Name</p>
+                                    <p>{{ patient.lastName }}</p>
+                                </li>
+                                <li>
+                                    <p>Details</p>
+                                    <p>{{ patient.details }}</p>
+                                </li>
+                                <li>
+                                    <p>Phone</p>
+                                    <p>{{ patient.phone }}</p>
+                                </li>
+                                <li>
+                                    <p>Created At</p>
+                                    <p>{{ patient.createdAt }}</p>
+                                </li>
+                                <li>
+                                    <p>Updated At</p>
+                                    <p>{{ patient.updatedAt }}</p>
+                                </li>
+                                <li>
+                                    <p>Created By</p>
+                                    <p>{{ patient.createdBy }}</p>
+                                </li>
+                                <li>
+                                    <p>Updated By</p>
+                                    <p>{{ patient.updatedBy }}</p>
+                                </li>
+                            </ul>
+                        </div>
                     </v-card>
                 </template>
             </div>
@@ -159,12 +121,47 @@ export default {
     min-height: 100%;
     display: flex;
     justify-content: center;
+    text-align: left;
 }
 
-.list {
-    min-height: 100%;
+.card {
+    background: var(--color-lightgrey-2);
+}
+
+.list__wrapper {
+    width: fit-content;
+    margin: auto;
+}
+
+.list__content {
+    list-style-type: none;
+    display: grid;
+    grid-auto-rows: auto;
+}
+
+.list__content li {
+    display: grid;
+    grid-template-columns: minmax(150px, 1fr) 5fr;
+    background: white;
+    color: var(--color-darkblue);
+    border-bottom: 2px solid var(--color-lightgrey-2);
+}
+
+.list__content li:first-child {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.list__content li:last-child {
+    border-bottom: 0px;
+}
+
+.list__content li p {
+    padding: calc(var(--padding-small) * 0.5);
     text-align: center;
 }
 
-/* ANIMATIONS */
+.list__content li p:first-child {
+    border-right: 2px solid var(--color-lightgrey-2);
+}
 </style>

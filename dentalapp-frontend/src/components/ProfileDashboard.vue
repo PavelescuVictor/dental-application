@@ -12,7 +12,7 @@
                     <ProfileDetails />
                 </div>
                 <div class="edit" v-if="isEditActive">
-                    <ProfileEdit />
+                    <ProfileEdit @updatePage="changeDisplayedPage" />
                 </div>
             </div>
         </div>

@@ -34,6 +34,8 @@ export default {
 
     --color-blue: #4c84ff;
     --color-blue-rgb: 76, 132, 255;
+    --color-purple: #5602ca;
+    --color-purple-rgb: 86, 2, 202;
     --color-darkblue: #454d61;
     --color-lightblue: #bedede;
     --color-lightgrey: #edf0ee;

@@ -46,6 +46,10 @@ export default {
         };
     },
 
+    destroyed() {
+        this.removeSelectedOrderTypeEntry();
+    },
+
     methods: {
         changeDisplayedPage(e) {
             this.showedPage = e;

@@ -4,8 +4,8 @@
         <Alert />
         <div class="content">
             <div class="list__wrapper">
-                <v-card class="list">
-                    <v-toolbar>
+                <v-card class="list" id="card">
+                    <v-toolbar id="list__toolbar">
                         <v-toolbar-title>Pacienti</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <router-link :to="{ name: addPageRedirect }">
@@ -19,15 +19,20 @@
                             <v-icon>mdi-magnify</v-icon>
                         </v-btn>
                     </v-toolbar>
-                    <v-toolbar v-if="searchBarShowed === true">
-                        <v-text-field
-                            v-model="filteredInputFirstName"
-                            label="First Name"
-                        ></v-text-field>
-                        <v-text-field
-                            v-model="filteredInputLastName"
-                            label="Last Name"
-                        ></v-text-field>
+                    <v-toolbar
+                        v-if="searchBarShowed === true"
+                        id="toolbar__search"
+                    >
+                        <div class="search__wrapper">
+                            <v-text-field
+                                v-model="filteredInputFirstName"
+                                label="First Name"
+                            ></v-text-field>
+                            <v-text-field
+                                v-model="filteredInputLastName"
+                                label="Last Name"
+                            ></v-text-field>
+                        </div>
                     </v-toolbar>
                 </v-card>
                 <template>
@@ -264,7 +269,7 @@ export default {
 <style scoped>
 .content {
     position: relative;
-    min-height: 100%;
+    min-height: fit-content;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -275,11 +280,35 @@ export default {
 .list__wrapper {
     width: 100%;
     min-height: 100%;
+    background: var(--color-lightgrey-2);
 }
 
 .list {
     min-height: 100%;
     text-align: center;
+}
+
+#card {
+    box-shadow: none;
+}
+
+#list__toolbar {
+    box-shadow: none;
+    margin-bottom: 6px;
+    color: var(--color-darkblue);
+}
+
+#toolbar__search {
+    box-shadow: none;
+    margin-bottom: 6px;
+    color: var(--color-darkblue);
+}
+
+.search__wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5%;
 }
 
 .table {

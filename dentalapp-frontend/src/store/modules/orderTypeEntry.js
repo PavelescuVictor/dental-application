@@ -60,7 +60,6 @@ const actions = {
 
     addOrderTypeEntry({ commit, getters }, payload) {
         return new Promise((resolve, reject) => {
-            console.log(payload);
             commit("add_order_type_entry_request");
             axios({
                 url: `${getters.addOrderTypeEntryUrl}`,

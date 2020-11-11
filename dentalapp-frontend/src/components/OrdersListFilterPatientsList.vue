@@ -1,7 +1,7 @@
 <template>
     <div class="ordersListFilterPatientsList">
         <div class="form__wrapper">
-            <p>Pacient</p>
+            <p>Patient</p>
 
             <v-form
                 class="form"
@@ -13,14 +13,14 @@
                 <v-text-field
                     v-model="filteredInputPatientFirstName"
                     :rules="rules.doctorFirstName"
-                    label="Prenume"
+                    label="First Name"
                     required
                 ></v-text-field>
 
                 <v-text-field
                     v-model="filteredInputPatientLastName"
                     :rules="rules.doctorLastName"
-                    label="Nume"
+                    label="Last Name"
                     required
                 ></v-text-field>
 

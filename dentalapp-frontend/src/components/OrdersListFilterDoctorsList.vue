@@ -13,14 +13,14 @@
                 <v-text-field
                     v-model="filteredInputDoctorFirstName"
                     :rules="rules.doctorFirstName"
-                    label="Prenume"
+                    label="First Name"
                     required
                 ></v-text-field>
 
                 <v-text-field
                     v-model="filteredInputDoctorLastName"
                     :rules="rules.doctorLastName"
-                    label="Nume"
+                    label="Last Name"
                     required
                 ></v-text-field>
 

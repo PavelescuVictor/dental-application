@@ -5,122 +5,55 @@
         <div class="content">
             <div class="card__wrapper" v-if="showDetails">
                 <template>
-                    <v-card min-width="100%">
-                        <v-list two-line>
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        orderTypeEntry.id
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        orderTypeEntry.order
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        orderTypeEntry.type
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        orderTypeEntry.color
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        orderTypeEntry.status
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        orderTypeEntry.warranty
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        orderTypeEntry.unitCount
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        orderTypeEntry.paid
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{
-                                        orderTypeEntry.redo
-                                    }}</v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title
-                                        >Created at
-                                        {{
-                                            orderTypeEntry.createdAt
-                                        }}</v-list-item-title
-                                    >
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider></v-divider>
-
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-list-item-title
-                                        >Updated at
-                                        {{
-                                            orderTypeEntry.updatedAt
-                                        }}</v-list-item-title
-                                    >
-                                </v-list-item-content>
-                            </v-list-item>
-                        </v-list>
+                    <v-card min-width="100%" id="card">
+                        <div class="list__wrapper">
+                            <ul class="list__content">
+                                <li>
+                                    <p>Type</p>
+                                    <p>{{ orderTypeEntry.typeName }}</p>
+                                </li>
+                                <li>
+                                    <p>Color</p>
+                                    <p>{{ orderTypeEntry.colorName }}</p>
+                                </li>
+                                <li>
+                                    <p>Status</p>
+                                    <p>{{ orderTypeEntry.statusName }}</p>
+                                </li>
+                                <li>
+                                    <p>Unit Count</p>
+                                    <p>{{ orderTypeEntry.unitCount }}</p>
+                                </li>
+                                <li>
+                                    <p>Warranty</p>
+                                    <p>{{ orderTypeEntry.warranty }}</p>
+                                </li>
+                                <li>
+                                    <p>Redo</p>
+                                    <p>{{ orderTypeEntry.redo }}</p>
+                                </li>
+                                <li>
+                                    <p>Paid</p>
+                                    <p>{{ orderTypeEntry.paid }}</p>
+                                </li>
+                                <li>
+                                    <p>Created By</p>
+                                    <p>{{ orderTypeEntry.createdByName }}</p>
+                                </li>
+                                <li>
+                                    <p>Created At</p>
+                                    <p>{{ orderTypeEntry.createdAt }}</p>
+                                </li>
+                                <li>
+                                    <p>Update By</p>
+                                    <p>{{ orderTypeEntry.updatedByName }}</p>
+                                </li>
+                                <li>
+                                    <p>Updated At</p>
+                                    <p>{{ orderTypeEntry.updatedAt }}</p>
+                                </li>
+                            </ul>
+                        </div>
                     </v-card>
                 </template>
             </div>
@@ -228,12 +161,48 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: left;
 }
 
-.list {
-    min-height: 100%;
+#card {
+    background: var(--color-lightgrey-2);
+    box-shadow: none;
+}
+
+.list__wrapper {
+    width: fit-content;
+    margin: auto;
+}
+
+.list__content {
+    list-style-type: none;
+    display: grid;
+    grid-auto-rows: auto;
+}
+
+.list__content li {
+    display: grid;
+    grid-template-columns: minmax(150px, 1fr) 5fr;
+    background: white;
+    color: var(--color-darkblue);
+    border-bottom: 2px solid var(--color-lightgrey-2);
+}
+
+.list__content li:first-child {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.list__content li:last-child {
+    border-bottom: 0px;
+}
+
+.list__content li p {
+    padding: calc(var(--padding-small) * 0.5);
     text-align: center;
 }
 
-/* ANIMATIONS */
+.list__content li p:first-child {
+    border-right: 2px solid var(--color-lightgrey-2);
+}
 </style>

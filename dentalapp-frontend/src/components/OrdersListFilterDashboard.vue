@@ -20,6 +20,7 @@
 import OrdersListFilterDashboardNavbar from "../components/OrdersListFilterDashboardNavbar.vue";
 import OrdersListFilterDoctorsList from "../components/OrdersListFilterDoctorsList";
 import OrdersListFilterPatientsList from "../components/OrdersListFilterPatientsList";
+import { mapActions } from "vuex";
 
 export default {
     name: "OrderListFilterDashboard",
@@ -44,6 +45,8 @@ export default {
     },
 
     methods: {
+        ...mapActions(["removeSelectedOrderTypeEntry"]),
+
         changeDisplayedPage(e) {
             this.showedPage = e;
         },

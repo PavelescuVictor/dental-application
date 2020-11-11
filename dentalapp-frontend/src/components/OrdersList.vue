@@ -8,7 +8,7 @@
             </div>
             <div class="list__wrapper" v-if="isOrderListActive">
                 <v-card class="list">
-                    <v-toolbar>
+                    <v-toolbar id="list__toolbar">
                         <v-toolbar-title>Lucrari</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-btn icon @click="displayAddPage" id="plus">
@@ -321,11 +321,19 @@ export default {
 .list__wrapper {
     width: 100%;
     min-height: 100%;
+    background: var(--color-lightgrey-2);
 }
 
 .list {
     min-height: 100%;
     text-align: center;
+    background: var(--color-lightgrey-2);
+}
+
+#list__toolbar {
+    box-shadow: none;
+    margin-bottom: 6px;
+    color: var(--color-darkblue);
 }
 
 .table {

@@ -10,45 +10,58 @@
                     v-model="valid"
                     :lazy-validation="lazy"
                 >
-                    <v-text-field
-                        v-model="patientFirstName"
-                        :rules="rules.patientFirstName"
-                        label="First Name"
-                        required
-                        clearable
-                    ></v-text-field>
+                    <div class="form__entries">
+                        <v-text-field
+                            v-model="patientFirstName"
+                            :rules="rules.patientFirstName"
+                            label="First Name"
+                            required
+                            clearable
+                        ></v-text-field>
 
-                    <v-text-field
-                        v-model="patientLastName"
-                        :rules="rules.patientLastName"
-                        label="Last Name"
-                        required
-                        clearable
-                    ></v-text-field>
+                        <v-text-field
+                            v-model="patientLastName"
+                            :rules="rules.patientLastName"
+                            label="Last Name"
+                            required
+                            clearable
+                        ></v-text-field>
 
-                    <v-text-field
-                        v-model="patientPhone"
-                        :rules="rules.patientPhone"
-                        label="Phone"
-                        required
-                        clearable
-                    ></v-text-field>
+                        <v-text-field
+                            v-model="patientPhone"
+                            :rules="rules.patientPhone"
+                            label="Phone"
+                            required
+                            clearable
+                        ></v-text-field>
 
-                    <v-textarea
-                        v-model="patientDetails"
-                        label="Details"
-                        required
-                        rows="1"
-                        auto-grow
-                        clearable
-                    ></v-textarea>
+                        <v-textarea
+                            v-model="patientDetails"
+                            label="Details"
+                            required
+                            rows="1"
+                            auto-grow
+                            clearable
+                        ></v-textarea>
+                    </div>
 
                     <div class="form__buttons">
-                        <v-btn :disabled="!valid" @click="handleSubmit"
-                            >Submit</v-btn
+                        <button
+                            class="more-btn"
+                            :disabled="!valid"
+                            @click="handleSubmit"
+                            type="submit"
                         >
-
-                        <v-btn @click="reset">Reset Form</v-btn>
+                            <a>Submit</a>
+                        </button>
+                        <button
+                            class="more-btn"
+                            @click="handleReset"
+                            type="reset"
+                            :disabled="!empty"
+                        >
+                            <a>Reset Form</a>
+                        </button>
                     </div>
                 </v-form>
             </div>
@@ -69,6 +82,7 @@ export default {
     },
     data: () => ({
         valid: true,
+        empty: true,
         showEdit: false,
         patientId: "",
         patientFirstName: "",
@@ -160,8 +174,9 @@ export default {
                     if (status == "200") type = "success";
                     this.alert = {
                         type: type,
-                        message: "Patient added!",
+                        message: "Patient eddited!",
                     };
+                    this.$emit("updatePage", "list");
                     this.addAlert(this.alert);
                 })
                 .catch((error) => {
@@ -173,7 +188,7 @@ export default {
                 });
         },
 
-        reset() {
+        handleReset() {
             this.$refs.form.reset();
         },
     },
@@ -188,7 +203,7 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background: var(--color-white);
+    background: var(--color-lightgrey-2);
 }
 
 .form__wrapper {
@@ -197,5 +212,52 @@ export default {
     display: flex;
     justify-content: center;
     padding: var(--padding-small);
+}
+
+.form__entries {
+    background: var(--color-white);
+    padding: var(--padding-small);
+    border-radius: 15px;
+}
+
+.form__buttons {
+    justify-self: center;
+}
+
+.form__add-button {
+    margin: auto;
+}
+
+.more-btn {
+    display: inline-block;
+    width: 8.5em;
+    font-size: calc(var(--text-base-size) * 1.2);
+    background: -webkit-linear-gradient(
+        -90deg,
+        var(--color-white) 50%,
+        var(--color-blue) 50%
+    );
+    background-size: 6.5em 6.5em;
+    border: 3px solid var(--color-white);
+    border-radius: 10px;
+    margin: calc(var(--padding-small) / 2);
+    transition: width 0.2s ease-in, border-radius 0.2s ease-out,
+        background-position 0.6s ease, border-color 0s ease-in;
+}
+
+.more-btn:hover {
+    width: 8.5em;
+    background-position: 0px -70px;
+    border-radius: var(--border-radius-circle);
+    border-color: var(--color-blue);
+}
+
+.more-btn a {
+    color: var(--color-blue);
+    transition: color 0.2s ease-in;
+}
+
+.more-btn:hover > a {
+    color: var(--color-white);
 }
 </style>
