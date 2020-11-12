@@ -5,6 +5,7 @@
             <div class="overlay__left"></div>
             <div class="overlay__right"></div>
         </div>
+        <Background class="background" />
         <div class="ordersDashboard__content">
             <OrdersDashboardNavbar @updatePage="changeDisplayedPage" />
             <div class="content__wrapper">
@@ -26,6 +27,7 @@ import OrdersList from "../components/OrdersList.vue";
 import OrdersDetails from "../components/OrdersDetails.vue";
 import OrdersAdd from "../components/OrdersAdd.vue";
 import OrdersDashboardNavbar from "../components/OrdersDashboardNavbar.vue";
+import Background from "../assets/Background.svg";
 import { mapActions } from "vuex";
 export default {
     name: "OrdersDashboard",
@@ -34,6 +36,7 @@ export default {
         OrdersList,
         OrdersDetails,
         OrdersAdd,
+        Background,
     },
 
     data() {
@@ -156,6 +159,15 @@ export default {
     background-color: white;
     animation: content__overlay__slide-right 1s ease-in forwards;
     z-index: 2;
+}
+
+.background {
+    transform: translateY(0%) scale(1, 0.87);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transform-origin: top left;
+    z-index: 1;
 }
 
 .ordersDashboard__content {

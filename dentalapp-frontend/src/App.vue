@@ -28,14 +28,15 @@ export default {
     --text-base-font: "Fjalla One", sans-serif;
     --text-logo-font: "Fredoka One", cursive;
     --text-navbar-font: "Roboto Condensed", sans-serif;
+    --text-navbar-font: "Fredoka One", cursive;
     --text-base-line-height: var(--text-base-size);
 
     /* COLOR */
 
     --color-blue: #4c84ff;
     --color-blue-rgb: 76, 132, 255;
-    --color-purple: #5602ca;
-    --color-purple-rgb: 86, 2, 202;
+    --color-blue: #5602ca;
+    --color-blue-rgb: 86, 2, 202;
     --color-darkblue: #454d61;
     --color-lightblue: #bedede;
     --color-lightgrey: #edf0ee;
@@ -67,7 +68,7 @@ export default {
 
     /* CUSTOM */
 
-    --navbar-height: 7vh;
+    --navbar-height: 8vh;
     --content-height: 100vh;
     --banner-height: 100vh;
     --footer-height: 12vh;
@@ -79,7 +80,10 @@ export default {
                     var(--weather-height)
             )
     );
-    --banner-background-image: url("./assets/Waihou.png");
+    --banner-background-image: url("./assets/Background.svg");
+    --banner-main: url("./assets/Main.svg");
+    --banner-girl: url("./assets/Girl.svg");
+    --banner-guy: url("./assets/Guy.svg");
 }
 
 * {
