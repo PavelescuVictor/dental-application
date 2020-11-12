@@ -5,6 +5,7 @@
             <div class="overlay__left"></div>
             <div class="overlay__right"></div>
         </div>
+        <Background class="background" />
         <div class="doctorsDashboard__content">
             <DoctorsDashboardNavbar @updatePage="changeDisplayedPage" />
             <div class="content__wrapper">
@@ -16,7 +17,7 @@
                 </div>
                 <div class="add" v-if="isAddActive"></div>
                 <div class="edit" v-if="isEditActive">
-                    <DoctorsEdit />
+                    <DoctorsEdit @updatePage="changeDisplayedPage" />
                 </div>
             </div>
         </div>
@@ -28,6 +29,7 @@ import DoctorsList from "../components/DoctorsList.vue";
 import DoctorsDetails from "../components/DoctorsDetails.vue";
 import DoctorsEdit from "../components/DoctorsEdit.vue";
 import DoctorsDashboardNavbar from "../components/DoctorsDashboardNavbar.vue";
+import Background from "../assets/Background.svg";
 import { mapActions } from "vuex";
 
 export default {
@@ -38,6 +40,7 @@ export default {
         DoctorsList,
         DoctorsDetails,
         DoctorsEdit,
+        Background,
     },
 
     data() {
@@ -164,6 +167,15 @@ export default {
     background-color: white;
     animation: content__overlay__slide-right 1s ease-in forwards;
     z-index: 2;
+}
+
+.background {
+    transform: translateY(0%) scale(1, 0.87);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transform-origin: top left;
+    z-index: 1;
 }
 
 .doctorsDashboard__content {

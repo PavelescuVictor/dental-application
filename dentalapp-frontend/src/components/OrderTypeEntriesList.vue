@@ -5,15 +5,36 @@
         <div class="content">
             <div class="list__wrapper">
                 <v-card class="list">
-                    <v-toolbar>
-                        <v-toolbar-title>Tipuri de lucrari</v-toolbar-title>
+                    <v-toolbar id="list__toolbar">
+                        <v-toolbar-title>Order Types</v-toolbar-title>
                         <v-spacer></v-spacer>
+                        <div class="list__filter">
+                            <div class="filter__element">
+                                <p>Paid</p>
+                                <v-simple-checkbox
+                                    v-model="filterPaid"
+                                    :label="`Paid`"
+                                    id="filter__checkbox"
+                                    :ripple="false"
+                                >
+                                </v-simple-checkbox>
+                            </div>
+                            <div class="filter__element">
+                                <p>Redo</p>
+                                <v-simple-checkbox
+                                    v-model="filterRedo"
+                                    :label="`Redo`"
+                                    id="filter__checkbox"
+                                    :ripple="false"
+                                ></v-simple-checkbox>
+                            </div>
+                        </div>
                     </v-toolbar>
                     <template>
                         <v-data-table
                             v-model="selectedOrderTypeEntry"
                             :headers="headers"
-                            :items="orderTypeEntryList"
+                            :items="filteredList"
                             item-key="id"
                             hide-default-footer
                             :single-select="singleSelect"
@@ -71,6 +92,9 @@ export default {
             singleSelect: true,
             selectedOrderTypeEntry: [],
             orderTypeEntryToDelete: "",
+            filteredList: [],
+            filterPaid: false,
+            filterRedo: false,
             alert: {
                 type: "",
                 message: "",
@@ -135,8 +159,9 @@ export default {
         };
     },
 
-    mounted() {
-        this.getOrderTypeEntries();
+    async mounted() {
+        await this.getOrderTypeEntries();
+        this.filteredList = this.orderTypeEntryList;
         if (this.getIsSelectedOrderTypeEntry === true)
             this.selectedOrderTypeEntry = [this.getSelectedOrderTypeEntry];
     },
@@ -166,12 +191,12 @@ export default {
             "setSelectedOrderTotalPrice",
         ]),
 
-        getOrderTypeEntries: function() {
-            //this.inspectToken();
+        getOrderTypeEntries: async function() {
             let payload = {
                 orderTypeEntryId: this.getSelectedOrder.id,
             };
-            this.requestOrderTypeEntryList(payload)
+
+            await this.requestOrderTypeEntryList(payload)
                 .then((response) => {
                     const status = response.status;
                     let type;
@@ -232,7 +257,9 @@ export default {
         computeOrderTotalPrice() {
             var totalPrice = 0;
             this.orderTypeEntryList.forEach((orderTypeEntry) => {
-                totalPrice = orderTypeEntry.typePPU * orderTypeEntry.unitCount;
+                totalPrice =
+                    totalPrice +
+                    orderTypeEntry.typePPU * orderTypeEntry.unitCount;
             });
             this.setSelectedOrderTotalPrice(totalPrice);
         },
@@ -251,7 +278,6 @@ export default {
         },
 
         getOrderTypeEntries: function() {
-            console.log("da");
             if (this.getOrderTypeEntries.length === 0) {
                 this.alert = {
                     type: "info",
@@ -260,15 +286,43 @@ export default {
                 this.addAlert(this.alert);
             }
         },
+
+        filterPaid: function() {
+            if (this.filterPaid === true) {
+                this.filteredList = this.orderTypeEntryList.filter(
+                    (entry) => entry.paid === true
+                );
+            } else {
+                if (this.filterRedo === true) {
+                    this.filteredList = this.orderTypeEntryList.filter(
+                        (entry) => entry.redo === true
+                    );
+                } else {
+                    this.filteredList = this.orderTypeEntryList;
+                }
+            }
+        },
+
+        filterRedo: function() {
+            if (this.filterRedo === true) {
+                this.filteredList = this.orderTypeEntryList.filter(
+                    (entry) => entry.redo === true
+                );
+            } else {
+                if (this.filterPaid === true) {
+                    this.filteredList = this.orderTypeEntryList.filter(
+                        (entry) => entry.paid === true
+                    );
+                } else {
+                    this.filteredList = this.orderTypeEntryList;
+                }
+            }
+        },
     },
 };
 </script>
 
 <style scoped>
-.filter {
-    width: 100%;
-}
-
 .content {
     position: relative;
     min-height: fit-content;
@@ -287,6 +341,24 @@ export default {
 .list {
     min-height: 100%;
     text-align: center;
+    background: var(--color-lightgrey-2);
+}
+
+#list__toolbar {
+    box-shadow: none;
+    margin-bottom: 6px;
+    color: var(--color-darkblue);
+}
+
+.list__filter {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: var(--padding-small);
+}
+
+#filter__checkbox {
+    justify-self: center;
+    align-items: center;
 }
 
 .table {

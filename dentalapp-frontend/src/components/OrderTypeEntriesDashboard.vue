@@ -27,6 +27,7 @@ import OrderTypeEntriesDetails from "../components/OrderTypeEntriesDetails.vue";
 import OrderTypeEntriesEdit from "../components/OrderTypeEntriesEdit.vue";
 import OrderTypeEntriesAdd from "../components/OrderTypeEntriesAdd.vue";
 import OrderTypeEntriesDashboardNavbar from "../components/OrderTypeEntriesDashboardNavbar.vue";
+import { mapActions } from "vuex";
 export default {
     name: "OrdersDashboard",
     components: {
@@ -46,7 +47,13 @@ export default {
         };
     },
 
+    destroyed() {
+        this.removeSelectedOrderTypeEntry();
+    },
+
     methods: {
+        ...mapActions(["removeSelectedOrderTypeEntry"]),
+
         changeDisplayedPage(e) {
             this.showedPage = e;
         },

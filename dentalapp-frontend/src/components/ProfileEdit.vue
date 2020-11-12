@@ -10,44 +10,57 @@
                     v-model="valid"
                     :lazy-validation="lazy"
                 >
-                    <v-text-field
-                        v-model="profileFirstName"
-                        :rules="rules.patientFirstName"
-                        label="First Name"
-                        required
-                        clearable
-                    ></v-text-field>
+                    <div class="form__entries">
+                        <v-text-field
+                            v-model="profileFirstName"
+                            :rules="rules.profileFirstName"
+                            label="First Name"
+                            required
+                            clearable
+                        ></v-text-field>
 
-                    <v-text-field
-                        v-model="profileLastName"
-                        :rules="rules.patientLastName"
-                        label="Last Name"
-                        required
-                        clearable
-                    ></v-text-field>
+                        <v-text-field
+                            v-model="profileLastName"
+                            :rules="rules.profileLastName"
+                            label="Last Name"
+                            required
+                            clearable
+                        ></v-text-field>
 
-                    <v-text-field
-                        v-model="profileGender"
-                        :rules="rules.patientPhone"
-                        label="Gender"
-                        required
-                        clearable
-                    ></v-text-field>
+                        <v-text-field
+                            v-model="profileGender"
+                            :rules="rules.profileGender"
+                            label="Gender"
+                            required
+                            clearable
+                        ></v-text-field>
 
-                    <v-text-field
-                        v-model="profilePhone"
-                        :rules="rules.patientPhone"
-                        label="Phone"
-                        required
-                        clearable
-                    ></v-text-field>
+                        <v-text-field
+                            v-model="profilePhone"
+                            :rules="rules.profilePhone"
+                            label="Phone"
+                            required
+                            clearable
+                        ></v-text-field>
+                    </div>
 
                     <div class="form__buttons">
-                        <v-btn :disabled="!valid" @click="handleSubmit"
-                            >Submit</v-btn
+                        <button
+                            class="more-btn"
+                            :disabled="!valid"
+                            @click="handleSubmit"
+                            type="submit"
                         >
-
-                        <v-btn @click="reset">Reset Form</v-btn>
+                            <a>Submit</a>
+                        </button>
+                        <button
+                            class="more-btn"
+                            @click="handleReset"
+                            type="reset"
+                            :disabled="!empty"
+                        >
+                            <a>Reset Form</a>
+                        </button>
                     </div>
                 </v-form>
             </div>
@@ -68,6 +81,7 @@ export default {
     },
     data: () => ({
         valid: true,
+        empty: true,
         showEdit: false,
         profileFirstName: "",
         profileLastName: "",
@@ -77,8 +91,6 @@ export default {
             type: "",
             message: "",
         },
-        rules: {},
-        /*
         rules: {
             required: [(value) => !!value || "Required"],
             pacientFirstName: [
@@ -93,14 +105,13 @@ export default {
                     /^[a-zA-Z]+$/.test(value) ||
                     "Last name must not contain digits.",
             ],
-            pacientPhone: [
+            profilePhone: [
                 (value) => !!value || `Phone number is required.`,
                 (value) =>
                     /^[\d]*$/.test(value) ||
                     "Phone must only contain digits, whitespaces, dot or dashline.",
             ],
         },
-        */
         lazy: false,
     }),
 
@@ -137,6 +148,7 @@ export default {
                         type: type,
                         message: "Profile edited!",
                     };
+                    this.$emit("updatePage", "list");
                     this.addAlert(this.alert);
                 })
                 .catch((error) => {
@@ -148,7 +160,7 @@ export default {
                 });
         },
 
-        reset() {
+        handleReset() {
             this.$refs.form.reset();
         },
     },
@@ -163,7 +175,7 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background: var(--color-white);
+    background: var(--color-lightgrey-2);
 }
 
 .form__wrapper {
@@ -172,5 +184,52 @@ export default {
     display: flex;
     justify-content: center;
     padding: var(--padding-small);
+}
+
+.form__entries {
+    background: var(--color-white);
+    padding: var(--padding-small);
+    border-radius: 15px;
+}
+
+.form__buttons {
+    justify-self: center;
+}
+
+.form__add-button {
+    margin: auto;
+}
+
+.more-btn {
+    display: inline-block;
+    width: 8.5em;
+    font-size: calc(var(--text-base-size) * 1.2);
+    background: -webkit-linear-gradient(
+        -90deg,
+        var(--color-white) 50%,
+        var(--color-blue) 50%
+    );
+    background-size: 6.5em 6.5em;
+    border: 3px solid var(--color-white);
+    border-radius: 10px;
+    margin: calc(var(--padding-small) / 2);
+    transition: width 0.2s ease-in, border-radius 0.2s ease-out,
+        background-position 0.6s ease, border-color 0s ease-in;
+}
+
+.more-btn:hover {
+    width: 8.5em;
+    background-position: 0px -70px;
+    border-radius: var(--border-radius-circle);
+    border-color: var(--color-blue);
+}
+
+.more-btn a {
+    color: var(--color-blue);
+    transition: color 0.2s ease-in;
+}
+
+.more-btn:hover > a {
+    color: var(--color-white);
 }
 </style>

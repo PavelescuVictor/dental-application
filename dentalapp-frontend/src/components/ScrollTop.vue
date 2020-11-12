@@ -55,7 +55,7 @@ export default {
     border-radius: 10px;
     animation: button-rotate 0.6s ease-in-out both;
     transition: border-radius 0.2s ease-in-out;
-    z-index: 3;
+    z-index: 100;
     cursor: pointer;
 }
 

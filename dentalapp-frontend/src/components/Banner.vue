@@ -4,6 +4,11 @@
             <div class="overlay__top"></div>
             <div class="overlay__left"></div>
         </div>
+        <Background class="background" />
+        <div class="banner__gradient">
+            <div class="gradient__left"></div>
+            <div class="gradient__right"></div>
+        </div>
         <div class="banner-inner">
             <div class="banner-inner-content">
                 <svg
@@ -52,14 +57,14 @@
                 </svg>
 
                 <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Vitae atque ex quas nam recusandae repellat!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Maiores asperiores numquam laboriosam blanditiis autem
+                    consequuntur?
                 </p>
 
                 <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Neque molestiae error fugit blanditiis consequatur
-                    praesentium.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quam, nam!
                 </p>
 
                 <div class="more-btn">
@@ -67,18 +72,29 @@
                 </div>
             </div>
         </div>
+        <Main class="main" />
+        <TopLeftLeaves class="topLeftLeaves" />
+        <TopRightLeaves class="topRightLeaves" />
+        <Girl class="girl" />
+        <Guy class="guy" />
     </div>
 </template>
 <script>
+import Background from "../assets/Background.svg";
+import Main from "../assets/Main.svg";
+import TopLeftLeaves from "../assets/Left Top Leaves.svg";
+import TopRightLeaves from "../assets/Top Right Leaves.svg";
+import Girl from "../assets/Girl.svg";
+import Guy from "../assets/Guy.svg";
 export default {
     name: "Banner",
-    created() {
-        /*
-        const logo = document.querySelectorAll("#logo path");
-        for (let i = 0; i < logo.length; i++) {
-            console.log(`Letter ${i} is ${logo[i].getTotalLength()}`);
-        }
-        */
+    components: {
+        Background,
+        Main,
+        TopLeftLeaves,
+        TopRightLeaves,
+        Girl,
+        Guy,
     },
 };
 </script>
@@ -90,26 +106,11 @@ export default {
     align-items: center;
     justify-content: center;
     padding: 8em 4em 6em 4em;
-    background-image: var(--banner-background-image);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
-}
-
-.banner:before {
-    display: block;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    transition: opacity 3s ease;
-    transition-delay: 1s;
-    content: "";
-    background-color: rgba(var(--color-blue-rgb), 0.9);
-    z-index: 1;
 }
 
 .banner__overlay {
@@ -118,7 +119,7 @@ export default {
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 1;
+    z-index: 4;
 }
 
 .overlay__top {
@@ -130,7 +131,7 @@ export default {
     background-color: var(--color-blue);
     animation: banner__overlay__slide-down 0.8s ease forwards,
         banner__overlay__fade-out 1.1s ease forwards;
-    z-index: 2;
+    z-index: 5;
 }
 
 .overlay__left {
@@ -141,15 +142,59 @@ export default {
     left: -100%;
     background-color: white;
     animation: banner__overlay__slide-right 1.2s ease-out forwards 0.4s;
-    z-index: 2;
+    z-index: 5;
+}
+
+.banner__gradient {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 3;
+}
+
+.gradient__left {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.4) 0%,
+        rgba(255, 255, 255, 0) 25%
+    );
+    opacity: 0%;
+    animation: banner__gradient__fade-in 0.8s ease-out forwards;
+    z-index: 4;
+}
+
+.gradient__right {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    background: linear-gradient(
+        270deg,
+        rgba(0, 0, 0, 0.4) 0%,
+        rgba(255, 255, 255, 0) 25%
+    );
+    opacity: 0%;
+    animation: banner__gradient__fade-in 0.8s ease-out forwards;
+    z-index: 4;
 }
 
 .banner-inner {
-    z-index: 2;
+    position: absolute;
+    bottom: 8%;
+    z-index: 4;
     width: 100%;
 }
 
 .banner-inner-content {
+    position: relative;
     width: 100%;
     height: 100%;
     text-align: center;
@@ -157,6 +202,59 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.background {
+    transform: translateY(0%) scale(1, 0.87);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transform-origin: top left;
+}
+
+.main {
+    transform: scale(0.8) translate(-50%, 0%);
+    position: absolute;
+    top: 7%;
+    left: 50%;
+    z-index: 2;
+    transform-origin: top left;
+}
+
+.topLeftLeaves {
+    transform: scale(0.9);
+    position: absolute;
+    top: 9%;
+    left: 0%;
+    z-index: 2;
+    transform-origin: top left;
+}
+
+.topRightLeaves {
+    transform: scale(0.9);
+    position: absolute;
+    top: 2%;
+    right: 0%;
+    z-index: 2;
+    transform-origin: top right;
+}
+
+.girl {
+    transform: scale(0.9);
+    position: absolute;
+    bottom: 0px;
+    left: 0%;
+    z-index: 2;
+    transform-origin: bottom left;
+}
+
+.guy {
+    transform: scale(0.9);
+    position: absolute;
+    bottom: 0px;
+    right: 2%;
+    z-index: 2;
+    transform-origin: bottom right;
 }
 
 #logo {
@@ -438,6 +536,20 @@ export default {
 
     to {
         left: 100%;
+    }
+}
+
+@keyframes banner__gradient__fade-in {
+    0% {
+        opacity: 0%;
+    }
+
+    75% {
+        opacity: 50%;
+    }
+
+    100% {
+        opacity: 100%;
     }
 }
 </style>

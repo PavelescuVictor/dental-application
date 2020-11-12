@@ -10,40 +10,57 @@
                     v-model="valid"
                     :lazy-validation="lazy"
                 >
-                    <v-text-field
-                        v-model="doctorFirstName"
-                        :rules="rules.doctorFirstName"
-                        label="First Name"
-                        required
-                    ></v-text-field>
+                    <div class="form__entries">
+                        <v-text-field
+                            v-model="doctorFirstName"
+                            :rules="rules.doctorFirstName"
+                            label="First Name"
+                            required
+                            clearable
+                        ></v-text-field>
 
-                    <v-text-field
-                        v-model="doctorLastName"
-                        :rules="rules.doctorLastName"
-                        label="Last Name"
-                        required
-                    ></v-text-field>
+                        <v-text-field
+                            v-model="doctorLastName"
+                            :rules="rules.doctorLastName"
+                            label="Last Name"
+                            required
+                            clearable
+                        ></v-text-field>
 
-                    <v-text-field
-                        v-model="doctorPhone"
-                        :rules="rules.doctorPhone"
-                        label="Phone"
-                        required
-                    ></v-text-field>
+                        <v-text-field
+                            v-model="doctorPhone"
+                            :rules="rules.doctorPhone"
+                            label="Phone"
+                            required
+                            clearable
+                        ></v-text-field>
 
-                    <v-text-field
-                        v-model="doctorCabinet"
-                        :rules="rules.doctorCabinet"
-                        label="Cabinet"
-                        required
-                    ></v-text-field>
+                        <v-text-field
+                            v-model="doctorCabinet"
+                            :rules="rules.doctorCabinet"
+                            label="Cabinet"
+                            required
+                            clearable
+                        ></v-text-field>
+                    </div>
 
                     <div class="form__buttons">
-                        <v-btn :disabled="!valid" @click="handleSubmit"
-                            >Submit</v-btn
+                        <button
+                            class="more-btn"
+                            :disabled="!valid"
+                            @click="handleSubmit"
+                            type="submit"
                         >
-
-                        <v-btn @click="reset">Reset Form</v-btn>
+                            <a>Submit</a>
+                        </button>
+                        <button
+                            class="more-btn"
+                            @click="handleReset"
+                            type="reset"
+                            :disabled="!empty"
+                        >
+                            <a>Reset Form</a>
+                        </button>
                     </div>
                 </v-form>
             </div>
@@ -64,6 +81,7 @@ export default {
     },
     data: () => ({
         valid: true,
+        empty: true,
         showEdit: false,
         doctorId: "",
         doctorFirstName: "",
@@ -74,8 +92,7 @@ export default {
             type: "",
             message: "",
         },
-        rules: {},
-        /*rules: {
+        rules: {
             required: [(value) => !!value || "Required"],
             doctorFirstName: [
                 (value) => !!value || `First name is required.`,
@@ -97,7 +114,6 @@ export default {
             ],
             doctorCabinet: [(value) => !!value || `Cabinet is required.`],
         },
-        */
         lazy: false,
     }),
 
@@ -157,6 +173,7 @@ export default {
                         type: type,
                         message: "Doctor edited!",
                     };
+                    this.$emit("updatePage", "list");
                     this.addAlert(this.alert);
                 })
                 .catch((error) => {
@@ -173,7 +190,7 @@ export default {
                 });
         },
 
-        reset() {
+        handleReset() {
             this.$refs.form.reset();
         },
     },
@@ -188,7 +205,7 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background: var(--color-white);
+    background: var(--color-lightgrey-2);
 }
 
 .form__wrapper {
@@ -197,5 +214,52 @@ export default {
     display: flex;
     justify-content: center;
     padding: var(--padding-small);
+}
+
+.form__entries {
+    background: var(--color-white);
+    padding: var(--padding-small);
+    border-radius: 15px;
+}
+
+.form__buttons {
+    justify-self: center;
+}
+
+.form__add-button {
+    margin: auto;
+}
+
+.more-btn {
+    display: inline-block;
+    width: 8.5em;
+    font-size: calc(var(--text-base-size) * 1.2);
+    background: -webkit-linear-gradient(
+        -90deg,
+        var(--color-white) 50%,
+        var(--color-blue) 50%
+    );
+    background-size: 6.5em 6.5em;
+    border: 3px solid var(--color-white);
+    border-radius: 10px;
+    margin: calc(var(--padding-small) / 2);
+    transition: width 0.2s ease-in, border-radius 0.2s ease-out,
+        background-position 0.6s ease, border-color 0s ease-in;
+}
+
+.more-btn:hover {
+    width: 8.5em;
+    background-position: 0px -70px;
+    border-radius: var(--border-radius-circle);
+    border-color: var(--color-blue);
+}
+
+.more-btn a {
+    color: var(--color-blue);
+    transition: color 0.2s ease-in;
+}
+
+.more-btn:hover > a {
+    color: var(--color-white);
 }
 </style>

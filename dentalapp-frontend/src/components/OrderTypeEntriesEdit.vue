@@ -326,8 +326,9 @@ export default {
 </script>
 <style scoped>
 #vapp {
+    max-height: max-content;
     font-family: var(--text-base-font);
-    background: var(--color-lightgrey-1);
+    background: var(--color-lightgrey-2);
     color: var(--color-darkblue);
     margin: 0px;
     padding: 0px;

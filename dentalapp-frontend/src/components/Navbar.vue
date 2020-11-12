@@ -135,7 +135,7 @@ export default {
 .nav__logo h4 {
     font-family: var(--text-logo-font);
     font-weight: 400;
-    font-size: 1.8em;
+    font-size: 2em;
     cursor: pointer;
     line-height: 100%;
 }
@@ -154,7 +154,7 @@ export default {
 
 .menu__content li {
     list-style-type: none;
-    padding: calc(var(--padding-small) / 2);
+    padding: calc(var(--padding-small) / 3);
     transition: box-shadow 0.2s ease-out, border-radius 0.2s ease-in,
         margin 0.1s ease-in;
 }
@@ -167,9 +167,8 @@ export default {
 }
 
 .menu__content li a {
-    font-size: 1.1em;
+    font-size: 1.2em;
     font-family: var(--text-navbar-font);
-    font-weight: bold;
     letter-spacing: 0.05em;
     color: white;
 }

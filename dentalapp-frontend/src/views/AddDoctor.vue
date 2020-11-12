@@ -6,7 +6,7 @@
             <div class="content__banner">
                 <div class="banner__overlay">
                     <div class="overlay__color"></div>
-                    <div class="overlay__image"></div>
+                    <Background class="overlay__image" />
                 </div>
             </div>
             <div class="content__form">
@@ -81,6 +81,7 @@ import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import ScrollTop from "../components/ScrollTop.vue";
 import Alert from "../components/Alert.vue";
+import Background from "../assets/Background.svg";
 import { mapActions } from "vuex";
 
 export default {
@@ -90,6 +91,7 @@ export default {
         ScrollTop,
         Footer,
         Alert,
+        Background,
     },
     data: () => ({
         valid: true,
@@ -207,6 +209,7 @@ export default {
     justify-self: center;
     align-self: center;
     font-size: 1.8rem;
+    color: var(--color-darkblue);
     animation: form__wrapper__p__scale 0.5s ease-in-out forwards;
 }
 
@@ -287,12 +290,9 @@ export default {
     left: -25%;
     right: 0px;
     opacity: 0%;
-    background-image: var(--banner-background-image);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position-x: right;
     animation: overlay__image__slide-right 0.7s ease-out forwards,
         overlay__image__fade-in 0.7s ease-in-out forwards 0.2s;
+    z-index: 1;
 }
 
 @keyframes overlay__image__slide-right {
