@@ -57,6 +57,7 @@ a {
     height: 100%;
     background: #ffffff;
 }
+
 .nav {
     height: 100%;
     margin: auto;
