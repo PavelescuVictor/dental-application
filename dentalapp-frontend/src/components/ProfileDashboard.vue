@@ -141,7 +141,7 @@ export default {
 
 .background {
     transform: translateY(0%) scale(1, 0.87);
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     transform-origin: top left;

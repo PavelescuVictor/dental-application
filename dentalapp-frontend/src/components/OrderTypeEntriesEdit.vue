@@ -377,7 +377,6 @@ export default {
 }
 
 .form__entries {
-    background: white;
     margin-bottom: 6px;
     padding: var(--padding-small);
     border-radius: 15px;

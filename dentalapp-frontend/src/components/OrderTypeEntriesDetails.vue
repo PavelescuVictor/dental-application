@@ -13,6 +13,19 @@
                                     <p>{{ orderTypeEntry.typeName }}</p>
                                 </li>
                                 <li>
+                                    <p>Type PPU</p>
+                                    <p>{{ orderTypeEntry.typePPU }}</p>
+                                </li>
+                                <li>
+                                    <p>Total Price</p>
+                                    <p>
+                                        {{
+                                            orderTypeEntry.typePPU *
+                                                orderTypeEntry.unitCount
+                                        }}
+                                    </p>
+                                </li>
+                                <li>
                                     <p>Color</p>
                                     <p>{{ orderTypeEntry.colorName }}</p>
                                 </li>
@@ -198,7 +211,7 @@ export default {
 }
 
 .list__content li p {
-    padding: calc(var(--padding-small) * 0.5);
+    padding: calc(var(--padding-small) * 0.5) !important;
     text-align: center;
 }
 

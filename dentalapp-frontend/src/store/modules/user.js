@@ -215,7 +215,6 @@ const actions = {
                 data: {
                     firstName: payload.profileFirstName,
                     lastName: payload.profileLastName,
-                    gender: payload.gender,
                     phone: payload.phone,
                     updatedBy: getters.user.id,
                 },

@@ -6,7 +6,7 @@
             <div class="content">
                 <div class="form__wrapper">
                     <p>
-                        Adaugare Lucrare
+                        Add Order
                     </p>
                     <v-form
                         class="form"
@@ -59,6 +59,7 @@
                                             item-value="type"
                                             return-object
                                             single-line
+                                            color="var(--color-blue)"
                                             :rules="rules.selectedType"
                                         ></v-select>
                                     </v-col>
@@ -74,6 +75,7 @@
                                             item-value="color"
                                             return-object
                                             single-line
+                                            color="var(--color-blue)"
                                             :rules="rules.selectedColor"
                                         ></v-select>
                                     </v-col>
@@ -87,6 +89,7 @@
                                             item-value="status"
                                             return-object
                                             single-line
+                                            color="var(--color-blue)"
                                             :rules="rules.selectedStatus"
                                         ></v-select>
                                     </v-col>
@@ -96,6 +99,7 @@
                                             v-model="entry.unitCount"
                                             type="number"
                                             label="Unit Count"
+                                            color="var(--color-blue)"
                                         ></v-text-field>
                                     </v-col>
 
@@ -104,6 +108,7 @@
                                             v-model="entry.warranty"
                                             type="number"
                                             label="Warranty"
+                                            color="var(--color-blue)"
                                         ></v-text-field>
                                     </v-col>
 
@@ -111,6 +116,7 @@
                                         <v-checkbox
                                             v-model="entry.paid"
                                             label="Paid"
+                                            color="var(--color-blue)"
                                         ></v-checkbox>
                                     </v-col>
 
@@ -118,6 +124,7 @@
                                         <v-checkbox
                                             v-model="entry.redo"
                                             label="Redo"
+                                            color="var(--color-blue)"
                                         ></v-checkbox>
                                     </v-col>
                                 </v-row>

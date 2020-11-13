@@ -11,15 +11,70 @@
                     <v-toolbar id="list__toolbar">
                         <v-toolbar-title>Lucrari</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-btn icon @click="displayAddPage" id="plus">
-                            <font-awesome-icon :icon="['fas', 'plus-circle']" />
-                        </v-btn>
+                        <div class="list__filter">
+                            <div class="filter__element">
+                                <v-menu
+                                    ref="menu"
+                                    v-model="menu"
+                                    :close-on-content-click="false"
+                                    transition="scale-transition"
+                                    offset-y
+                                >
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field
+                                            v-model="filterDate"
+                                            label="Filter Date"
+                                            prepend-icon="mdi-calendar"
+                                            readonly
+                                            clearable
+                                            v-bind="attrs"
+                                            v-on="on"
+                                            class="filter__date"
+                                            hide-details
+                                            color="var(--color-blue)"
+                                            dense
+                                        ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        ref="picker"
+                                        v-model="filterDate"
+                                        :max="
+                                            new Date()
+                                                .toISOString()
+                                                .substr(0, 10)
+                                        "
+                                        min="1950-01-01"
+                                        color="var(--color-blue)"
+                                        landscape
+                                        @change="save"
+                                    ></v-date-picker>
+                                </v-menu>
+                            </div>
+                            <div class="filter__element">
+                                <p>Paid</p>
+                                <v-simple-checkbox
+                                    v-model="filterPaid"
+                                    :label="`Paid`"
+                                    id="filter__checkbox"
+                                    :ripple="false"
+                                    color="var(--color-blue)"
+                                >
+                                </v-simple-checkbox>
+                            </div>
+                            <div class="filter__element">
+                                <v-btn icon @click="displayAddPage" id="plus">
+                                    <font-awesome-icon
+                                        :icon="['fas', 'plus-circle']"
+                                    />
+                                </v-btn>
+                            </div>
+                        </div>
                     </v-toolbar>
                     <template>
                         <v-data-table
                             v-model="selectedOrder"
                             :headers="headers"
-                            :items="filteredOrderList"
+                            :items="list"
                             item-key="id"
                             hide-default-footer
                             :single-select="singleSelect"
@@ -62,6 +117,11 @@ export default {
             singleSelect: true,
             selectedOrder: [],
             orderToDelete: "",
+            filterDate: null,
+            filterPaid: false,
+            filterRedo: false,
+            list: [],
+            menu: false,
             alert: {
                 type: "",
                 message: "",
@@ -80,12 +140,17 @@ export default {
                     sortable: true,
                     value: "doctorName",
                 },
-
                 {
                     text: "Patient",
                     align: "start",
                     sortable: true,
                     value: "patientName",
+                },
+                {
+                    text: "Created At",
+                    align: "start",
+                    sortable: true,
+                    value: "createdAt",
                 },
                 {
                     text: "Actions",
@@ -96,16 +161,12 @@ export default {
             ],
         };
     },
-    mounted() {
-        this.getData();
-
-        if (this.getIsSelectedOrder === true) {
-            this.selectedOrder = [this.getSelectedOrder];
-            this.isOrderListActive = false;
-        }
+    async mounted() {
+        await this.getData();
 
         if (this.getSelectedDoctor === "" && this.getSelectedPatient === "") {
             this.emptyFilteredOrderList();
+            this.list = [];
         } else {
             this.isDoctorSelected = this.getSelectedDoctor != "" ? true : false;
             this.isPatientSelected =
@@ -122,7 +183,11 @@ export default {
                         : "",
             };
             this.isOrderListActive = true;
-            this.filterOrderList(payload);
+            await this.filterOrderList(payload);
+            this.list = this.filteredOrderList;
+            if (this.getIsSelectedOrder === true) {
+                this.selectedOrder = [this.getSelectedOrder];
+            }
         }
     },
 
@@ -228,12 +293,45 @@ export default {
                     };
                     this.addAlert(this.alert);
                 });
+
             this.resetConfirmation();
+
             this.orderToDelete = "";
+        },
+
+        save(date) {
+            this.$refs.menu.save(date);
+        },
+
+        filterOrderListByPaid(tempFilteredOrderList) {
+            return tempFilteredOrderList.filter((entry) => entry.paid === true);
+        },
+
+        filterOrderListByDate(tempFilteredOrderList) {
+            return tempFilteredOrderList.filter(
+                (entry) =>
+                    new Date(entry.createdAt) >= new Date(this.filterDate)
+            );
+        },
+
+        filterList() {
+            let tempFilteredOrderList = this.filteredOrderList;
+
+            if (this.filterPaid === true)
+                tempFilteredOrderList = this.filterOrderListByPaid(
+                    tempFilteredOrderList
+                );
+
+            if (this.filterDate != null)
+                tempFilteredOrderList = this.filterOrderListByDate(
+                    tempFilteredOrderList
+                );
+
+            this.list = tempFilteredOrderList;
         },
     },
     watch: {
-        getSelectedDoctor: function() {
+        getSelectedDoctor: async function() {
             if (this.getSelectedDoctor != "") {
                 this.isDoctorSelected = true;
                 const payload = {
@@ -243,16 +341,18 @@ export default {
                             ? this.getSelectedPatient.id
                             : "",
                 };
-                this.filterOrderList(payload);
+                await this.filterOrderList(payload);
+                this.list = this.filteredOrderList;
             } else {
                 this.isDoctorSelected = false;
                 if (this.isPatientSelected === false) {
                     this.emptyFilteredOrderList();
+                    this.list = [];
                 }
             }
         },
 
-        getSelectedPatient: function() {
+        getSelectedPatient: async function() {
             if (this.getSelectedPatient != "") {
                 this.isPatientSelected = true;
                 const payload = {
@@ -262,11 +362,13 @@ export default {
                             : "",
                     patientId: this.getSelectedPatient.id,
                 };
-                this.filterOrderList(payload);
+                await this.filterOrderList(payload);
+                this.list = this.filteredOrderList;
             } else {
                 this.isPatientSelected = false;
                 if (this.isDoctorSelected === false) {
                     this.emptyFilteredOrderList();
+                    this.list = [];
                 }
             }
         },
@@ -298,6 +400,18 @@ export default {
         getConfirmationProceedFlag: function() {
             if (this.getConfirmationProceedFlag === true)
                 this.proceedDeleteItem(this.orderToDelete);
+        },
+
+        menu(val) {
+            val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
+        },
+
+        filterPaid: function() {
+            this.filterList();
+        },
+
+        filterDate: function() {
+            this.filterList();
         },
     },
 };
@@ -334,6 +448,32 @@ export default {
     box-shadow: none;
     margin-bottom: 6px;
     color: var(--color-darkblue);
+}
+
+.list__filter {
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+    grid-gap: calc(var(--padding-small) / 2);
+}
+
+.filter__element {
+    justify-self: center;
+    align-self: center;
+}
+
+#filter__checkbox {
+    justify-self: center;
+    align-items: center;
+}
+
+.filter__date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter__date .v-input__slot {
+    margin-bottom: 0px;
 }
 
 .table {

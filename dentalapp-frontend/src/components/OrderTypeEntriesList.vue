@@ -356,6 +356,11 @@ export default {
     grid-gap: var(--padding-small);
 }
 
+.filter__element {
+    justify-self: center;
+    align-self: center;
+}
+
 #filter__checkbox {
     justify-self: center;
     align-items: center;

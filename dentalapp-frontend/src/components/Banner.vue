@@ -11,55 +11,56 @@
         </div>
         <div class="banner-inner">
             <div class="banner-inner-content">
-                <svg
-                    id="logo"
-                    width="666"
-                    height="151"
-                    viewBox="0 0 666 151"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M33.94 45.3V70.86H75.16V94.62H33.94V122.34H80.56V147H3.16V20.64H80.56V45.3H33.94Z"
-                        stroke="white"
-                        stroke-width="5"
-                    />
-                    <path
-                        d="M145.723 118.2L167.503 46.56H200.263L164.623 147H126.643L91.0028 46.56H123.943L145.723 118.2Z"
-                        stroke="white"
-                        stroke-width="5"
-                    />
-                    <path
-                        d="M225.999 36.12C220.599 36.12 216.159 34.56 212.679 31.44C209.319 28.2 207.639 24.24 207.639 19.56C207.639 14.76 209.319 10.8 212.679 7.67998C216.159 4.43998 220.599 2.81998 225.999 2.81998C231.279 2.81998 235.599 4.43998 238.959 7.67998C242.439 10.8 244.179 14.76 244.179 19.56C244.179 24.24 242.439 28.2 238.959 31.44C235.599 34.56 231.279 36.12 225.999 36.12ZM241.299 46.56V147H210.519V46.56H241.299Z"
-                        stroke="white"
-                        stroke-width="5"
-                    />
-                    <path
-                        d="M254.785 96.6C254.785 86.28 256.705 77.22 260.545 69.42C264.505 61.62 269.845 55.62 276.565 51.42C283.285 47.22 290.785 45.12 299.065 45.12C305.665 45.12 311.665 46.5 317.065 49.26C322.585 52.02 326.905 55.74 330.025 60.42V13.8H360.805V147H330.025V132.6C327.145 137.4 323.005 141.24 317.605 144.12C312.325 147 306.145 148.44 299.065 148.44C290.785 148.44 283.285 146.34 276.565 142.14C269.845 137.82 264.505 131.76 260.545 123.96C256.705 116.04 254.785 106.92 254.785 96.6ZM330.025 96.78C330.025 89.1 327.865 83.04 323.545 78.6C319.345 74.16 314.185 71.94 308.065 71.94C301.945 71.94 296.725 74.16 292.405 78.6C288.205 82.92 286.105 88.92 286.105 96.6C286.105 104.28 288.205 110.4 292.405 114.96C296.725 119.4 301.945 121.62 308.065 121.62C314.185 121.62 319.345 119.4 323.545 114.96C327.865 110.52 330.025 104.46 330.025 96.78Z"
-                        stroke="white"
-                        stroke-width="5"
-                    />
-                    <path
-                        d="M475.052 95.16C475.052 98.04 474.873 101.04 474.513 104.16H404.853C405.333 110.4 407.312 115.2 410.792 118.56C414.392 121.8 418.772 123.42 423.932 123.42C431.612 123.42 436.952 120.18 439.952 113.7H472.712C471.032 120.3 467.973 126.24 463.533 131.52C459.212 136.8 453.752 140.94 447.152 143.94C440.552 146.94 433.172 148.44 425.012 148.44C415.172 148.44 406.412 146.34 398.732 142.14C391.052 137.94 385.052 131.94 380.732 124.14C376.412 116.34 374.253 107.22 374.253 96.78C374.253 86.34 376.352 77.22 380.552 69.42C384.872 61.62 390.872 55.62 398.552 51.42C406.232 47.22 415.052 45.12 425.012 45.12C434.732 45.12 443.372 47.16 450.932 51.24C458.492 55.32 464.373 61.14 468.573 68.7C472.893 76.26 475.052 85.08 475.052 95.16ZM443.552 87.06C443.552 81.78 441.752 77.58 438.152 74.46C434.552 71.34 430.052 69.78 424.652 69.78C419.492 69.78 415.112 71.28 411.512 74.28C408.032 77.28 405.873 81.54 405.033 87.06H443.552Z"
-                        stroke="white"
-                        stroke-width="5"
-                    />
-                    <path
-                        d="M549.79 45.48C561.55 45.48 570.911 49.32 577.871 57C584.951 64.56 588.491 75 588.491 88.32V147H557.891V92.46C557.891 85.74 556.151 80.52 552.671 76.8C549.191 73.08 544.511 71.22 538.631 71.22C532.751 71.22 528.071 73.08 524.591 76.8C521.111 80.52 519.371 85.74 519.371 92.46V147H488.59V46.56H519.371V59.88C522.491 55.44 526.69 51.96 531.97 49.44C537.25 46.8 543.19 45.48 549.79 45.48Z"
-                        stroke="white"
-                        stroke-width="5"
-                    />
-                    <path
-                        d="M663.16 120.9V147H647.5C636.34 147 627.64 144.3 621.4 138.9C615.16 133.38 612.04 124.44 612.04 112.08V72.12H599.8V46.56H612.04V22.08H642.82V46.56H662.98V72.12H642.82V112.44C642.82 115.44 643.54 117.6 644.98 118.92C646.42 120.24 648.82 120.9 652.18 120.9H663.16Z"
-                        stroke="white"
-                        stroke-width="5"
-                    />
-                </svg>
+                <div class="logo__wrapper">
+                    <svg
+                        id="logo"
+                        width="873"
+                        height="200"
+                        viewBox="0 0 873 200"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M137.12 125.88C137.12 129.72 136.88 133.72 136.4 137.88H43.52C44.16 146.2 46.8 152.6 51.44 157.08C56.24 161.4 62.08 163.56 68.96 163.56C79.2 163.56 86.32 159.24 90.32 150.6H134C131.76 159.4 127.68 167.32 121.76 174.36C116 181.4 108.72 186.92 99.92 190.92C91.12 194.92 81.28 196.92 70.4 196.92C57.28 196.92 45.6 194.12 35.36 188.52C25.12 182.92 17.12 174.92 11.36 164.52C5.59997 154.12 2.71997 141.96 2.71997 128.04C2.71997 114.12 5.51997 101.96 11.12 91.56C16.88 81.16 24.88 73.16 35.12 67.56C45.36 61.96 57.12 59.16 70.4 59.16C83.36 59.16 94.88 61.88 104.96 67.32C115.04 72.76 122.88 80.52 128.48 90.6C134.24 100.68 137.12 112.44 137.12 125.88ZM95.12 115.08C95.12 108.04 92.72 102.44 87.92 98.28C83.12 94.12 77.12 92.04 69.92 92.04C63.04 92.04 57.2 94.04 52.4 98.04C47.76 102.04 44.88 107.72 43.76 115.08H95.12Z"
+                            stroke="white"
+                            stroke-width="5"
+                        />
+                        <path
+                            d="M203.411 156.6L232.451 61.08H276.131L228.611 195H177.971L130.451 61.08H174.371L203.411 156.6Z"
+                            stroke="white"
+                            stroke-width="5"
+                        />
+                        <path
+                            d="M305.645 47.16C298.445 47.16 292.525 45.08 287.885 40.92C283.405 36.6 281.165 31.32 281.165 25.08C281.165 18.68 283.405 13.4 287.885 9.24001C292.525 4.92001 298.445 2.76001 305.645 2.76001C312.685 2.76001 318.445 4.92001 322.925 9.24001C327.565 13.4 329.885 18.68 329.885 25.08C329.885 31.32 327.565 36.6 322.925 40.92C318.445 45.08 312.685 47.16 305.645 47.16ZM326.045 61.08V195H285.005V61.08H326.045Z"
+                            stroke="white"
+                            stroke-width="5"
+                        />
+                        <path
+                            d="M405.706 26.52C423.466 26.52 438.986 30.04 452.266 37.08C465.546 44.12 475.786 54.04 482.986 66.84C490.346 79.48 494.026 94.12 494.026 110.76C494.026 127.24 490.346 141.88 482.986 154.68C475.786 167.48 465.466 177.4 452.026 184.44C438.746 191.48 423.306 195 405.706 195H342.586V26.52H405.706ZM403.066 159.48C418.586 159.48 430.666 155.24 439.306 146.76C447.946 138.28 452.266 126.28 452.266 110.76C452.266 95.24 447.946 83.16 439.306 74.52C430.666 65.88 418.586 61.56 403.066 61.56H383.626V159.48H403.066Z"
+                            stroke="white"
+                            stroke-width="5"
+                        />
+                        <path
+                            d="M636.001 125.88C636.001 129.72 635.761 133.72 635.281 137.88H542.401C543.041 146.2 545.681 152.6 550.321 157.08C555.121 161.4 560.961 163.56 567.841 163.56C578.081 163.56 585.201 159.24 589.201 150.6H632.881C630.641 159.4 626.561 167.32 620.641 174.36C614.881 181.4 607.601 186.92 598.801 190.92C590.001 194.92 580.161 196.92 569.281 196.92C556.161 196.92 544.481 194.12 534.241 188.52C524.001 182.92 516.001 174.92 510.241 164.52C504.481 154.12 501.601 141.96 501.601 128.04C501.601 114.12 504.401 101.96 510.001 91.56C515.761 81.16 523.761 73.16 534.001 67.56C544.241 61.96 556.001 59.16 569.281 59.16C582.241 59.16 593.761 61.88 603.841 67.32C613.921 72.76 621.761 80.52 627.361 90.6C633.121 100.68 636.001 112.44 636.001 125.88ZM594.001 115.08C594.001 108.04 591.601 102.44 586.801 98.28C582.001 94.12 576.001 92.04 568.801 92.04C561.921 92.04 556.081 94.04 551.281 98.04C546.641 102.04 543.761 107.72 542.641 115.08H594.001Z"
+                            stroke="white"
+                            stroke-width="5"
+                        />
+                        <path
+                            d="M727.252 59.64C742.932 59.64 755.412 64.76 764.692 75C774.132 85.08 778.852 99 778.852 116.76V195H738.052V122.28C738.052 113.32 735.732 106.36 731.092 101.4C726.452 96.44 720.212 93.96 712.372 93.96C704.532 93.96 698.292 96.44 693.652 101.4C689.012 106.36 686.692 113.32 686.692 122.28V195H645.652V61.08H686.692V78.84C690.852 72.92 696.452 68.28 703.492 64.92C710.532 61.4 718.452 59.64 727.252 59.64Z"
+                            stroke="white"
+                            stroke-width="5"
+                        />
+                        <path
+                            d="M870.011 160.2V195H849.131C834.251 195 822.651 191.4 814.331 184.2C806.011 176.84 801.851 164.92 801.851 148.44V95.16H785.531V61.08H801.851V28.44H842.891V61.08H869.771V95.16H842.891V148.92C842.891 152.92 843.851 155.8 845.771 157.56C847.691 159.32 850.891 160.2 855.371 160.2H870.011Z"
+                            stroke="white"
+                            stroke-width="5"
+                        />
+                    </svg>
+                </div>
 
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores asperiores numquam laboriosam blanditiis autem
-                    consequuntur?
+                    Sequi nemo, debitis amet laborum nam corrupti.
                 </p>
 
                 <p>
@@ -96,6 +97,16 @@ export default {
         Girl,
         Guy,
     },
+
+    /*
+    created() {
+        const logo = document.querySelectorAll("#logo path");
+        console.log(logo);
+        for (let i = 0; i < logo.length; i++) {
+            console.log(`Letter ${i + 1} is ${logo[i].getTotalLength()}`);
+        }
+    },
+    */
 };
 </script>
 <style scoped>
@@ -188,7 +199,7 @@ export default {
 
 .banner-inner {
     position: absolute;
-    bottom: 8%;
+    bottom: var(--padding-small);
     z-index: 4;
     width: 100%;
 }
@@ -257,8 +268,15 @@ export default {
     transform-origin: bottom right;
 }
 
+.logo__wrapper {
+    height: 100%;
+    width: 100%;
+    transform: scale(0.95);
+    transform-origin: center;
+}
+
 #logo {
-    padding: var(--padding-small) var(--padding-high);
+    padding: var(--padding-small) var(--padding-high) 0px var(--padding-high);
     animation: banner__logo__slide-forward 0.6s
             cubic-bezier(0.25, 0.46, 0.45, 0.94) both 2.2s,
         banner__logo__color-change 0.9s ease-in-out forwards 0.55s,
@@ -266,50 +284,50 @@ export default {
 }
 
 #logo path:nth-child(1) {
-    stroke-dasharray: 583px;
-    stroke-dashoffset: 584px;
+    stroke-dasharray: 752.4971313476562px;
+    stroke-dashoffset: 752.4971313476562px;
     animation: banner__logo 1.5s ease forwards,
         banner__logo__stroke-change 0.9s ease-in-out forwards 0.55s;
 }
 
 #logo path:nth-child(2) {
-    stroke-dasharray: 467px;
-    stroke-dashoffset: 467px;
+    stroke-dasharray: 622.1158447265625px;
+    stroke-dashoffset: 622.1158447265625px;
     animation: banner__logo 1.5s ease forwards 0.15s,
         banner__logo__stroke-change 0.9s ease-in-out forwards 0.55s;
 }
 
 #logo path:nth-child(3) {
-    stroke-dasharray: 374px;
-    stroke-dashoffset: 374px;
+    stroke-dasharray: 497.4835510253906px;
+    stroke-dashoffset: 497.4835510253906px;
     animation: banner__logo 1.5s ease forwards 0.3s,
         banner__logo__stroke-change 0.9s ease-in-out forwards 0.55s;
 }
 
 #logo path:nth-child(4) {
-    stroke-dasharray: 630px;
-    stroke-dashoffset: 630px;
+    stroke-dasharray: 864.15185546875px;
+    stroke-dashoffset: 864.15185546875px;
     animation: banner__logo 1.5s ease forwards 0.45s,
         banner__logo__stroke-change 0.9s ease-in-out forwards 0.55s;
 }
 
 #logo path:nth-child(5) {
-    stroke-dasharray: 565px;
-    stroke-dashoffset: 565px;
+    stroke-dasharray: 752.49755859375px;
+    stroke-dashoffset: 752.49755859375px;
     animation: banner__logo 1.5s ease forwards 0.6s,
         banner__logo__stroke-change 0.9s ease-in-out forwards 0.55s;
 }
 
 #logo path:nth-child(6) {
-    stroke-dasharray: 539px;
-    stroke-dashoffset: 539px;
+    stroke-dasharray: 718.4203491210938px;
+    stroke-dashoffset: 718.4203491210938px;
     animation: banner__logo 1.5s ease forwards 0.75s,
         banner__logo__stroke-change 0.9s ease-in-out forwards 0.55s;
 }
 
 #logo path:nth-child(7) {
-    stroke-dasharray: 401px;
-    stroke-dashoffset: 401px;
+    stroke-dasharray: 534.0693359375px;
+    stroke-dashoffset: 534.0693359375px;
     animation: banner__logo 1.5s ease forwards 0.9s,
         banner__logo__stroke-change0.9s ease-in-out forwards 0.55s;
 }
@@ -318,7 +336,7 @@ export default {
     color: #fff;
     font-size: calc(var(--text-base-size) * 1.2);
     line-height: calc(var(--text-base-line-height) * 1.2);
-    padding: 10px;
+    padding: 10px 10px 0px 10px;
     animation: banner__text__p 1s 1,
         banner__logo__stroke-change 0.9s ease-in-out forwards 0.55s;
 }
@@ -360,27 +378,13 @@ export default {
 
 /* Media Queries */
 
-@media screen and (max-width: 980px) {
-    .banner h1 {
-        font-size: 5em;
-    }
-}
-
-@media screen and (max-width: 736px) {
-    .banner h1 {
-        font-size: 3em;
-    }
-}
-
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 1700px) {
     .banner p {
-        font-size: 1.5em;
+        display: none;
     }
-}
 
-@media screen and (max-width: 480px) {
-    .banner p {
-        font-size: 1.25em;
+    .banner-inner {
+        bottom: var(--padding-high);
     }
 }
 

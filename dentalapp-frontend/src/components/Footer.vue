@@ -33,6 +33,7 @@ export default {
 .footer-wrapper {
     height: var(--footer-height);
     background: var(--color-blue);
+    z-index: 2;
 }
 .footer-content {
     height: 100%;

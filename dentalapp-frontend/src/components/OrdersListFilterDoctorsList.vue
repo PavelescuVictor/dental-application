@@ -14,6 +14,7 @@
                     v-model="filteredInputDoctorFirstName"
                     :rules="rules.doctorFirstName"
                     label="First Name"
+                    color="var(--color-blue)"
                     required
                 ></v-text-field>
 
@@ -21,6 +22,7 @@
                     v-model="filteredInputDoctorLastName"
                     :rules="rules.doctorLastName"
                     label="Last Name"
+                    color="var(--color-blue)"
                     required
                 ></v-text-field>
 

@@ -28,14 +28,6 @@
                         ></v-text-field>
 
                         <v-text-field
-                            v-model="profileGender"
-                            :rules="rules.profileGender"
-                            label="Gender"
-                            required
-                            clearable
-                        ></v-text-field>
-
-                        <v-text-field
                             v-model="profilePhone"
                             :rules="rules.profilePhone"
                             label="Phone"
@@ -85,7 +77,6 @@ export default {
         showEdit: false,
         profileFirstName: "",
         profileLastName: "",
-        profileGender: "",
         profilePhone: "",
         alert: {
             type: "",
@@ -120,7 +111,6 @@ export default {
         this.showEdit = true;
         this.profileFirstName = this.userProfile.firstName;
         this.profileLastName = this.userProfile.lastName;
-        this.profileGender = this.userProfile.gender;
         this.profilePhone = this.userProfile.phone;
     },
 
@@ -136,7 +126,6 @@ export default {
             const data = {
                 profileFirstName: this.profileFirstName,
                 profileLastName: this.profileLastName,
-                gender: this.profileGender,
                 phone: this.profilePhone,
             };
             this.editProfile(data)
@@ -183,11 +172,19 @@ export default {
     min-height: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: var(--padding-small);
 }
 
+.form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .form__entries {
-    background: var(--color-white);
+    width: 100%;
     padding: var(--padding-small);
     border-radius: 15px;
 }

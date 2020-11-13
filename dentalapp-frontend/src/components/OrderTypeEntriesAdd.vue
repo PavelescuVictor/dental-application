@@ -5,6 +5,9 @@
         <v-app id="vapp" v-if="showEdit">
             <div class="content">
                 <div class="form__wrapper">
+                    <p>
+                        Add Order
+                    </p>
                     <v-form
                         class="form"
                         ref="form"
@@ -24,6 +27,7 @@
                                             item-value="type"
                                             return-object
                                             single-line
+                                            color="var(--color-blue)"
                                             :rules="rules.selectedType"
                                         ></v-select>
                                     </v-col>
@@ -39,6 +43,7 @@
                                             item-value="color"
                                             return-object
                                             single-line
+                                            color="var(--color-blue)"
                                             :rules="rules.selectedColor"
                                         ></v-select>
                                     </v-col>
@@ -52,6 +57,7 @@
                                             item-value="status"
                                             return-object
                                             single-line
+                                            color="var(--color-blue)"
                                             :rules="rules.selectedStatus"
                                         ></v-select>
                                     </v-col>
@@ -61,6 +67,7 @@
                                             v-model="unitCount"
                                             type="number"
                                             label="Unit Count"
+                                            color="var(--color-blue)"
                                             :rules="rules.unitCount"
                                         ></v-text-field>
                                     </v-col>
@@ -70,6 +77,7 @@
                                             v-model="warranty"
                                             type="number"
                                             label="Warranty"
+                                            color="var(--color-blue)"
                                             :rules="rules.warranty"
                                         ></v-text-field>
                                     </v-col>
@@ -78,6 +86,7 @@
                                         <v-checkbox
                                             v-model="paid"
                                             label="Paid"
+                                            color="var(--color-blue)"
                                         ></v-checkbox>
                                     </v-col>
 
@@ -85,6 +94,7 @@
                                         <v-checkbox
                                             v-model="redo"
                                             label="Redo"
+                                            color="var(--color-blue)"
                                         ></v-checkbox>
                                     </v-col>
                                 </v-row>
@@ -352,7 +362,7 @@ export default {
     color: var(--color-darkblue);
     font-size: 1.8rem;
     line-height: 1.8rem;
-    padding: var(--padding-small);
+    padding: var(--padding-small) !important;
     animation: form__wrapper__p__scale 0.5s ease-in-out forwards;
 }
 

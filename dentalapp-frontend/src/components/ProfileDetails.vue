@@ -5,40 +5,32 @@
         <div class="content">
             <div class="card__wrapper">
                 <template>
-                    <v-card min-width="100%">
+                    <v-card min-width="100%" id="card">
                         <div class="list__wrapper">
                             <ul class="list__content">
                                 <li>
                                     <p>First Name</p>
-                                    <p>{{ userProfile }}</p>
+                                    <p>{{ userProfile.firstName }}</p>
                                 </li>
                                 <li>
                                     <p>Last Name</p>
-                                    <p>{{ userProfile }}</p>
+                                    <p>{{ userProfile.lastName }}</p>
                                 </li>
                                 <li>
-                                    <p>Details</p>
-                                    <p>{{ userProfile }}</p>
-                                </li>
-                                <li>
-                                    <p>Phone</p>
-                                    <p>{{ userProfile }}</p>
-                                </li>
-                                <li>
-                                    <p>Created By</p>
-                                    <p>{{ userProfile }}</p>
+                                    <p>Email</p>
+                                    <p>{{ userProfile.userEmail }}</p>
                                 </li>
                                 <li>
                                     <p>Created At</p>
-                                    <p>{{ userProfile }}</p>
-                                </li>
-                                <li>
-                                    <p>Update By</p>
-                                    <p>{{ userProfile }}</p>
+                                    <p>
+                                        {{ handleDate(userProfile.createdAt) }}
+                                    </p>
                                 </li>
                                 <li>
                                     <p>Updated At</p>
-                                    <p>{{ userProfile }}</p>
+                                    <p>
+                                        {{ handleDate(userProfile.updatedAt) }}
+                                    </p>
                                 </li>
                             </ul>
                         </div>
@@ -74,6 +66,10 @@ export default {
     },
     methods: {
         ...mapActions(["addAlert", "addConfirmationMessage"]),
+
+        handleDate(date) {
+            return new Date(date).toLocaleString();
+        },
     },
 };
 </script>
@@ -93,11 +89,12 @@ export default {
     width: 100%;
     min-height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     text-align: left;
 }
 
-.card {
+#card {
     background: var(--color-lightgrey-2);
 }
 
@@ -130,7 +127,7 @@ export default {
 }
 
 .list__content li p {
-    padding: calc(var(--padding-small) * 0.5);
+    padding: calc(var(--padding-small) * 0.5) !important;
     text-align: center;
 }
 

@@ -1,7 +1,9 @@
 <template>
-    <div class="app">
-        <router-view />
-    </div>
+    <v-app>
+        <div class="app">
+            <router-view />
+        </div>
+    </v-app>
 </template>
 
 <script>
@@ -112,6 +114,27 @@ a {
 #app {
     min-height: 100vh;
     width: 100vw;
+    font-family: var(--text-base-font);
+    font-size: var(--text-base-size);
+    line-height: var(--text-base-line-height);
+    background: rgb(249, 249, 249);
+    color: #000;
+    padding: 0px;
+    margin: 0px;
+}
+
+.v-application ul {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.v-application p {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.v-application--wrap {
+    min-height: fit-content !important;
 }
 
 button:focus {

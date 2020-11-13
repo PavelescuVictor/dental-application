@@ -171,7 +171,7 @@ export default {
 
 .background {
     transform: translateY(0%) scale(1, 0.87);
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     transform-origin: top left;
@@ -266,6 +266,20 @@ export default {
 
     to {
         width: 100%;
+    }
+}
+
+@keyframes banner__gradient__fade-in {
+    0% {
+        opacity: 0%;
+    }
+
+    75% {
+        opacity: 50%;
+    }
+
+    100% {
+        opacity: 100%;
     }
 }
 </style>

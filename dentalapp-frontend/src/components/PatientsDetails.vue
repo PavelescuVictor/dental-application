@@ -157,7 +157,7 @@ export default {
 }
 
 .list__content li p {
-    padding: calc(var(--padding-small) * 0.5);
+    padding: calc(var(--padding-small) * 0.5) !important;
     text-align: center;
 }
 

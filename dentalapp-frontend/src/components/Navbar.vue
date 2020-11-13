@@ -7,7 +7,7 @@
                     :style="logoStyle"
                     @click="redirectToHome"
                 >
-                    <h4>EviDent</h4>
+                    <h4>eviDent</h4>
                 </div>
                 <div class="nav__menu">
                     <ul :class="menuClass">

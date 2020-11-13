@@ -213,11 +213,19 @@ export default {
     min-height: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: var(--padding-small);
 }
 
+.form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .form__entries {
-    background: var(--color-white);
+    width: 100%;
     padding: var(--padding-small);
     border-radius: 15px;
 }
