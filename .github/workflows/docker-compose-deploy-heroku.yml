@@ -15,7 +15,4 @@ jobs:
                   email: ${{ secrets.HEROKU_EMAIL }}
                   api_key: ${{ secrets.HEROKU_API_KEY }}
                   docker_compose_file: "./docker-compose.yml"
-                  heroku_apps: '[
-                    {"imagename":"frontend","appname":"${{ secrets.HEROKU_APPNAME }}","apptype":"web"},
-                    {"imagename":"backend","appname":"${{ secrets.HEROKU_APPNAME }}","apptype":"web"},
-                  ]'
+                  '[{"imagename":"app1","appname":"app1","apptype":"web"},{"imagename":"app2","appname":"app2","apptype":"web"},{"imagename":"app3","appname":"app2","apptype":"worker"}]'
