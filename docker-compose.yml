@@ -15,6 +15,7 @@ services:
         build:
             context: .
             dockerfile: docker/Python/Dockerfile
+        command: ./docker/Python/Backend_setup.sh
         volumes:
             - .:/dentalapp
         ports:
@@ -27,6 +28,7 @@ services:
         build:
             context: .
             dockerfile: docker/Vue/Dockerfile
+        command: ./docker/Vue/Frontend_setup.sh
         volumes:
             - .:/app
         ports:
