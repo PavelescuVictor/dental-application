@@ -16,7 +16,7 @@ jobs:
                   api_key: ${{ secrets.HEROKU_API_KEY }}
                   docker_compose_file: "./docker-compose.yml"
                   heroku_apps: '[
-                    {"imagename":"dentalapplication_postgres","appname":"${{ secrets.HEROKU_APP_NAME }}","apptype":"web"},
+                    {"imagename":"postgres","appname":"${{ secrets.HEROKU_APP_NAME }}","apptype":"web"},
                     {"imagename":"dentalapplication_backend","appname":"${{ secrets.HEROKU_APP_NAME }}","apptype":"web"},
                     {"imagename":"dentalapplication_frontend","appname":"${{ secrets.HEROKU_APP_NAME }}","apptype":"web"}
                   ]'

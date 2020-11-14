@@ -9,7 +9,6 @@ services:
             - POSTGRES_DB=DentalApplication
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
-        container_name: dentalapplication_postgres
 
     backend:
         build:
