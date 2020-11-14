@@ -17,5 +17,5 @@ jobs:
                   docker_compose_file: "./docker-compose.yml"
                   heroku_apps: '[
                     {"imagename":"frontend","appname":"${{ secrets.HEROKU_APPNAME }}","apptype":"web"},
-                    {"imagename":"backend","appname":"${{ secrets.HEROKU_APPNAME }}","apptype":"web"},
+                    {"imagename":"backend","appname":"${{ secrets.HEROKU_APPNAME }}","apptype":"web"}
                   ]'
