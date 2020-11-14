@@ -12,6 +12,8 @@ RUN mkdir /dentalapp
 COPY dentalapp-backend/requirements.txt /dentalapp/
 # RUN pip install -r dentalapp/requirements.txt
 
+RUN python -m pip install -U pip
+
 # Copying rest of the files
 COPY dentalapp-backend/dentalapp /dentalapp
 WORKDIR /dentalapp
