@@ -15,4 +15,4 @@ http.createServer((req, res) => {
         }
         res.end(content);
     });
-}).listen(httpPort);
+}).listen(process.env.PORT || httpPort);
