@@ -11,6 +11,7 @@ WORKDIR /dentalapp
 COPY ./dentalapp-backend/dentalapp/ ./
 COPY ./dentalapp-backend/requirements.txt ./
 RUN cat ./requirements.txt
+RUN ls ./
 
 # Install requirements
 RUN pip install -r requirements.txt
