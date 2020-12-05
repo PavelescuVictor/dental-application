@@ -7,6 +7,6 @@ COPY dentalapp-frontend ./
 RUN ls -l
 RUN npm run build
 COPY /dentalapp-frontend/nodeServer/nodeServer.js dist/nodeServer.js
-WORKDIR /dentalapp-frontend/dist
+WORKDIR dist
 EXPOSE 8080
 CMD ["node", "nodeServer.js"]
