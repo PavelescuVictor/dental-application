@@ -42,4 +42,5 @@ RUN pip install pipenv && pipenv install --system
 COPY dentalapp-backend/dentalapp /dentalapp/
 
 EXPOSE 8000
-CMD ["python", "dentalapp/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["ls" "-l"]
+CMD ["python", "./manage.py", "runserver", "0.0.0.0:8000"]
