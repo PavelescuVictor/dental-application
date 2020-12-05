@@ -19,3 +19,4 @@ COPY dentalapp-backend/dentalapp /dentalapp
 WORKDIR /dentalapp
 
 EXPOSE 8000
+RUN /Backend_setup.sh
