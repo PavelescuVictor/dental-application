@@ -3,15 +3,15 @@ const fs = require("fs");
 const httpPort = 8080;
 
 http.createServer((req, res) => {
-    let fileToLoad = "index.html";
+    let fileToRead = "index.html";
 
     if (req.url !== "/" && fs.existsSync(`./${req.url}`)) {
-        filetoRead = `./${req.url}`;
+        fileToRead = `./${req.url}`;
     }
 
-    fs.readFile(filetoRead, "utf-8", (err, content) => {
+    fs.readFile(fileToRead, "utf-8", (err, content) => {
         if (err) {
-            console.log(`Unable to open ${filetoRead} file.`);
+            console.log(`Unable to open ${fileToRead} file.`);
         }
         res.end(content);
     });
