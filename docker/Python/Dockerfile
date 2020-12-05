@@ -9,11 +9,15 @@ ENV PYTHONUNBUFFERED=1
 RUN mkdir /dentalapp
 
 # Installing requirements
-COPY dentalapp-backend/requirements.txt /dentalapp/
+# COPY dentalapp-backend/requirements.txt /dentalapp/
+# RUN pip install -r dentalapp/requirements.txt
 
-RUN python -m pip install -U pip
+# RUN python -m pip install -U pip
 
-RUN pip install -r dentalapp/requirements.txt
+# Copy requirements to the container
+COPY Pipfile Pipfile.lock /code/
+# Install the requirements to the container
+RUN pip install pipenv && pipenv install --system
 
 # Copying rest of the files
 COPY dentalapp-backend/dentalapp /dentalapp
