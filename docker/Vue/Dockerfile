@@ -9,5 +9,4 @@ RUN npm run build
 COPY /dentalapp-frontend/nodeServer/nodeServer.js dist/nodeServer.js
 WORKDIR /dentalapp/src/app/dist
 EXPOSE 8080
-# CMD ["node", "nodeServer.js"]
-Run /Frontend_setup.sh
+CMD ["node", "nodeServer.js"]

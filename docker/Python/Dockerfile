@@ -19,4 +19,4 @@ COPY dentalapp-backend/dentalapp /dentalapp
 WORKDIR /dentalapp
 
 EXPOSE 8000
-RUN /Backend_setup.sh
+CMD ["python", "./manage.py", "runserver", "0.0.0.0:8000"]
