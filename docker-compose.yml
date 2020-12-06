@@ -9,6 +9,7 @@ services:
             - POSTGRES_DB=DentalApplication
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
+        container_name: dentalapppostgresql
 
     backend:
         build:
@@ -21,7 +22,9 @@ services:
             - "8000:8000"
         depends_on:
             - db
-        container_name: dentalapplication_backend
+        container_name: dentalappbackend
+        links:
+            - "dentalapppostgresql"
 
     frontend:
         build:
@@ -29,9 +32,9 @@ services:
             dockerfile: docker/Vue/Dockerfile
         command: ./docker/Vue/Frontend_setup.sh
         volumes:
-            - .:/app
+            - .:/dentalapp/src/app
         ports:
             - "8080:8080"
         depends_on:
             - backend
-        container_name: dentalapplication_frontend
+        container_name: dentalappfrontend
