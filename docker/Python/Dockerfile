@@ -47,7 +47,7 @@
 # CMD ["python", "./manage.py", "runserver", "0.0.0.0:8000" , "--settings=mysite.settings.prod" ]
 
 # Pull Base Image
-FROM python:3.8-alpine
+FROM python:3.8
 
  # Set Environment Variables
 ENV PYTHONDONTWRITEBYTECODE 1
