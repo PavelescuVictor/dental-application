@@ -124,7 +124,7 @@ DATABASES = {
         'NAME': 'DentalApplication',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'HOST': 'dentalapppostgresql',
         'PORT': '5432',
     }
 }
