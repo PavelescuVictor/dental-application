@@ -59,7 +59,7 @@ RUN mkdir /dentalapp
 COPY dentalapp-backend/requirements.txt /dentalapp/
 RUN pip install -r dentalapp/requirements.txt
 
-COPY dentalapp-backend/ /dentalapp
+COPY dentalapp-backend/dentalapp/ /dentalapp
 WORKDIR /dentalapp
 
 EXPOSE 8000
