@@ -24,7 +24,7 @@ services:
             - db
         container_name: dentalappbackend
         links:
-            - "dentalapppostgresql"
+            - "db:dentalapppostgresql"
 
     frontend:
         build:
