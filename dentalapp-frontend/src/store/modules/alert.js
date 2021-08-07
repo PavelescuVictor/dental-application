@@ -1,58 +1,65 @@
 const state = {
-    alertStatus: "",
-    alertLoading: false,
-    alertList: [],
-    alertTime: 4000,
+   alertBoxTypes: {
+       LIST: 'LIST',
+       OVERRIDE: 'OVERRIDE',
+   },
+   alertBehaviourType: {
+       TEMPORARY: "TEMPORARY",
+       PERSISTENT: "PERSISTENT"
+   },
+   alertTypes: {
+       SUCCESS: 'SUCCESS',
+       ERROR: 'ERROR',
+       INFO: 'INFO',
+       WARNING: 'WARNING',
+   },
+   alertDefaultTime: 5000,
+   alertList: [],
+   isAlertLoading: false,
 };
 
 const getters = {
     getAlertTypes: (state) => state.alertTypes,
+    getAlertDefaultTime: (state) => state.alertDefaultTime,
     getAlertList: (state) => state.alertList,
     getAlertListEmpty: (state) => (state.alertList.length === 0 ? true : false),
-    getAlertTime: (state) => state.alertTime,
-    getNewestAlert: (state) => state.alertList[state.alertList.length - 1],
-    getAlertLoading: (state) => state.alertLoading,
+    getLatestAlert: (state) => state.alertList[state.alertList.length - 1],
+    getAlertLoading: (state) => state.isAlertLoading,
 };
 
 const actions = {
-    addAlert({ commit }, alert) {
-        commit("add_alert_request");
-        const newAlert = {
-            type: alert.type,
-            message: alert.message,
-        };
-        commit("add_alert_success");
-        commit("add_alert", newAlert);
+    addAlert({ state, commit, dispatch }, alert) {
+        if (alert.time === undefined) alert.time = state.alertDefaultTime,
+        alert.id = Math.random().toString(36).substr(2, 9);
+        commit("ADD_ALERT", alert);
+        if (alert.alertBehaviourType === undefined) setTimeout(() => {
+            dispatch("deleteAlert", alert);
+        }, alert.time)
     },
 
-    deleteAlert({ commit }) {
-        commit("delete_alert");
+    deleteAlert({ commit }, alert) {
+        commit("DELETE_ALERT", alert);
     },
-    resetAlertLoading({ commit }) {
-        commit("reset_alert_loading");
-    },
+
+    resetAlertBox({commit}) {
+        commit('RESET_ALERTLIST');
+        commit('RESET_LATEST_ALERT');
+    } 
 };
 
 const mutations = {
-    add_alert_request(state) {
-        state.alertStatus = "loading";
+    ADD_ALERT(state, alert) {
+        state.alertList.push(alert);
     },
 
-    add_alert_success(state) {
-        state.alertStatus = "success";
-        state.alertLoading = true;
+    DELETE_ALERT(state, alertToDelete) {
+        state.alertList = state.alertList.filter((alert) => {
+            return alert.id !== alertToDelete.id
+        })
     },
 
-    add_alert(state, newAlert) {
-        state.alertList.push(newAlert);
-    },
-
-    delete_alert(state) {
-        state.alertList.shift();
-    },
-
-    reset_alert_loading(state) {
-        state.alertLoading = false;
+    RESET_ALERTLIST(state) {
+        state.alertList = [];
     },
 };
 

@@ -43,8 +43,8 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import Confirmation from "../components/Confirmation.vue";
-import Alert from "../components/Alert.vue";
+import Confirmation from "./ConfirmationBox.vue";
+import Alert from "./AlertBox.vue";
 
 export default {
     name: "ProfileDetails",

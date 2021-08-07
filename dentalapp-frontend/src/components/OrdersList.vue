@@ -95,8 +95,8 @@
 </template>
 
 <script>
-import Confirmation from "../components/Confirmation.vue";
-import Alert from "../components/Alert.vue";
+import Confirmation from "./ConfirmationBox.vue";
+import Alert from "./AlertBox.vue";
 import OrdersListFilterDashboard from "../components/OrdersListFilterDashboard.vue";
 import { mapGetters, mapActions } from "vuex";
 

@@ -80,7 +80,7 @@
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import ScrollTop from "../components/ScrollTop.vue";
-import Alert from "../components/Alert.vue";
+import Alert from "../components/AlertBox.vue";
 import { mapActions } from "vuex";
 
 export default {
