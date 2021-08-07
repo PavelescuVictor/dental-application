@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import django_heroku
+
 from datetime import timedelta
 from pathlib import Path
 
@@ -213,3 +215,6 @@ REST_KNOX = {
     'TOKEN_TTL': timedelta(hours=7*24),
     'AUTO_REFRESH': True,
 }
+
+# ACTIVATE DJANGO_HEROKU
+django_heroku.settings(locals())
