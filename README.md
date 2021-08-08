@@ -1,10 +1,10 @@
 # Project Name: Dental Application
 
-## Heroku Integration - [Web Application Preview](https://dental-application.herokuapp.com/)
-
 ## Project Description:
 
 Web application helping dental tehnicians manage data about doctos, pacients, orders using and authentication system.
+
+## Heroku Integration - [Web Application Preview](https://dental-application.herokuapp.com/)
 
 ## GitHub Pages Link: [Web Application Preview](https://pavelescuvictor.github.io/DentalApplication/)
 
